@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "869373708241",
+    "firebase_url": "https://alwaraq-8e765.firebaseio.com",
+    "project_id": "alwaraq-8e765",
+    "storage_bucket": "alwaraq-8e765.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869373708241:android:7708f03f62ba37e58b82f0",
+        "android_client_info": {
+          "package_name": "com.evillage.alwaraq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869373708241-vr205e09e84c5s817388r4htps51bjs7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evillage.alwaraq",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "869373708241-elqq5jberk9lna8cdafn3mvumfmi2m5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkQH3cJp0ajL6zMhmuaQlhk30qTkqeKUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869373708241-elqq5jberk9lna8cdafn3mvumfmi2m5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

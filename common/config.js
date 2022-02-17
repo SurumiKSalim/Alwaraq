@@ -1,0 +1,2 @@
+export const webClientId='869373708241-elqq5jberk9lna8cdafn3mvumfmi2m5d.apps.googleusercontent.com'
+export const webClientId_ios='869373708241-91nu8icrqmqcr9fgl38q5a7d6rm0pqss.apps.googleusercontent.com'

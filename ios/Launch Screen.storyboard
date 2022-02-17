@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="D1f-gM-LhN">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alwaraq" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
+                                <rect key="frame" x="443" y="661.5" width="138" height="43"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered By Electronic Village" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="c7v-oM-i42">
+                                <rect key="frame" x="0.0" y="1273" width="1024" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Founded by His Excellency Mohammed Ahmed Khalifa Al Suwaidi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="IlB-Zu-t2v">
+                                <rect key="frame" x="0.0" y="1311.5" width="1024" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IlB-Zu-t2v" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="29I-Ie-Z2b"/>
+                            <constraint firstItem="c7v-oM-i42" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="71k-d5-A9c"/>
+                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="7JK-yb-K21"/>
+                            <constraint firstAttribute="trailing" secondItem="c7v-oM-i42" secondAttribute="trailing" id="7ir-hO-tNd"/>
+                            <constraint firstAttribute="trailing" secondItem="D1f-gM-LhN" secondAttribute="trailing" id="8as-hs-yCF"/>
+                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="OdG-FA-myc"/>
+                            <constraint firstAttribute="bottom" secondItem="c7v-oM-i42" secondAttribute="bottom" constant="70" id="TnC-TX-2MU"/>
+                            <constraint firstAttribute="bottom" secondItem="D1f-gM-LhN" secondAttribute="bottom" id="eer-bw-5Of"/>
+                            <constraint firstItem="D1f-gM-LhN" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="g1G-g3-Jf3"/>
+                            <constraint firstItem="D1f-gM-LhN" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="jxC-wu-L9D"/>
+                            <constraint firstAttribute="bottom" secondItem="D1f-gM-LhN" secondAttribute="bottom" id="m2H-OJ-MRr"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="IlB-Zu-t2v" secondAttribute="bottom" constant="20" id="mKG-N0-fE4"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="IlB-Zu-t2v" secondAttribute="trailing" id="oab-ow-w3I"/>
+                            <constraint firstAttribute="trailing" secondItem="c7v-oM-i42" secondAttribute="trailing" id="yPp-Eu-wA4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="GJd-Yh-RWb"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="44.53125" y="371.59590043923862"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="splash" width="512" height="384"/>
+    </resources>
+</document>

@@ -1,0 +1,784 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E356F31AD99517003FC87E /* AlwaraqTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AlwaraqTests.m */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		55E37BDA26360FAFA4644111 /* libPods-Alwaraq-AlwaraqTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B08C796E5D6BF33C1340799 /* libPods-Alwaraq-AlwaraqTests.a */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A237873727BAF9B200BA4999 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A237873627BAF9B200BA4999 /* GoogleService-Info.plist */; };
+		A237874C27BAF9BF00BA4999 /* Poppins-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237873927BAF9BF00BA4999 /* Poppins-SemiBoldItalic.otf */; };
+		A237874D27BAF9BF00BA4999 /* Poppins-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237873A27BAF9BF00BA4999 /* Poppins-ExtraBoldItalic.otf */; };
+		A237874E27BAF9BF00BA4999 /* ArgentumSans-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237873B27BAF9BF00BA4999 /* ArgentumSans-ExtraLight.otf */; };
+		A237874F27BAF9BF00BA4999 /* Poppins-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237873C27BAF9BF00BA4999 /* Poppins-ExtraLight.otf */; };
+		A237875027BAF9BF00BA4999 /* Poppins-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237873D27BAF9BF00BA4999 /* Poppins-ThinItalic.otf */; };
+		A237875127BAF9BF00BA4999 /* Poppins-ExtraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237873E27BAF9BF00BA4999 /* Poppins-ExtraLightItalic.otf */; };
+		A237875227BAF9BF00BA4999 /* Poppins-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237873F27BAF9BF00BA4999 /* Poppins-Light.otf */; };
+		A237875327BAF9BF00BA4999 /* Poppins-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874027BAF9BF00BA4999 /* Poppins-BoldItalic.otf */; };
+		A237875427BAF9BF00BA4999 /* Poppins-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874127BAF9BF00BA4999 /* Poppins-Medium.otf */; };
+		A237875527BAF9BF00BA4999 /* Poppins-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874227BAF9BF00BA4999 /* Poppins-SemiBold.otf */; };
+		A237875627BAF9BF00BA4999 /* Poppins-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874327BAF9BF00BA4999 /* Poppins-Italic.otf */; };
+		A237875727BAF9BF00BA4999 /* Poppins-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874427BAF9BF00BA4999 /* Poppins-Thin.otf */; };
+		A237875827BAF9BF00BA4999 /* Poppins-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874527BAF9BF00BA4999 /* Poppins-MediumItalic.otf */; };
+		A237875927BAF9BF00BA4999 /* Poppins-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874627BAF9BF00BA4999 /* Poppins-LightItalic.otf */; };
+		A237875A27BAF9BF00BA4999 /* Poppins-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874727BAF9BF00BA4999 /* Poppins-Bold.otf */; };
+		A237875B27BAF9BF00BA4999 /* Poppins-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874827BAF9BF00BA4999 /* Poppins-Black.otf */; };
+		A237875C27BAF9BF00BA4999 /* Poppins-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874927BAF9BF00BA4999 /* Poppins-BlackItalic.otf */; };
+		A237875D27BAF9BF00BA4999 /* Poppins-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874A27BAF9BF00BA4999 /* Poppins-Regular.otf */; };
+		A237875E27BAF9BF00BA4999 /* Poppins-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A237874B27BAF9BF00BA4999 /* Poppins-ExtraBold.otf */; };
+		EA031CD7343BCC5ECDF94405 /* libPods-Alwaraq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB5162D696C556EA63DF24 /* libPods-Alwaraq.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = Alwaraq;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E356EE1AD99517003FC87E /* AlwaraqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlwaraqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* AlwaraqTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlwaraqTests.m; sourceTree = "<group>"; };
+		01EB5162D696C556EA63DF24 /* libPods-Alwaraq.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Alwaraq.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Alwaraq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alwaraq.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Alwaraq/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Alwaraq/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Alwaraq/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Alwaraq/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Alwaraq/main.m; sourceTree = "<group>"; };
+		4B08C796E5D6BF33C1340799 /* libPods-Alwaraq-AlwaraqTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Alwaraq-AlwaraqTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		763FD0B73D3B0A6190133896 /* Pods-Alwaraq.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alwaraq.debug.xcconfig"; path = "Target Support Files/Pods-Alwaraq/Pods-Alwaraq.debug.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Alwaraq/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		872D042B83BBD3F4809164B7 /* Pods-Alwaraq-AlwaraqTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alwaraq-AlwaraqTests.release.xcconfig"; path = "Target Support Files/Pods-Alwaraq-AlwaraqTests/Pods-Alwaraq-AlwaraqTests.release.xcconfig"; sourceTree = "<group>"; };
+		9A3B05A6AEDE79D7EAF6A17C /* Pods-Alwaraq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alwaraq.release.xcconfig"; path = "Target Support Files/Pods-Alwaraq/Pods-Alwaraq.release.xcconfig"; sourceTree = "<group>"; };
+		A237873627BAF9B200BA4999 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A237873927BAF9BF00BA4999 /* Poppins-SemiBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.otf"; sourceTree = "<group>"; };
+		A237873A27BAF9BF00BA4999 /* Poppins-ExtraBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
+		A237873B27BAF9BF00BA4999 /* ArgentumSans-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ArgentumSans-ExtraLight.otf"; sourceTree = "<group>"; };
+		A237873C27BAF9BF00BA4999 /* Poppins-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.otf"; sourceTree = "<group>"; };
+		A237873D27BAF9BF00BA4999 /* Poppins-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.otf"; sourceTree = "<group>"; };
+		A237873E27BAF9BF00BA4999 /* Poppins-ExtraLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.otf"; sourceTree = "<group>"; };
+		A237873F27BAF9BF00BA4999 /* Poppins-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.otf"; sourceTree = "<group>"; };
+		A237874027BAF9BF00BA4999 /* Poppins-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.otf"; sourceTree = "<group>"; };
+		A237874127BAF9BF00BA4999 /* Poppins-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.otf"; sourceTree = "<group>"; };
+		A237874227BAF9BF00BA4999 /* Poppins-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.otf"; sourceTree = "<group>"; };
+		A237874327BAF9BF00BA4999 /* Poppins-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.otf"; sourceTree = "<group>"; };
+		A237874427BAF9BF00BA4999 /* Poppins-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.otf"; sourceTree = "<group>"; };
+		A237874527BAF9BF00BA4999 /* Poppins-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.otf"; sourceTree = "<group>"; };
+		A237874627BAF9BF00BA4999 /* Poppins-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.otf"; sourceTree = "<group>"; };
+		A237874727BAF9BF00BA4999 /* Poppins-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.otf"; sourceTree = "<group>"; };
+		A237874827BAF9BF00BA4999 /* Poppins-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.otf"; sourceTree = "<group>"; };
+		A237874927BAF9BF00BA4999 /* Poppins-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.otf"; sourceTree = "<group>"; };
+		A237874A27BAF9BF00BA4999 /* Poppins-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.otf"; sourceTree = "<group>"; };
+		A237874B27BAF9BF00BA4999 /* Poppins-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.otf"; sourceTree = "<group>"; };
+		A2D6394927BEDB9700B23B12 /* Alwaraq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Alwaraq.entitlements; path = Alwaraq/Alwaraq.entitlements; sourceTree = "<group>"; };
+		C8B0B85CD77B98EC8F9D1416 /* Pods-Alwaraq-AlwaraqTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alwaraq-AlwaraqTests.debug.xcconfig"; path = "Target Support Files/Pods-Alwaraq-AlwaraqTests/Pods-Alwaraq-AlwaraqTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E37BDA26360FAFA4644111 /* libPods-Alwaraq-AlwaraqTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA031CD7343BCC5ECDF94405 /* libPods-Alwaraq.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* AlwaraqTests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* AlwaraqTests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = AlwaraqTests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* Alwaraq */ = {
+			isa = PBXGroup;
+			children = (
+				A2D6394927BEDB9700B23B12 /* Alwaraq.entitlements */,
+				A237873827BAF9BF00BA4999 /* fonts */,
+				A237873627BAF9B200BA4999 /* GoogleService-Info.plist */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = Alwaraq;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				01EB5162D696C556EA63DF24 /* libPods-Alwaraq.a */,
+				4B08C796E5D6BF33C1340799 /* libPods-Alwaraq-AlwaraqTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2D762112C265AFC14AC9DFAF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				763FD0B73D3B0A6190133896 /* Pods-Alwaraq.debug.xcconfig */,
+				9A3B05A6AEDE79D7EAF6A17C /* Pods-Alwaraq.release.xcconfig */,
+				C8B0B85CD77B98EC8F9D1416 /* Pods-Alwaraq-AlwaraqTests.debug.xcconfig */,
+				872D042B83BBD3F4809164B7 /* Pods-Alwaraq-AlwaraqTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				13B07FAE1A68108700A75B9A /* Alwaraq */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* AlwaraqTests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				2D762112C265AFC14AC9DFAF /* Pods */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* Alwaraq.app */,
+				00E356EE1AD99517003FC87E /* AlwaraqTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A237873827BAF9BF00BA4999 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A237873927BAF9BF00BA4999 /* Poppins-SemiBoldItalic.otf */,
+				A237873A27BAF9BF00BA4999 /* Poppins-ExtraBoldItalic.otf */,
+				A237873B27BAF9BF00BA4999 /* ArgentumSans-ExtraLight.otf */,
+				A237873C27BAF9BF00BA4999 /* Poppins-ExtraLight.otf */,
+				A237873D27BAF9BF00BA4999 /* Poppins-ThinItalic.otf */,
+				A237873E27BAF9BF00BA4999 /* Poppins-ExtraLightItalic.otf */,
+				A237873F27BAF9BF00BA4999 /* Poppins-Light.otf */,
+				A237874027BAF9BF00BA4999 /* Poppins-BoldItalic.otf */,
+				A237874127BAF9BF00BA4999 /* Poppins-Medium.otf */,
+				A237874227BAF9BF00BA4999 /* Poppins-SemiBold.otf */,
+				A237874327BAF9BF00BA4999 /* Poppins-Italic.otf */,
+				A237874427BAF9BF00BA4999 /* Poppins-Thin.otf */,
+				A237874527BAF9BF00BA4999 /* Poppins-MediumItalic.otf */,
+				A237874627BAF9BF00BA4999 /* Poppins-LightItalic.otf */,
+				A237874727BAF9BF00BA4999 /* Poppins-Bold.otf */,
+				A237874827BAF9BF00BA4999 /* Poppins-Black.otf */,
+				A237874927BAF9BF00BA4999 /* Poppins-BlackItalic.otf */,
+				A237874A27BAF9BF00BA4999 /* Poppins-Regular.otf */,
+				A237874B27BAF9BF00BA4999 /* Poppins-ExtraBold.otf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* AlwaraqTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AlwaraqTests" */;
+			buildPhases = (
+				3E66AA185DF914879C02E04F /* [CP] Check Pods Manifest.lock */,
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+				32E7BE4A83792A7FE316565A /* [CP] Embed Pods Frameworks */,
+				7828E97DE685CDC95CDCEFFB /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = AlwaraqTests;
+			productName = AlwaraqTests;
+			productReference = 00E356EE1AD99517003FC87E /* AlwaraqTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* Alwaraq */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Alwaraq" */;
+			buildPhases = (
+				1E3ACFC0AB0AB51F88072609 /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				34F153F0971ACBC5E2EE76FB /* [CP] Embed Pods Frameworks */,
+				8135D57EB2A6B97C64C0CEB9 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alwaraq;
+			productName = Alwaraq;
+			productReference = 13B07F961A680F5B00A75B9A /* Alwaraq.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1120;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Alwaraq" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* Alwaraq */,
+				00E356ED1AD99517003FC87E /* AlwaraqTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A237875A27BAF9BF00BA4999 /* Poppins-Bold.otf in Resources */,
+				A237874C27BAF9BF00BA4999 /* Poppins-SemiBoldItalic.otf in Resources */,
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				A237875127BAF9BF00BA4999 /* Poppins-ExtraLightItalic.otf in Resources */,
+				A237874F27BAF9BF00BA4999 /* Poppins-ExtraLight.otf in Resources */,
+				A237875927BAF9BF00BA4999 /* Poppins-LightItalic.otf in Resources */,
+				A237875327BAF9BF00BA4999 /* Poppins-BoldItalic.otf in Resources */,
+				A237875C27BAF9BF00BA4999 /* Poppins-BlackItalic.otf in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				A237875E27BAF9BF00BA4999 /* Poppins-ExtraBold.otf in Resources */,
+				A237875027BAF9BF00BA4999 /* Poppins-ThinItalic.otf in Resources */,
+				A237875227BAF9BF00BA4999 /* Poppins-Light.otf in Resources */,
+				A237875427BAF9BF00BA4999 /* Poppins-Medium.otf in Resources */,
+				A237875D27BAF9BF00BA4999 /* Poppins-Regular.otf in Resources */,
+				A237875527BAF9BF00BA4999 /* Poppins-SemiBold.otf in Resources */,
+				A237874E27BAF9BF00BA4999 /* ArgentumSans-ExtraLight.otf in Resources */,
+				A237875627BAF9BF00BA4999 /* Poppins-Italic.otf in Resources */,
+				A237875827BAF9BF00BA4999 /* Poppins-MediumItalic.otf in Resources */,
+				A237875B27BAF9BF00BA4999 /* Poppins-Black.otf in Resources */,
+				A237873727BAF9B200BA4999 /* GoogleService-Info.plist in Resources */,
+				A237874D27BAF9BF00BA4999 /* Poppins-ExtraBoldItalic.otf in Resources */,
+				A237875727BAF9BF00BA4999 /* Poppins-Thin.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		1E3ACFC0AB0AB51F88072609 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Alwaraq-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		32E7BE4A83792A7FE316565A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alwaraq-AlwaraqTests/Pods-Alwaraq-AlwaraqTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alwaraq-AlwaraqTests/Pods-Alwaraq-AlwaraqTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alwaraq-AlwaraqTests/Pods-Alwaraq-AlwaraqTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		34F153F0971ACBC5E2EE76FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alwaraq/Pods-Alwaraq-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alwaraq/Pods-Alwaraq-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alwaraq/Pods-Alwaraq-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3E66AA185DF914879C02E04F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Alwaraq-AlwaraqTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7828E97DE685CDC95CDCEFFB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alwaraq-AlwaraqTests/Pods-Alwaraq-AlwaraqTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alwaraq-AlwaraqTests/Pods-Alwaraq-AlwaraqTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alwaraq-AlwaraqTests/Pods-Alwaraq-AlwaraqTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8135D57EB2A6B97C64C0CEB9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alwaraq/Pods-Alwaraq-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alwaraq/Pods-Alwaraq-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alwaraq/Pods-Alwaraq-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00E356F31AD99517003FC87E /* AlwaraqTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* Alwaraq */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8B0B85CD77B98EC8F9D1416 /* Pods-Alwaraq-AlwaraqTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AlwaraqTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Alwaraq.app/Alwaraq";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 872D042B83BBD3F4809164B7 /* Pods-Alwaraq-AlwaraqTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = AlwaraqTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Alwaraq.app/Alwaraq";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 763FD0B73D3B0A6190133896 /* Pods-Alwaraq.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Alwaraq/Alwaraq.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				INFOPLIST_FILE = Alwaraq/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 20.1.8;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Alwaraq;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A3B05A6AEDE79D7EAF6A17C /* Pods-Alwaraq.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Alwaraq/Alwaraq.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				INFOPLIST_FILE = Alwaraq/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 20.1.8;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Alwaraq;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AlwaraqTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Alwaraq" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Alwaraq" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}

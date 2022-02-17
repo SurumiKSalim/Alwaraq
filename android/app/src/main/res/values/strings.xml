@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Alwaraq</string>
+    <string name="facebook_app_id">614465482650100</string>
+    <string name="fb_login_protocol_scheme">fb614465482650100</string>
+</resources>

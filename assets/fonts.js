@@ -1,0 +1,5 @@
+export const FONT_SEMIBOLD='Poppins-SemiBold'
+export const FONT_LIGHT='Poppins-Light'
+export const FONT_MEDIUM='Poppins-Medium'
+export const FONT_BOLD='Poppins-Bold'
+export const FONT_REGULAR='Poppins-Regular'

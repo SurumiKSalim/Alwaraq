@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>869373708241-91nu8icrqmqcr9fgl38q5a7d6rm0pqss.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.869373708241-91nu8icrqmqcr9fgl38q5a7d6rm0pqss</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>869373708241-1g42bi21t8m862rhfe2b8rcme5mot2fj.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD80Sm3Xc5xO8hwr0wOAL86q19BmjPqC7k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>869373708241</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.evillage.alwaraq</string>
+	<key>PROJECT_ID</key>
+	<string>alwaraq-8e765</string>
+	<key>STORAGE_BUCKET</key>
+	<string>alwaraq-8e765.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:869373708241:ios:13f4121d02ce0fdd8b82f0</string>
+	<key>DATABASE_URL</key>
+	<string>https://alwaraq-8e765.firebaseio.com</string>
+</dict>
+</plist>
