@@ -1,7 +1,7 @@
 import { StyleSheet, Linking, ImageBackground, KeyboardAvoidingView, View, TouchableOpacity, Dimensions, FlatList, Text, Image, TextInput, ScrollView, SafeAreaView, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import React, { Component, Fragment } from 'react'
-// import Pdf from 'react-native-pdf';
+import Pdf from 'react-native-pdf';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons"
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import Foundation from 'react-native-vector-icons/Foundation'
@@ -168,7 +168,7 @@ class PDFExample extends React.Component {
                         </ModalDropdown>
                     </View>
                 </View>
-                {/* {this.state.enablePaging &&
+                {this.state.enablePaging &&
                     <Pdf
                         ref={(pdf) => { this.pdf = pdf; }}
                         enablePaging={true}
@@ -184,9 +184,9 @@ class PDFExample extends React.Component {
                         onError={(error) => {
                             console.log(error);
                         }}
-                        style={styles.pdf} />} */}
+                        style={styles.pdf} />}
 
-                {/* {!this.state.enablePaging &&
+                {!this.state.enablePaging &&
                     <Pdf
                         ref={(pdf) => { this.pdf = pdf; }}
                         enablePaging={false}
@@ -202,15 +202,15 @@ class PDFExample extends React.Component {
                         onError={(error) => {
                             console.log(error);
                         }}
-                        style={styles.pdf} />} */}
-                {/* {this.state.totalPage &&
+                        style={styles.pdf} />}
+                {this.state.totalPage &&
                     <TouchableOpacity onPress={() => this.setState({ visible: true })} style={styles.pageContainer}>
                         <Text>{this.state.page}/{this.state.totalPage}</Text>
-                    </TouchableOpacity>} */}
-                {this.state.totalPage &&
+                    </TouchableOpacity>}
+                {/* {this.state.totalPage &&
                     <TouchableOpacity onPress={() => this.setState({ index: this.state.index + 1 })} style={styles.pageContainer}>
                         <Text>{this.state.page}/{this.state.totalPage}</Text>
-                    </TouchableOpacity>}
+                    </TouchableOpacity>} */}
                 <Modal
                     isVisible={this.state.visible}
                     hasBackdrop={true}
