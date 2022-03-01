@@ -2,7 +2,6 @@ import Api from '../../common/api'
 import { LIKE_FORM,CHART_INFO } from '../../common/endpoints'
 
 export function fetchLike(formdata) {
-    console.log('haha',formdata)
     return function (dispatch) {
         dispatch({ type: 'LIKE_FORM_FETCHING' })
         Api('post', LIKE_FORM,formdata).then((response) => {

@@ -77,7 +77,6 @@ class App extends Component {
 
     deleteBook(item) {
         if (item && item.pdfPath && item.pdfPath.length > 0) {
-            console.log('hahahhahah',item.pdfPath)
             this.props.dispatch(fetchDeleteBook(item))
             RNFetchBlob.fs.unlink(item.pdfPath).then(() => {
             })

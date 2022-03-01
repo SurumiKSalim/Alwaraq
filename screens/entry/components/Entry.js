@@ -64,7 +64,6 @@ class App extends Component {
   _checkPermission = async () => {
     const enabled = await firebase.messaging().hasPermission();
     if (enabled) {
-      console.log("haha");
       const fcmToken = await firebase.messaging().getToken();
       console.log("fcmToken", fcmToken);
       let uniqueId = await DeviceInfo.getUniqueId();
@@ -133,9 +132,9 @@ class App extends Component {
       // App was opened by a notification
       // Get the action triggered by the notification being opened
       const notification = notificationOpen.notification;
-      notification.data.bookid
+      notification?.data?.bookid
         ? this.props.navigation.navigate("Detailbuy", {
-            bookId: notification.data.bookid,
+            bookId: notification?.data?.bookid,
             fromNotification: true
           })
         : this.props.navigation.navigate("HomePage");

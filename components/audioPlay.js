@@ -88,11 +88,6 @@ class App extends Component {
   onSeeking = currentTime => this.setState({ currentTime });
 
   render() {
-    console.log('haha',this.props.isPlayAll ?
-    this.props.audioArray[this.state.index]?.audioLink?
-    this.props.audioArray[this.state.index]?.audioLink:
-    this.props.audioArray[this.state.index] :
-    this.props.videoLink)
     return (
       this.props && this.props.videoLink ?
         <View style={styles.container}>
@@ -100,6 +95,9 @@ class App extends Component {
             onEnd={this.onEnd}
             onLoad={this.onLoad}
             onLoadStart={this.onLoadStart}
+            playInBackground
+            playWhenInactive
+            ignoreSilentSwitch='ignore'
             onProgress={this.onProgress}
             paused={this.state.paused}
             audioOnly={true}

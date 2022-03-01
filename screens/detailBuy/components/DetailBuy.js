@@ -366,7 +366,6 @@ class App extends Component {
             formdata.append('bookId', this.state.data && this.state.data.bookid)
             Api('post', IS_BOOK_BOUGHT, formdata).then(async (response) => {
                 if (response) {
-                    console.log('hahhahahhahah',response)
                     this.setState({ isBookBought: response.isBookBought, isAudioBought: response.isAudioBought })
                 }
             })
@@ -799,7 +798,7 @@ class App extends Component {
 
     render() {
         let data = this.state.data
-        let dualoption = (data.isPdfAvailable && data.isTextAvailable) ? true : false
+        let dualoption = (data?.isPdfAvailable && data?.isTextAvailable) ? true : false
         let price = 0
         if (data) {
             price = data.price != 0 ? data.price : data.hardcoverprice != 0 ? data.hardcoverprice : data.hardcoverAndPdfPrice
