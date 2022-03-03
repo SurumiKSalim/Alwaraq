@@ -41,7 +41,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.evillage.alwaraq</string>
+				<string>com.alwaraq</string>
 			</array>
 		</dict>
 	</array>

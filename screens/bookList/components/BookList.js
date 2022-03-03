@@ -96,13 +96,11 @@ export class App extends React.Component {
       headerRight: (
         <View style={styles.headerRightContainer}>
           <Text style={styles.headerText}>
-            {params.this &&
-              params.this.state.demo[params.bookLanguage] &&
-              params.this.state.demo[params.bookLanguage].slice(0, 2)}
+            {LanguageList[params?.bookLanguage]?.slice(0, 2)}
           </Text>
           {/* {params.this && params.this.props.navigation.getParam('fromLibrary') && */}
           <ModalDropdown
-            options={params.this && params.this.state.demo}
+            options={LanguageList}
             scrollEnabled={true}
             style={styles.drop}
             dropdownStyle={styles.dropdown}
@@ -140,7 +138,6 @@ export class App extends React.Component {
       bookLanguage: this.props.navigation.getParam('isJapanese')
         ? 5
         : undefined,
-      demo: LanguageList,
       onLoadLoader: false,
       listType: this.props.navigation.getParam('listType'),
       kind: data && data.kind,
