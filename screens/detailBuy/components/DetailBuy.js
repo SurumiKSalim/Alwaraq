@@ -406,11 +406,12 @@ class App extends Component {
         Api('get', DOCUMENT_INFOS, { bookId: this.props.navigation.getParam('bookId') }).then((response) => {
             if (response.books && response.books[0]) {
                 let data = response.books[0]
-                this.setState({ data: response.books[0] })
+                this.setState({ data: response.books[0],bookAudios:data?.bookAudio,videoBook:data?.bookVideos })
                 this.setState({ dataValue: [data.publisher, data.publishingdate, data.publisheraddr, data.researcher, data.translator, data.totalpages, data.subjectName] })
                 this.setState({ locationUrl: [{ latitude: parseFloat(data && data.latitude), longitude: parseFloat(data && data.longitude), query: data && data.locationName, zoom: 5 }] })
                 this.props.navigation.setParams({
                     isVideoAvailable: response.books && response.books[0] && response.books[0].isVideoAvailable,
+                    isAudioAvailable: response.books && response.books[0] && response.books[0].isAudioAvailable,
                 })
             }
         })
@@ -964,7 +965,6 @@ class App extends Component {
                         animationIn='zoomIn'
                         animationOut='zoomOut'
                         useNativeDriver={true}
-                        hideModalContentWhileAnimating={true}
                         animationOutTiming={300}
                         onBackButtonPress={() => this.setState({ maxLimit: false })}
                         onBackdropPress={() => this.setState({ maxLimit: false })}

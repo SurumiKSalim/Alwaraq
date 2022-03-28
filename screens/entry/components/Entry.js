@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Platform } from "react-native";
+import { StyleSheet, View, Platform,Alert } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import { NavigationActions, StackActions } from "react-navigation";
 import { connect } from "react-redux";
@@ -102,6 +102,67 @@ class App extends Component {
     });
   }
 
+  showAlert(title, body) {
+    Alert.alert(
+      title, body,
+      [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
+
+  notificationNavigation(notification){
+    notification?.data?.bookid
+        ? this.props.navigation.push("Detailbuy", {
+            bookId: notification?.data?.bookid,
+            fromNotification: true
+          })
+        : this.props.navigation.navigate("HomePage");
+  }
+
+  async createNotificationListeners() {
+    this.notificationDisplayedListener = firebase.notifications().onNotificationDisplayed((notification: Notification) => {
+      // Process your notification as required
+      // ANDROID: Remote notifications do not contain the channel ID. You will have to specify this manually if you'd like to re-display the notification.
+      const notification4 = notificationOpen.notification;
+      this.notificationNavigation(notification4)
+    });
+
+    /*
+    * Triggered when a particular notification has been received in foreground
+    * */
+    this.notificationListener = firebase.notifications().onNotification((notification) => {
+      const notification1 = notificationOpen.notification;
+      this.notificationNavigation(notification1)
+    });
+
+    /*
+    * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
+    * */
+    this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+      
+      const notification2 = notificationOpen.notification;
+      this.notificationNavigation(notification2)
+    });
+
+    /*
+    * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
+    * */
+    const notificationOpen = await firebase.notifications().getInitialNotification();
+    if (notificationOpen) {
+      const notification3 = notificationOpen.notification;
+      this.notificationNavigation(notification3)
+    }
+    /*
+    * Triggered for data only payload in foreground
+    * */
+    this.messageListener = firebase.messaging().onMessage((message) => {
+      //process data message
+      this.showAlert(JSON.stringify(message));
+    });
+  }
+
   async componentDidMount() {
     SplashScreen.hide();
     if (this.props.user) {
@@ -128,18 +189,19 @@ class App extends Component {
     {
       Platform.OS === "ios" && firebase.notifications().setBadge(0);
     }
-    if (notificationOpen) {
-      // App was opened by a notification
-      // Get the action triggered by the notification being opened
-      const notification = notificationOpen.notification;
-      notification?.data?.bookid
-        ? this.props.navigation.navigate("Detailbuy", {
-            bookId: notification?.data?.bookid,
-            fromNotification: true
-          })
-        : this.props.navigation.navigate("HomePage");
+    this.createNotificationListeners();
+      // this.showAlert('title', notification?.data?.bookid);
+      // // App was opened by a notification
+      // // Get the action triggered by the notification being opened
+      // const notification = notificationOpen.notification;
+      // this.notificationNavigation(notification)
+      // notification?.data?.bookid
+      //   ? this.props.navigation.navigate("Detailbuy", {
+      //       bookId: notification?.data?.bookid,
+      //       fromNotification: true
+      //     })
+      //   : this.props.navigation.navigate("HomePage");
       // Get information about the notification that was opened
-    } else {
       let route = "OnBoard";
       if (!this.props.isFirstLogin) route = "HomePage";
       const resetAction = StackActions.reset({
@@ -150,7 +212,6 @@ class App extends Component {
       });
       this.props.navigation.dispatch(resetAction);
     }
-  }
 
   render() {
     return <View />;
