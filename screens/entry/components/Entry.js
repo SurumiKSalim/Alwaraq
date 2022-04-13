@@ -159,7 +159,7 @@ class App extends Component {
     * */
     this.messageListener = firebase.messaging().onMessage((message) => {
       //process data message
-      this.showAlert(JSON.stringify(message));
+      // this.showAlert(JSON.stringify(message));
     });
   }
 
