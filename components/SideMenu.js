@@ -109,7 +109,7 @@ class SideMenu extends Component {
                         {this.props.user &&
                         <TouchableOpacity onPress={this.navigateToScreen('Cart')} style={styles.content}>
                             <Ionicons name='cart-outline' style={styles.iconContainer} size={22} color={TITLE_COLOR} />
-                            <Text style={styles.title}>Cart</Text>
+                            <Text style={styles.title}>{I18n.t("Cart")}</Text>
                         </TouchableOpacity>}
 
                         <View style={styles.seperator} />

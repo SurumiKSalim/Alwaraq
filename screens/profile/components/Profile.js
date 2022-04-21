@@ -514,6 +514,7 @@ class App extends Component {
                                     <Ionicons name={'ios-arrow-forward'} color={PRIMARY_COLOR} size={30} />
                                 </View>
                             </TouchableOpacity>
+                            {user && <UserDeletion />}
                             <TouchableOpacity style={styles.subContainerContents} onPress={this.signOut}>
                                 <Ionicons name={'md-log-out'} color={PRIMARY_COLOR} size={28} style={styles.notificationIcon} />
                                 <Text style={styles.optionText}>{I18n.t("Sign_Out")}</Text>
@@ -521,7 +522,6 @@ class App extends Component {
                                     <Ionicons name={'ios-arrow-forward'} color={PRIMARY_COLOR} size={30} />
                                 </View>
                             </TouchableOpacity>
-                            {user && <UserDeletion />}
                         </View>
                         <Modal
                             isVisible={this.state.visibleModal}

@@ -47,6 +47,7 @@ export default {
     Author:'Authors',
     Other_Ev_Apps:'Other Ev Apps',
     Ev_Apps:'Ev Apps',
+    Cart: 'Cart',
 
     //dashboard
     Latest: 'Latest',
@@ -260,4 +261,9 @@ export default {
     SUCCESS:'SUCCESS',
     Ok: 'Ok',
     Edit_Email:'Edit Email',
+
+    
+    EV_Account: 'EV Account Login',
+    EV_SignUp:'EV Account SignUp',
+    EV_Account_Description: 'EV Account can be used in all the apps and websites of Electronic Village.'
 }

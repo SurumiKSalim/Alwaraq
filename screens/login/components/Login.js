@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {GoogleSignin} from '@react-native-community/google-signin';
-import {fetchUser} from '../actions';
 import {
   LoginManager,
   GraphRequest,
@@ -33,13 +32,11 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Images from '../../../assets/images';
 import I18n from '../../../i18n';
 import jwt_decode from 'jwt-decode';
-// import { fetchUser } from '../actions'
 import {signup} from '../../signUp/actions';
 import {MaterialIndicator} from 'react-native-indicators';
-// import { changeUserSession } from '../../login/actions'
+import {fetchUser, rememberUser} from '../actions';
 import {webClientId} from '../../../common/config';
 import appleAuth, {
   AppleButton,
@@ -76,6 +73,9 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    this.setState({
+      email: this.props.rememberUser?.email,
+    });
     this._setupGoogleSignin();
     // this.props.dispatch(changeUserSession('Login'))
   }
@@ -111,6 +111,7 @@ class App extends Component {
         password: this.state.password,
         fcmToken: this.state.fcmToken,
       };
+      this.props.dispatch(rememberUser(user));
       this.props.dispatch(fetchUser(user, this.props.navigation));
       this.setState({validate: null});
     }
@@ -246,29 +247,39 @@ class App extends Component {
                   <AntDesign name="arrowleft" size={26} color="black" />
                 </TouchableOpacity>
               )}
-              <Text style={styles.welcome}>{I18n.t('Login')}</Text>
+              <Text style={styles.welcome}>{I18n.t('EV_Account')}</Text>
               {goBack && <View style={styles.emptyContainer} />}
             </View>
           )}
+          {/* <Text style={styles.evWelcome}>{I18n.t('EV_Account')}</Text> */}
           <View style={styles.header}>
             <Text
               style={[
                 styles.subtitle,
-                {textAlign: this.props.locale == 'ar' ? 'right' : 'left'},
+                {textAlign: this.props.locale == 'ar' ? 'right' : 'justify'},
               ]}>
-              {I18n.t('Login_with_email_or_a_social_account')}
+              {I18n.t('EV_Account_Description')+I18n.t('Login_with_email_or_a_social_account')}
             </Text>
           </View>
           <View style={styles.email}>
             <TextInput
               placeholder={I18n.t('Email_address')}
               placeholderTextColor={TITLE_COLOR}
+              value={this.state.email}
               onChangeText={text => this.setState({email: text})}
               style={styles.textField}
               caretHidden={Platform.OS === 'ios' ? false : true}
               keyboardType="email-address"
               autoCompleteType="email"
             />
+            {this.state.email?.length > 0 && (
+              <TouchableOpacity
+                activeOpacity={0}
+                style={styles.passwordHide}
+                onPress={() => this.setState({email: null})}>
+                <Fontisto name={'close'} size={18} color="#656565" />
+              </TouchableOpacity>
+            )}
           </View>
           <View style={styles.password}>
             <TextInput
@@ -366,6 +377,7 @@ const mapStateToProps = state => {
     error: state.userLogin.errorMessage,
     activeSession: state.userLogin.activeSession,
     locale: state.userLogin.locale,
+    rememberUser: state.userLogin.rememberUser,
   };
 };
 
@@ -399,6 +411,7 @@ const styles = StyleSheet.create({
   passwordHide: {
     justifyContent: 'center',
     paddingRight: 15,
+    paddingLeft:8,
   },
   titleLogoImage: {
     height: 40,
@@ -410,12 +423,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   signinIcon: {},
-  welcome: {
-    fontFamily: FONT_SEMIBOLD,
-    fontSize: 30,
-    textAlign: 'center',
-    color: TITLE_COLOR,
-  },
   subtitle: {
     fontFamily: FONT_REGULAR,
     fontSize: 18,
@@ -431,6 +438,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: SECONDARY_COLOR,
     borderRadius: 5,
+    flexDirection: 'row',
   },
   password: {
     flexDirection: 'row',
@@ -572,16 +580,22 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontFamily: FONT_SEMIBOLD,
-    fontSize: 30,
+    fontSize: 20,
+    textAlign: 'center',
+    color: TITLE_COLOR,
+    flex: 1,
+  },
+  evWelcome: {
+    fontFamily: FONT_MEDIUM,
+    fontSize: 16,
     textAlign: 'center',
     color: TITLE_COLOR,
     flex: 1,
   },
   goback: {
-    flex: 1,
   },
   emptyContainer: {
-    flex: 1,
+   width:30
   },
   indicatorContainer: {
     backgroundColor: '#FFFFFF00',

@@ -86,26 +86,28 @@ class App extends Component {
     }
 
     async resetData(isSearch) {
-        await this.setState({ publisher: [], page: 1, encoded: '' })
         if (isSearch) {
-            console.log('isSearch', isSearch)
             this.onSearch()
         }
         else {
+            await this.setState({ publisher: [], page: 1, encoded: '' })
             this.fetchData()
         }
     }
 
     searchToogle() {
+        if(!this.state.searchVisible ){
+            this.setState({ searchText: null})
+        }
         this.setState({ searchVisible: !this.state.searchVisible })
         this.props.navigation.setParams({
             this: this,
         })
     }
 
-    onSearch() {
-        if (this.state.searchText !== '') {
-            console.log('isSearch')
+    async onSearch() {
+        if (this.state.searchText?.length>0) {
+            await this.setState({ publisher: [], page: 1, encoded: '' })
             this.setState({ publisher: [] })
             this.searchToogle();
             var base64 = require('base-64');

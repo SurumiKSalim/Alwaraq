@@ -44,6 +44,7 @@ export default {
     Author:'المؤلفون',
     Other_Ev_Apps:'تطبيقات أخرى لنا',
     Ev_Apps:'تطبيقات القرية الالكترونية',
+    Cart :'عربة التسوق',
 
 
     //dashboard
@@ -117,7 +118,7 @@ export default {
     Book_List: ' قائمة الكُتب',
     Author_List: 'قائمة المؤلف',
     user_name_cant_be_empty: 'لا يمكن ترك اسم المُستخدم خالياً',
-    Login_with_email_or_a_social_account: 'تسجيل الدخول بواسطة البريد الإلكتروني أو حساب تواصل اجتماعي',
+    Login_with_email_or_a_social_account: 'تسجيل الدخول بواسطة البريد الإلكتروني أو حساب تواصل اجتماعي.',
     Email_address: 'عنوان البريد الإلكتروني',
     Password: 'كلمة السر',
     Forgot_Password: 'نسيت كلمة السر',
@@ -129,7 +130,7 @@ export default {
     Facebook: 'فيسبوك',
     Google: 'جوجل',
     Welcome_to: 'أهلا بك في',
-    Enter_your_informations_below_or_login_with_social_account: 'ادخل بياناتك أدناه أو سجل دخولك باستخدام حساب تواصل اجتماعي.',
+    Enter_your_informations_below_or_login_with_social_account: 'ادخل بياناتك أدناه أو سجل دخولك باستخدام حساب تواصل اجتماعي. ',
     Name: 'الاسم',
     Email: 'البريد الإلكتروني',
     Confirm_Password: 'تأكيد كلمة السر',
@@ -236,7 +237,7 @@ export default {
     Enter_valid_numbers_in_English:'استخدم الأرقام بالإنجليزية',
     Read_More:'المزيد',
     Publishers_Distributors:'الناشرون والموزعون',
-    New_Set_Books:'كتاب  101',
+    New_Set_Books: '١٠١ كتاب',
     ContactUs:'اتصل بنا',
     Feedback:'تقييم',
     Thank_you_for_your_feedback:'شكرا لك على التقييم', 
@@ -265,4 +266,9 @@ export default {
     SUCCESS:' تمت العملية بنجاح',
     Ok:'موافق',
     Edit_Email:'Edit Email',
+
+
+    EV_Account: 'تسجيل الدخول عبر حساب القرية الإلكترونية ',
+    EV_SignUp:'شاء حساب القرية الإلكترونية ',
+    EV_Account_Description: 'يمكن استخدام حساب القرية الإلكترونية في جميع تطبيقات ومواقع القرية الإلكترونية. ',
 }

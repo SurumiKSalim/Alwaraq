@@ -7,8 +7,8 @@ let initialStage = {
   errorMessage: null,
   isFirstLogin: true,
   isImageChanging: false,
-  locale: "en",
-  activeSession: "home",
+  locale: 'en',
+  activeSession: 'home',
   isSubcribed: false,
   fcmToken: null,
   uniqueId: null,
@@ -19,20 +19,21 @@ let initialStage = {
   signUpErrorMessage: null,
   currentSelectedTrip: null,
   isShowWalkThrough: false,
-  changePasswordError: null
+  changePasswordError: null,
+  rememberUser: null,
 };
 
 const user = (state = initialStage, actions) => {
   switch (actions.type) {
-    case "LOGIN_FETCHING":
-      return { ...state, isLogging: true, user: null, errorMessage: null };
+    case 'LOGIN_FETCHING':
+      return {...state, isLogging: true, user: null, errorMessage: null};
       break;
-    case "LOGIN_FETCHING_SUCCESS":
-      let locale = actions.user ? actions.user.language : "en";
+    case 'LOGIN_FETCHING_SUCCESS':
+      let locale = actions.user ? actions.user.language : 'en';
       let profile_pic = actions.user.profile_pic;
       profile_pic =
-        actions.user.profile_pic + "&" + "test=12" + new Date().getTime();
-      let user_updated = { ...actions.user, profile_pic: profile_pic };
+        actions.user.profile_pic + '&' + 'test=12' + new Date().getTime();
+      let user_updated = {...actions.user, profile_pic: profile_pic};
       return {
         ...state,
         isLogging: false,
@@ -40,19 +41,19 @@ const user = (state = initialStage, actions) => {
         user: user_updated,
         locale: locale,
         fcmToken: actions.fcmToken,
-        isSocialLogin: actions.isSocialLogin
+        isSocialLogin: actions.isSocialLogin,
       };
       break;
-    case "LOGIN_FETCHING_FAILED":
+    case 'LOGIN_FETCHING_FAILED':
       return {
         ...state,
         isLogging: false,
         error: true,
         user: null,
-        errorMessage: actions.errorMessage
+        errorMessage: actions.errorMessage,
       };
       break;
-    case "LOGIN_RESET":
+    case 'LOGIN_RESET':
       return {
         ...state,
         isLogging: false,
@@ -60,25 +61,25 @@ const user = (state = initialStage, actions) => {
         user: null,
         errorMessage: null,
         fcmToken: null,
-        isNameChangeing: false
+        isNameChangeing: false,
       };
       break;
-    case "SIGNUP_FETCHING":
+    case 'SIGNUP_FETCHING':
       return {
         ...state,
         isLogging: true,
         user: null,
-        signUpErrorMessage: null
+        signUpErrorMessage: null,
       };
       break;
-    case "SIGNUP_FETCHING_SUCCESS":
+    case 'SIGNUP_FETCHING_SUCCESS':
       let signup_profile_pic = actions.user.profile_pic;
-      let localeupdate = actions.user ? actions.user.language : "en";
+      let localeupdate = actions.user ? actions.user.language : 'en';
       signup_profile_pic =
-        actions.user.profile_pic + "&" + "test=12" + new Date().getTime();
+        actions.user.profile_pic + '&' + 'test=12' + new Date().getTime();
       let signup_user_updated = {
         ...actions.user,
-        profile_pic: signup_profile_pic
+        profile_pic: signup_profile_pic,
       };
       return {
         ...state,
@@ -88,174 +89,174 @@ const user = (state = initialStage, actions) => {
         user: signup_user_updated,
         fcmToken: actions.fcmToken,
         signUpErrorMessage: null,
-        isSocialLogin: actions.isSocialLogin
+        isSocialLogin: actions.isSocialLogin,
       };
       break;
-    case "SIGNUP_FETCHING_GUEST_SUCCESS":
-      return { ...state, isLogging: false, error: false };
+    case 'SIGNUP_FETCHING_GUEST_SUCCESS':
+      return {...state, isLogging: false, error: false};
       break;
-    case "SIGNUP_FETCHING_FAILED":
+    case 'SIGNUP_FETCHING_FAILED':
       return {
         ...state,
         isLogging: false,
         error: true,
         user: null,
-        signUpErrorMessage: actions.errorMessage
+        signUpErrorMessage: actions.errorMessage,
       };
       break;
-    case "SIGNUP_RESET":
+    case 'SIGNUP_RESET':
       return {
         ...state,
         user: null,
         error: false,
         signUpErrorMessage: null,
-        fcmToken: null
+        fcmToken: null,
       };
       break;
-    case "OTP_FETCHING_FETCHING":
-      return { ...state, isLoading: true, user: null };
+    case 'OTP_FETCHING_FETCHING':
+      return {...state, isLoading: true, user: null};
       break;
-    case "OTP_FETCHING":
-      return { ...state, isLoading: true, user: null, otpErrorMessage: null };
+    case 'OTP_FETCHING':
+      return {...state, isLoading: true, user: null, otpErrorMessage: null};
       break;
-    case "OTP_FETCHING_SUCCESS":
+    case 'OTP_FETCHING_SUCCESS':
       return {
         ...state,
         isLoading: false,
         error: false,
-        user: actions.response
+        user: actions.response,
       };
       break;
-    case "OTP_FETCHING_FAILED":
+    case 'OTP_FETCHING_FAILED':
       return {
         ...state,
         isLoading: false,
         error: true,
         user: null,
-        otpErrorMessage: actions.errormessage
+        otpErrorMessage: actions.errormessage,
       };
       break;
-    case "OTP_RESET":
+    case 'OTP_RESET':
       return {
         ...state,
         user: null,
         error: false,
         otpErrorMessage: null,
-        isLoading: false
+        isLoading: false,
       };
       break;
-    case "SEND_FCM_TOKEN":
-      return { ...state, error: false, isLoading: true };
+    case 'SEND_FCM_TOKEN':
+      return {...state, error: false, isLoading: true};
       break;
-    case "SEND_FCM_TOKEN_SUCCESS":
+    case 'SEND_FCM_TOKEN_SUCCESS':
       return {
         ...state,
         error: false,
         isLoading: false,
         notification: actions.response,
         fcmToken: actions.fcmToken,
-        uniqueId: actions.uniqueId
+        uniqueId: actions.uniqueId,
       };
       break;
-    case "SEND_FCM_TOKEN_FAILED":
-      return { ...state, error: true, isLoading: false };
+    case 'SEND_FCM_TOKEN_FAILED':
+      return {...state, error: true, isLoading: false};
       break;
-    case "CHANGE_LANGUAGE":
-      return { ...state, isLoading: true };
+    case 'CHANGE_LANGUAGE':
+      return {...state, isLoading: true};
       break;
-    case "CHANGE_LANGUAGE_SUCCESS":
+    case 'CHANGE_LANGUAGE_SUCCESS':
       let temp_user = state.user;
       temp_user.language = actions.locale;
       return {
         ...state,
-        user: { ...temp_user },
+        user: {...temp_user},
         isLoading: false,
-        locale: actions.locale
+        locale: actions.locale,
       };
       break;
-    case "CHANGE_LANGUAGE_FAILED":
-      return { ...state, errorMessage: actions.response, isLoading: false };
+    case 'CHANGE_LANGUAGE_FAILED':
+      return {...state, errorMessage: actions.response, isLoading: false};
       break;
-    case "CHANGE_NAME":
-      return { ...state, isNameChangeing: true };
+    case 'CHANGE_NAME':
+      return {...state, isNameChangeing: true};
       break;
-    case "CHANGE_NAME_SUCCESS":
-      let updated_name = { ...state.user, fullname: actions.fullname };
-      return { ...state, user: updated_name, isNameChangeing: false };
+    case 'CHANGE_NAME_SUCCESS':
+      let updated_name = {...state.user, fullname: actions.fullname};
+      return {...state, user: updated_name, isNameChangeing: false};
       break;
-    case "CHANGE_NAME_FAILED":
-      return { ...state, isNameChangeing: false };
+    case 'CHANGE_NAME_FAILED':
+      return {...state, isNameChangeing: false};
       break;
-    case "CHANGE_PROFILE_IMAGE":
-      return { ...state, isImageChanging: true };
+    case 'CHANGE_PROFILE_IMAGE':
+      return {...state, isImageChanging: true};
       break;
-    case "CHANGE_PROFILE_IMAGE_SUCCESS":
+    case 'CHANGE_PROFILE_IMAGE_SUCCESS':
       let profile_pic_updated = actions.response.profile_pic;
       profile_pic_updated =
-        actions.response.profile_pic + "&" + "test=12" + new Date().getTime();
-      let updated_user = { ...state.user, profile_pic: profile_pic_updated };
-      return { ...state, isImageChanging: false, user: updated_user };
+        actions.response.profile_pic + '&' + 'test=12' + new Date().getTime();
+      let updated_user = {...state.user, profile_pic: profile_pic_updated};
+      return {...state, isImageChanging: false, user: updated_user};
       break;
-    case "CHANGE_PROFILE_IMAGE_FAILED":
-      return { ...state, isImageChanging: false };
+    case 'CHANGE_PROFILE_IMAGE_FAILED':
+      return {...state, isImageChanging: false};
       break;
-    case "CHANGE_PASSWORD":
-      return { ...state, passwordLoading: true };
+    case 'CHANGE_PASSWORD':
+      return {...state, passwordLoading: true};
       break;
-    case "CHANGE_PASSWORD_SUCCESS":
+    case 'CHANGE_PASSWORD_SUCCESS':
       return {
         ...state,
         passwordLoading: false,
-        changePassword: actions.response
+        changePassword: actions.response,
       };
       break;
-    case "CHANGE_PASSWORD_FAILED":
+    case 'CHANGE_PASSWORD_FAILED':
       return {
         ...state,
         changePasswordError: actions.response,
-        passwordLoading: false
+        passwordLoading: false,
       };
       break;
-    case "CHANGE_FIRST_LOGIN":
+    case 'CHANGE_FIRST_LOGIN':
       return {
         ...state,
         isFirstLogin: actions.isFirstLogin,
-        locale: actions.locale
+        locale: actions.locale,
       };
       break;
-    case "CHANGE_USER_LOCALE":
-      return { ...state, locale: actions.locale };
+    case 'CHANGE_USER_LOCALE':
+      return {...state, locale: actions.locale};
       break;
-    case "CHANGE_USER_SESSION":
-      return { ...state, activeSession: actions.session };
-    case "CHANGE_USER_SUBCRIBTION":
-      return { ...state, isSubcribed: actions.isSubcribed };
-    case "CHANGE_USER_SUBSCRIPTION":
+    case 'CHANGE_USER_SESSION':
+      return {...state, activeSession: actions.session};
+    case 'CHANGE_USER_SUBCRIBTION':
+      return {...state, isSubcribed: actions.isSubcribed};
+    case 'CHANGE_USER_SUBSCRIPTION':
       let user_subscription_change = {
         ...state.user,
-        isPremium: actions.isPremium
+        isPremium: actions.isPremium,
       };
-      return { ...state, user: user_subscription_change };
-    case "USER_SUBSCRIBE":
-      return { ...state, isSubcribing: true };
-    case "USER_SUBSCRIBE_SUCCESS":
-      return { ...state, isSubcribing: false, isPremium: true };
-    case "USER_SUBSCRIBE_FAILED":
-      return { ...state, isSubcribing: false, isPremium: false };
-    case "USER_NOTIFICATION":
+      return {...state, user: user_subscription_change};
+    case 'USER_SUBSCRIBE':
+      return {...state, isSubcribing: true};
+    case 'USER_SUBSCRIBE_SUCCESS':
+      return {...state, isSubcribing: false, isPremium: true};
+    case 'USER_SUBSCRIBE_FAILED':
+      return {...state, isSubcribing: false, isPremium: false};
+    case 'USER_NOTIFICATION':
       return state;
-    case "USER_NOTIFICATION_SUCCESS":
-      let user_status_change = { ...state.user, isNotificationEnable: true };
-      return { ...state, user: user_status_change };
-    case "USER_NOTIFICATION_FAILED":
+    case 'USER_NOTIFICATION_SUCCESS':
+      let user_status_change = {...state.user, isNotificationEnable: true};
+      return {...state, user: user_status_change};
+    case 'USER_NOTIFICATION_FAILED':
       return state;
-    case "CHANGE_USER_CURRENT_TRIP":
-      return { ...state, currentSelectedTrip: actions.trip };
-    case "UPDATE_WALK_THROUGH":
-      return { ...state, isShowWalkThrough: actions.show };
-    case "PROMOSUBSCRIPTION_SUCCESS":
-      return { ...state, user: actions.user };
-    case "RESET_LOADERS":
+    case 'CHANGE_USER_CURRENT_TRIP':
+      return {...state, currentSelectedTrip: actions.trip};
+    case 'UPDATE_WALK_THROUGH':
+      return {...state, isShowWalkThrough: actions.show};
+    case 'PROMOSUBSCRIPTION_SUCCESS':
+      return {...state, user: actions.user};
+    case 'RESET_LOADERS':
       return {
         ...state,
         isLogging: false,
@@ -267,10 +268,12 @@ const user = (state = initialStage, actions) => {
         isNameChangeing: false,
         otpErrorMessage: null,
         signUpErrorMessage: null,
-        changePasswordError: null
+        changePasswordError: null,
       };
-    case "CHANGE_EMAIL_SUCCESS":
-      return { ...state, user: actions.user };
+    case 'CHANGE_EMAIL_SUCCESS':
+      return {...state, user: actions.user};
+    case 'UPDATE_REMEMBER_USER':
+      return {...state, rememberUser: actions.user};
     default:
       return state;
   }
