@@ -22,8 +22,8 @@ const CHANGE_EMAIL              = USER_HOST + '/json_user_changeEmail'
 const SEND_OTP                  = USER_HOST + '/json_sendOtp'
 const USER_DELETE               = USER_HOST + '/json_user_deleteUser'
 
-const QURAN                     = HOST + '/Core/mobi/json_quranpage'
-const QURAN_CONTENTS            = HOST + '/Core/mobi/json_surainfos'
+const QURAN                     = HOST + '/json_quranpage.php'
+const QURAN_CONTENTS            = HOST + '/json_surainfos'
 const BOOKMARK                  = HOST + '/bookmark_form.php'
 const ENCRYPTION                = HOST + '/Core/SearchServlet/etisalat'
 

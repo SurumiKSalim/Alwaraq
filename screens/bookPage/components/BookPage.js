@@ -1944,8 +1944,6 @@ class App extends Component {
             animationInTiming={770}
             animationOutTiming={770}
             hideModalContentWhileAnimating={true}
-            animationInTiming={1000}
-            animationOutTiming={800}
             style={styles.bottomModal1}>
             <View style={[styles.modal1, {height: 280}]}>
               {this.renderSearchModal()}

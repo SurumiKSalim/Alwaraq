@@ -34,8 +34,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {WebView} from 'react-native-webview';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {MaterialIndicator} from 'react-native-indicators';
 import {HeaderBackButton} from 'react-navigation-stack';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {
+  UIActivityIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  BallIndicator,
+  BarIndicator,
+} from 'react-native-indicators';
+import AudioPlay from '../../../components/audioPlay';
+import AlertModal from '../../../components/AlertModal';
 
 const {height, width} = Dimensions.get('screen');
 
@@ -64,6 +73,17 @@ class App extends Component {
         elevation: 0,
         height: 60,
       },
+      headerRight: params.audios?.length > 0 && (
+        <TouchableOpacity
+          onPress={() => params.this.audioPlay()}
+          style={styles.headerRightContainer}>
+          {params.sound ? (
+            <FontAwesome5 name="volume-mute" size={24} color={PRIMARY_COLOR} />
+          ) : (
+            <FontAwesome5 name="volume-up" size={24} color={PRIMARY_COLOR} />
+          )}
+        </TouchableOpacity>
+      ),
     };
   };
   constructor(props) {
@@ -79,6 +99,10 @@ class App extends Component {
       fromSearch: fromSearch,
       visible: false,
       loading: false,
+      audios: [],
+      suraTitle: null,
+      suraDesc: null,
+      isVisible: false,
     };
     this.loadQuran = this.loadQuran.bind(this);
     this.onSwipeLeft = this.onSwipeLeft.bind(this);
@@ -90,29 +114,86 @@ class App extends Component {
     this.goToPage = this.goToPage.bind(this);
     this.leftMost = this.leftMost.bind(this);
     this.rightMost = this.rightMost.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
-  loadQuran(sura) {
-    this.setState({loading: true, visibleModal: false});
+  loadQuran(sura, page) {
+    console.log('hahaah', page);
+    this.setState({
+      loading: true,
+      visibleModal: false,
+      suraTitle: null,
+      suraDesc: null,
+    });
     Api('get', QURAN, {
-      pageid: sura ? 0 : this.state.page,
-      sura: sura ? sura : 1,
+      pageId: page ? page : sura ? 0 : this.state.page,
+      suraId: sura ? sura : 1,
+      language: this.props.locale == 'ar' ? 1 : 2,
     }).then(response => {
       if (response) {
         this.setState({
-          quran: response.quranpage[0],
+          quran: response.page,
           loading: false,
-          sura: response.quranpage[0].suraid,
+          sura: response.suraId,
+          audios: response.audios,
+          suraDesc: response.suraDesc,
+          suraTitle: response.suraTitle,
         });
-        console.log('QURAN_FETCHING_SUCCESS');
+        this.props.navigation.setParams({
+          audios: response.audios,
+          sound: false,
+        });
         if (sura) {
-          this.setState({page: response.quranpage[0].pageid});
+          this.setState({page: response.pageId});
         }
       } else {
         this.setState({loading: false});
         console.log('QURAN_FETCHING_FAILED');
       }
     });
+  }
+
+  audioPlay(close) {
+    this.setState({
+      audioModal: close ? false : true,
+      audioPlayer: false,
+      audioLink: false,
+      isPlayAll: false,
+    });
+    this.props.navigation.setParams({
+      isAudioAvailable: this.state.isAudioAvailable,
+      sound: false,
+    });
+  }
+
+  playAudio(item, isPlayAll) {
+    this.setState({
+      audioModal: false,
+      audioLink: item,
+      audioPlayer: true,
+      isPlayAll: isPlayAll,
+    });
+    this.props.navigation.setParams({
+      sound: true,
+    });
+  }
+
+  renderAudioItem(item, index) {
+    return (
+      <TouchableOpacity
+        onPress={() => this.playAudio(item?.link)}
+        style={styles.audioContainer}>
+        <AntDesign
+          name="sound"
+          size={20}
+          color={PRIMARY_COLOR}
+          style={styles.audioContent}
+        />
+        <Text numberOfLines={1} style={styles.audioLink}>
+          {item?.title ? item.title : 'audio part ' + parseInt(index + 1)}
+        </Text>
+      </TouchableOpacity>
+    );
   }
 
   onSwipeLeft(gestureState) {
@@ -125,10 +206,10 @@ class App extends Component {
 
   pageRight() {
     let page = parseInt(this.state.page) - 1;
-    if (this.state.page > 1) {
+    if (parseInt(this.state.page) > 1) {
       this.setState({page: parseInt(this.state.page) - 1});
     }
-    if (this.props.navigation.getParam('fromSearch') && page > 0) {
+    if (this.state.fromSearch && page > 0) {
       this.props.dispatch(
         fetchSearchBookPage(
           this.props.navigation.getParam('item'),
@@ -142,14 +223,10 @@ class App extends Component {
 
   pageLeft() {
     let page = parseInt(this.state.page) + 1;
-    if (this.state.page < this.state.totalpages) {
-      console.log('jhgfd');
+    if (parseInt(this.state.page) < parseInt(this.state.totalpages)) {
       this.setState({page: parseInt(this.state.page) + 1});
     }
-    if (
-      this.props.navigation.getParam('fromSearch') &&
-      page <= this.state.totalpages
-    ) {
+    if (this.state.fromSearch && page <= this.state.totalpages) {
       this.props.dispatch(
         fetchSearchBookPage(
           this.props.navigation.getParam('item'),
@@ -169,7 +246,7 @@ class App extends Component {
         page: this.state.totalpages,
         pageIndex: this.state.totalpages - 1,
       });
-      if (this.props.navigation.getParam('fromSearch')) {
+      if (this.state.fromSearch) {
         this.props.dispatch(
           fetchSearchBookPage(
             this.props.navigation.getParam('item'),
@@ -182,12 +259,17 @@ class App extends Component {
     }
   }
 
+  async reset(pageId) {
+   await this.setState({fromSearch: false, totalpages: 360,page:pageId});
+    this.loadQuran(null, pageId);
+  }
+
   rightMost() {
     if (!this.state.fromSearch) {
       this.loadQuran(parseInt(this.state.sura) - 1);
     } else {
       this.setState({page: 1, pageIndex: 0});
-      if (this.props.navigation.getParam('fromSearch')) {
+      if (this.state.fromSearch) {
         this.props.dispatch(
           fetchSearchBookPage(
             this.props.navigation.getParam('item'),
@@ -223,10 +305,20 @@ class App extends Component {
           {/* <TouchableOpacity style={styles.renderItemSubContainer} onPress={() => this.setState({ sura: item.suwarid, page: 0, visibleModal: false })}> */}
           <TouchableOpacity
             style={styles.renderItemSubContainer}
-            onPress={() => this.loadQuran(item.suwarid)}>
-            <Text style={styles.nameText}>
-              {parseInt(item.suwarid)}:{item.name}
-            </Text>
+            onPress={() => this.loadQuran(item.suraId)}>
+            {!this.props.suraInfoLoading ? (
+              <Text style={styles.nameText}>
+                {parseInt(item.suraId)}:{item.suraTitle}
+              </Text>
+            ) : (
+              <View style={styles.dotIndicatorContainer}>
+                <DotIndicator
+                  color={PRIMARY_COLOR}
+                  size={10}
+                  style={styles.indicator}
+                />
+              </View>
+            )}
             <FontAwesome5 name="readme" color={PRIMARY_COLOR} size={20} />
           </TouchableOpacity>
         </View>
@@ -294,7 +386,9 @@ class App extends Component {
     this.props.navigation.setParams({
       this: this,
     });
-    this.loadQuran();
+    if (!this.state.fromSearch) {
+      this.loadQuran();
+    }
     this.props.dispatch(fetchQuranContent());
   }
 
@@ -323,12 +417,6 @@ class App extends Component {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80,
     };
-    console.log(
-      'html',
-      this.state.fromSearch
-        ? response && utf8.decode(base64.decode(response))
-        : this.state.quran && utf8.decode(base64.decode(this.state.quran.page)),
-    );
     return (
       <GestureRecognizer
         onSwipeLeft={this.onSwipeLeft}
@@ -354,6 +442,31 @@ class App extends Component {
               ]}
             />
           </View>
+          {this.state.suraTitle && this.state.suraDesc && (
+            <View
+              style={[
+                styles.subHeader,
+                {
+                  flexDirection:
+                    this.props.locale == 'ar' ? 'row-reverse' : 'row',
+                },
+              ]}>
+              <Text
+                style={[
+                  styles.subTitle,
+                  {textAlign: this.props.locale == 'ar' ? 'right' : 'left'},
+                ]}>
+                {this.state.suraTitle}
+              </Text>
+              <AntDesign
+                style={{marginHorizontal: 5}}
+                name="infocirlceo"
+                onPress={() => this.setState({isVisible: true})}
+                size={16}
+                color={PRIMARY_COLOR}
+              />
+            </View>
+          )}
           {!this.state.loading ? (
             <WebView
               showsVerticalScrollIndicator={false}
@@ -368,8 +481,7 @@ class App extends Component {
               source={{
                 html: this.state.fromSearch
                   ? response && utf8.decode(base64.decode(response))
-                  : this.state.quran &&
-                    utf8.decode(base64.decode(this.state.quran.page)),
+                  : this.state.quran,
               }}
             />
           ) : (
@@ -378,6 +490,23 @@ class App extends Component {
               size={20}
               style={styles.signinIcon}
             />
+          )}
+          {this.state.audioPlayer && (
+            <View style={styles.videoContainer}>
+              <AudioPlay
+                navigation={this.props.navigation}
+                isPlayAll={this.state.isPlayAll}
+                videoLink={this.state.audioLink}
+                audioArray={this.state.bookAudios}
+              />
+              <AntDesign
+                style={styles.audioClose}
+                name="closecircle"
+                onPress={() => this.audioPlay(true)}
+                size={24}
+                color={PRIMARY_COLOR}
+              />
+            </View>
           )}
           <View style={styles.sliderContainer}>
             <View style={styles.sliderContain}>
@@ -437,6 +566,17 @@ class App extends Component {
                   size={36}
                 />
               </TouchableOpacity>
+              {this.state.fromSearch&&
+              <TouchableOpacity
+                onPress={() =>
+                  this.reset(this.props.navigation.getParam('pageId'))
+                }>
+                <Fontisto
+                  name="navigate"
+                  color={PRIMARY_COLOR}
+                  size={30}
+                />
+              </TouchableOpacity>}
             </View>
           </View>
           <Modal
@@ -463,6 +603,65 @@ class App extends Component {
             style={styles.bottomPageModal}>
             <View style={styles.modalContain}>{this.renderPageModal()}</View>
           </Modal>
+          <Modal
+            isVisible={this.state.audioModal}
+            hideModalContentWhileAnimating={true}
+            animationIn="zoomIn"
+            animationOut="zoomOut"
+            hasBackdrop={true}
+            backdropColor="black"
+            useNativeDriver={true}
+            backdropOpacity={0.5}
+            onBackButtonPress={() => this.setState({audioModal: false})}
+            onBackdropPress={() => this.setState({audioModal: false})}
+            style={styles.modal}>
+            <View style={styles.modalContainer1}>
+              {this.state.audios?.length == 0 && (
+                <Text style={styles.audioInfoText}>No Audios Found</Text>
+              )}
+              <ScrollView style={styles.modalHeaderLinks}>
+                {this.state.audios?.length > 1 && (
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.playAudio(this.state.audios[0]?.audioLink, true)
+                    }
+                    style={styles.audioContainer}>
+                    <Text
+                      numberOfLines={1}
+                      style={[
+                        styles.audioLink,
+                        {color: PRIMARY_COLOR, textAlign: 'center'},
+                      ]}>
+                      PLAY ALL
+                    </Text>
+                  </TouchableOpacity>
+                )}
+                <FlatList
+                  data={this.state.audios}
+                  ItemSeparatorComponent={this.renderHeader}
+                  renderItem={({item, index}) =>
+                    this.renderAudioItem(item, index)
+                  }
+                  keyExtractor={(item, index) => index.toString()}
+                  showsVerticalScrollIndicator={false}
+                />
+              </ScrollView>
+              <View style={styles.modalFooter1}>
+                <TouchableOpacity
+                  style={styles.buttonCancel1}
+                  onPress={() => this.setState({audioModal: false})}>
+                  <Text style={styles.cancel}>{I18n.t('close')}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+          <AlertModal
+            isVisible={this.state.isVisible}
+            onSubmit={() => this.setState({isVisible: false})}
+            header={this.state.suraTitle}
+            butttonlabel={I18n.t('Ok')}
+            title={this.state.suraDesc}
+          />
         </SafeAreaView>
       </GestureRecognizer>
     );
@@ -472,6 +671,7 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     QuranContent: state.bookpage.QuranContent,
+    suraInfoLoading: state.bookpage.suraInfoLoading,
     locale: state.userLogin.locale,
   };
 };
@@ -556,7 +756,7 @@ const styles = StyleSheet.create({
   modalSelfStyle: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 5,
     borderColor: '#bcbcbc',
   },
   modalContain: {
@@ -605,6 +805,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#272727',
     fontFamily: FONT_BOLD,
+  },
+  subHeader: {
+    marginBottom: 8,
+    alignItems: 'center',
+  },
+  subTitle: {
+    fontSize: 16,
+    color: '#272727',
+    fontFamily: FONT_SEMIBOLD,
   },
   emptyContainer: {
     backgroundColor: PRIMARY_COLOR,
@@ -656,5 +865,75 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
+  },
+  dotIndicatorContainer: {
+    width: '90%',
+    alignItems: 'flex-end',
+  },
+  headerRightContainer: {
+    justifyContent: 'center',
+    flex: 1,
+    marginRight: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  audioContainer: {
+    width: '100%',
+    padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  audioContent: {
+    marginLeft: 15,
+    marginRight: 8,
+  },
+  audioLink: {
+    marginRight: 15,
+    textAlign: 'center',
+    flex: 1,
+  },
+  modalContainer1: {
+    width: '80%',
+    borderRadius: 10,
+    maxHeight: height * 0.8,
+  },
+  modalHeaderLinks: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  modalFooter1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    borderTopWidth: 1,
+    borderTopColor: '#DDDDDD',
+    backgroundColor: '#fff',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  cancel: {
+    fontSize: 14,
+    color: PRIMARY_COLOR,
+    fontFamily: FONT_SEMIBOLD,
+  },
+  modal: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonCancel1: {
+    flex: 1,
+    padding: 15,
+    alignItems: 'center',
+  },
+  videoContainer: {
+    height: 130,
+    marginTop: 10,
+    marginHorizontal: -10,
+  },
+  audioClose: {
+    position: 'absolute',
+    right: 5,
+    top: 10,
   },
 });

@@ -24,8 +24,9 @@ export function fetchModulesList(moduleId) {
     return function (dispatch) {
         if (!store.getState().library.isModuleListLoading) {
             dispatch({ type: 'MODULES_LIST_FETCHING' })
+            let  locale = store.getState().userLogin.locale
             let page = store.getState().library.page != null ? store.getState().library.page : 1
-            Api('get', MODULES_LIST, { moduleId: moduleId, page: page }).then((response) => {
+            Api('get', MODULES_LIST, { moduleId: moduleId, page: page,language:locale == 'ar' ? 1 : 2 }).then((response) => {
                 if (response)
                     dispatch({ type: 'MODULES_LIST_FETCHING_SUCCESS', response: response })
                 else {

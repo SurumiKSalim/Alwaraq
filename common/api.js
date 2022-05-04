@@ -6,14 +6,15 @@ function select(state) {
   }
 
 export default function request(type, url, params) {
+    let  locale = store.getState().userLogin.locale
     let token = select(store.getState())
-    console.log('token',token)
+    console.log('token',locale)
     axios.defaults.headers.common['sessiontoken'] =token?token: ""
     // axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
     axios.defaults.headers.common['Content-Type'] = 'application/json'
     switch (type) {
         case 'get':
-            return axios.get(url,{ params: params })
+            return axios.get(url,{ params: {...params,language:locale == 'ar' ? 1 : 2} })
                 .then(function (response) {
                     console.log("Get Response", response)
                     return response.data

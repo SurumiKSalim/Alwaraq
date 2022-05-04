@@ -9,6 +9,7 @@ import {
   PRIMARY_COLOR,
 } from '../assets/color';
 import I18n from '../i18n';
+import DynamicText, { DynamicView, IS_IPAD } from '../common/dynamicviews'
 const {width,height} = Dimensions.get('window')
 
 const App = ({
@@ -28,7 +29,6 @@ const App = ({
         animationIn="zoomIn"
         animationOut="zoomOut"
         useNativeDriver={true}
-        hideModalContentWhileAnimating={true}
         animationOutTiming={300}
         onBackButtonPress={() => closeModal&&closeModal()}
         onBackdropPress={() => closeModal&&closeModal()}
@@ -37,7 +37,7 @@ const App = ({
           <ScrollView showsVerticalScrollIndicator={false} style={styles.modalHeader}>
             <Text style={styles.heading}>{header}</Text>
             <View style={styles.seperator}/>
-            <Text style={styles.modalText}>{title}</Text>
+            <DynamicText style={styles.modalText}>{title}</DynamicText>
           </ScrollView>
           <View style={styles.modalFooter}>
           {closeModal&&

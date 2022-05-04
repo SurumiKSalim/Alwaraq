@@ -1,6 +1,7 @@
 let initialStage = {
     bookTree: [],
     isBookTreeLoading: false,
+    suraInfoLoading:false,
     QuranContent: [],
     bookMark: []
 }
@@ -16,8 +17,14 @@ const bookpage = (state = initialStage, actions) => {
         case "BOOK_TREE_FETCHING_FAILED":
             return { ...state, isBookTreeLoading: false }
             break;
+            case "QURAN_CONTENTS_FETCHING":
+            return { ...state, suraInfoLoading: true }
+            break;
         case "QURAN_CONTENTS_FETCHING_SUCCESS":
-            return { ...state, QuranContent: actions.response.quranpage }
+            return { ...state, QuranContent: actions.response.entities,suraInfoLoading:false }
+            break;
+        case "QURAN_CONTENTS_FETCHING_FAILED":
+            return { ...state, suraInfoLoading: false }
             break;
         case "BOOK_MARK_FETCHING_SUCCESS":
             console.log('actions',actions.bookmark )
