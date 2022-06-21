@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_MEDIUM,
     color: TEXT_BLACK_COLOR,
     opacity: 0.9,
+    flex:1
   },
   heading: {
     textAlign:'center',

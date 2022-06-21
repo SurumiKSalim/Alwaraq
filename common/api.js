@@ -22,6 +22,8 @@ export default function request(type, url, params) {
                 .catch(function (error) {
                     console.log("Server Error", error)
                     console.log("Server response", error.response)
+                    console.log("Server params", params)
+                    console.log("Server url",url)
                     return error.response.data
                 })
             break;
@@ -34,6 +36,8 @@ export default function request(type, url, params) {
                 .catch(function (error) {
                     console.log("Server Error", error)
                     console.log("Server response", error.response)
+                    console.log("Server params", params)
+                    console.log("Server url",url)
                     return error.response.data
                 })
             break;

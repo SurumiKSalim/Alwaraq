@@ -9,6 +9,7 @@ export function fetchBookList(
   bookLanguage,
   listType,
   authorId,
+  isAudioAvailable
 ) {
   return function (dispatch) {
     if (!store.getState().booklist.isLoading) {
@@ -25,6 +26,7 @@ export function fetchBookList(
         bookLanguage: bookLanguage,
         listType: listType,
         authorId: authorId,
+        isAudioAvailable:isAudioAvailable
       }).then(response => {
         if (response && response.statusCode == 200) {
           dispatch({type: 'BOOK_LIST_FETCHING_SUCCESS', response: response});
@@ -44,6 +46,7 @@ export function fetchSearch(
   authorId,
   bookLanguage,
   firstRadioValue,
+  isAudioAvailable
 ) {
   return function (dispatch) {
     if (!store.getState().booklist.isLoading) {
@@ -61,6 +64,7 @@ export function fetchSearch(
         authorId: authorId,
         bookLanguage: bookLanguage,
         searchIn: firstRadioValue,
+        isAudioAvailable:isAudioAvailable
       }).then(response => {
         if (response) {
           dispatch({type: 'BOOK_LIST_FETCHING_SUCCESS', response: response});

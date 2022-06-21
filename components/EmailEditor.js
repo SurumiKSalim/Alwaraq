@@ -107,7 +107,7 @@ const App = ({user, navigation}) => {
         />
       </View>
       {updateEmail === '' && (
-        <Text style={styles.info}>* {I18n.t('user_name_cant_be_empty')}</Text>
+        <Text style={styles.info}>* Email can't be empty</Text>
       )}
       {error && <Text style={styles.info}>* {error}</Text>}
       <TouchableOpacity

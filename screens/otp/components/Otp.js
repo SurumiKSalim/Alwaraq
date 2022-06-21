@@ -72,6 +72,7 @@ class App extends Component {
   }
 
   onVerify() {
+    if(this.state.code?.length===4){
     this.props.dispatch(resetShowOtp());
     this.props.dispatch(
       otpverify(
@@ -87,6 +88,7 @@ class App extends Component {
     );
     this.props.dispatch(resetUser());
   }
+}
 
   onCancel() {
     this.props.dispatch(resetUser());
@@ -120,7 +122,7 @@ class App extends Component {
               autoFocusOnLoad
               codeInputFieldStyle={styles.underlineStyleBase}
               codeInputHighlightStyle={styles.underlineStyleHighLighted}
-              onCodeFilled={code => {
+              onCodeChanged={code => {
                 this.setState({ code });
               }}
             />

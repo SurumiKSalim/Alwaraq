@@ -384,7 +384,7 @@ class App extends Component {
           {this.state.validate && (
             <Text style={styles.validationText}>{this.state.validate} </Text>
           )}
-          {this.state.error && (
+          {this.props.error && (
             <Text style={styles.validationText}>{this.state.error}</Text>
           )}
           <TouchableOpacity onPress={this.onSignUp} style={styles.button}>

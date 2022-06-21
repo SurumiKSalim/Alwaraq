@@ -38,6 +38,8 @@ import {DOCUMENT_INFOS} from '../../../common/endpoints';
 import Api from '../../../common/api';
 import LinearGradient from 'react-native-linear-gradient';
 import AudioPlay from '../../../components/audioPlay';
+import SubjectList from '../../../components/SubjectList';
+import ErrorMsg from '../../../components/ErrorMsg';
 import {
   fetchModules,
   resetModules,
@@ -111,7 +113,6 @@ class App extends Component {
     this.audioPlay = this.audioPlay.bind(this);
     this.onLoad = this.onLoad.bind(this);
     this.rendercatogory = this.rendercatogory.bind(this);
-    this.audioBookFetch = this.audioBookFetch.bind(this);
   }
 
   componentDidMount() {
@@ -122,35 +123,32 @@ class App extends Component {
     });
   }
 
-  audioBookFetch() {
-    this.setState({isAudioLoading: true});
-    Api('get', DOCUMENT_INFOS, {
-      isAudioAvailable: 1,
-      page: this.state.page,
-    }).then(response => {
-      if (response) {
-        console.log('audio booksasss', response);
-        this.setState({
-          isAudioBookPage: true,
-          isAudioLastPage: response.isLastPage,
-          popularDocumentList: this.state.popularDocumentList.concat(
-            response.books,
-          ),
-          isAudioLoading: false,
-          page: parseInt(this.state.page) + 1,
-        });
-      }
+  componentDidUpdate(prevProps) {
+    if (this.props.locale != prevProps.locale) {
+    this.props.dispatch(resetModules());
+    this.props.dispatch(fetchModules());
+    this.props.navigation.setParams({
+      this: this,
     });
-  }
+    }
+}
 
   stepBack() {
     if (this.state.article) {
       this.setState({article: false});
+    } else if (this.state.isAudioBookPage) {
+      this.setState({
+        isAudioBookPage: false,
+        subjectList: true,
+        popularDocumentList: [],
+        page: 1,
+      });
     } else {
       this.setState({
         moduleListShow: false,
         isAudioBookPage: false,
         popularDocumentList: [],
+        subjectList:false,
         page: 1,
       });
       this.props.navigation.setParams({
@@ -162,10 +160,15 @@ class App extends Component {
   selection(item, info, article) {
     if (!article) {
       this.props.dispatch(resetModulesList());
-      if (item.moduleId != 5) {
-        this.props.dispatch(fetchModulesList(item.moduleId));
+      if (item?.subjectId) {
+        this.props.navigation.push('BookList', { subjectId:item?.subjectId,isAudioAvailable:1 })
+        // console.log('111',)
+        // !info && this.audioBookFetch(item?.subjectId);
+        // this.setState({subjectList: false});
+      } else if (item?.moduleId != 5) {
+        this.props.dispatch(fetchModulesList(item?.moduleId));
       } else {
-        !info && this.audioBookFetch();
+        this.setState({subjectList: true});
       }
     }
     this.setState({
@@ -173,7 +176,7 @@ class App extends Component {
       info: info,
       selectedItem: item,
       article: article,
-      moduleId: item.moduleId,
+      moduleId: item?.moduleId,
     });
     this.props.navigation.setParams({
       moduleListShow: true,
@@ -181,7 +184,6 @@ class App extends Component {
   }
 
   renderItem({item, index}) {
-    console.log('item', item);
     return (
       <TouchableOpacity
         onPress={() => this.selection(item, false, false)}
@@ -347,7 +349,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('this.state.article ', this.state.article);
     return (
       <SafeAreaView style={styles.container}>
         {!this.state.moduleListShow && (
@@ -431,16 +432,16 @@ class App extends Component {
                   showsVerticalScrollIndicator={false}
                   scrollEventThrottle={1}
                   onMomentumScrollEnd={({nativeEvent}) => {
-                    if (isCloseToBottom(nativeEvent)) {
-                      if (!this.state.isAudioBookPage) {
+                    if (isCloseToBottom(nativeEvent)&&!this.state.subjectList ) {
+                      if (!this.state.isAudioBookPage&&!this.props.isModuleListLoading) {
                         this.onLoad();
-                      } else {
-                        !this.state.isAudioLoading &&
-                          !this.state.isAudioLastPage &&
-                          this.audioBookFetch();
-                      }
+                      } 
                     }
                   }}>
+                  {this.state.subjectList && (
+                    <SubjectList selection={this.selection} />
+                  )}
+                  {!this.state.subjectList &&
                   <FlatList
                     style={styles.FlatListStyle}
                     showsVerticalScrollIndicator={false}
@@ -451,37 +452,17 @@ class App extends Component {
                     extraData={this.state}
                     numColumns={2}
                     keyExtractor={(item, index) => index.toString()}
-                  />
-                  {this.state.isAudioBookPage && (
-                    <View>
-                      <FlatList
-                        style={styles.flatlistStyle}
-                        showsVerticalScrollIndicator={false}
-                        data={this.state.popularDocumentList}
-                        renderItem={this.rendercatogory}
-                        numColumns={2}
-                        extraData={this.state}
-                        keyExtractor={(item, index) => index.toString()}
-                      />
-                      {!this.state.isAudioLastPage && (
-                        <MaterialIndicator color={PRIMARY_COLOR} size={20} />
-                      )}
-                    </View>
-                  )}
+                  />}
                 </ScrollView>
               )}
             {((this.props.isModuleListLoading &&
-              !this.state.info &&
-              !this.state.onLoadLoader) ||
-              (this.state.isAudioLoading &&
-                this.state.popularDocumentList &&
-                this.state.popularDocumentList.length == 0)) && (
+              !this.state.info ) ||
+              (this.state.isAudioLoading
+                ))&&this.props.moduleList?.length == 0 && (
               <View style={{position: 'absolute'}}>{this.loader()}</View>
             )}
-            {!this.props.isLastPage &&
-              this.props.isModuleListLoading &&
-              this.state.onLoadLoader && (
-                <MaterialIndicator color={PRIMARY_COLOR} size={20} />
+            {!this.props.isLastPage&&this.props.isModuleListLoading&&(
+                <MaterialIndicator style={styles.indicator} color={PRIMARY_COLOR} size={20} />
               )}
             {this.state.info && !this.state.article && (
               <View
@@ -798,6 +779,8 @@ const styles = StyleSheet.create({
   fullFlux: {
     flex: 1,
   },
+  indicator:
+  {position:'absolute',alignSelf:'center', bottom:50},
   webViewStyle: {
     height: height / 3.5,
     marginBottom: 10,

@@ -21,6 +21,11 @@ export function fetchSearchResult(
   subRadioValue,
   period,
   sortOrder,
+  subjectId,
+  listType,
+  authorId,
+  bookLanguage,
+  isAudioAvailable,
 ) {
   console.log('dsgfdhg', subRadioValue, option2);
   var SEARCH = [];
@@ -51,6 +56,11 @@ export function fetchSearchResult(
       period: period,
       sortOrder: sortOrder,
       language: locale,
+      subjectId: subjectId,
+      listType: listType,
+      authorId: authorId,
+      bookLanguage: bookLanguage,
+      isAudioAvailable:isAudioAvailable
     };
     if (true) {
       Api('get', SEARCH, params).then(response => {

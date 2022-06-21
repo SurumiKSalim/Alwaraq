@@ -41,7 +41,8 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {HeaderBackButton} from 'react-navigation-stack';
 import {LanguageList} from '../../../components/languageList';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import {fetchSearchResult, resetSearchResult} from '../../searchPage/actions';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const {height, width} = Dimensions.get('screen');
 const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
@@ -56,7 +57,7 @@ var encoded = '';
 const reportOptions = [
   {label: 'Library', index: 1},
   {label: 'Book_Names', index: 2},
-  {label:"authors",index:3}
+  {label: 'authors', index: 3},
 ];
 
 export class App extends React.Component {
@@ -142,7 +143,10 @@ export class App extends React.Component {
       listType: this.props.navigation.getParam('listType'),
       kind: data && data.kind,
       firstRadioValue: 1,
-      subjectId: data && data.subjectId,
+      isAudioAvailable: this.props.navigation.getParam('isAudioAvailable'),
+      subjectId: this.props.navigation.getParam('subjectId')
+        ? this.props.navigation.getParam('subjectId')
+        : data?.subjectId,
       subjectName: this.props.navigation.getParam('authorName')
         ? this.props.navigation.getParam('authorName')
         : data && data.subjectName
@@ -173,6 +177,7 @@ export class App extends React.Component {
         bookLanguage ? bookLanguage : this.state.bookLanguage,
         this.state.listType,
         this.state.authorId,
+        this.state.isAudioAvailable,
       ),
     );
   }
@@ -190,7 +195,6 @@ export class App extends React.Component {
   }
 
   onSearch() {
-      console.log('item',this.state.firstRadioValue)
     if (this.state.searchText !== '') {
       let language = this.props.locale == 'ar' ? 1 : 2;
       this.setState({modalVisible: false, isSearchPage: true});
@@ -199,25 +203,62 @@ export class App extends React.Component {
       var text = this.state.searchText;
       var bytes = utf8.encode(text);
       encoded = base64.encode(bytes);
-      this.props.dispatch(resetBookList());
-      this.props.dispatch(
-        fetchSearch(
-          encoded,
-          this.state.subjectId,
-          language,
-          this.state.listType,
-          this.state.authorId,
-          this.state.bookLanguage,
-          this.state.firstRadioValue
-        ),
-      );
+      console.log('firstRadioValue',this.state.firstRadioValue)
+      if (this.state.firstRadioValue==1) {
+        this.props.dispatch(resetSearchResult());
+        this.props.dispatch(
+          fetchSearchResult(
+            0,
+            1,
+            1,
+            encoded,
+            1,
+            null,
+            null,
+            this.state.subjectId,
+            this.state.listType,
+            this.state.authorId,
+            this.state.bookLanguage,
+            this.state.isAudioAvailable,
+          ),
+        );
+        this.props.navigation.push('SearchPage', {
+          firstRadioValue: 0,
+          secondRadioValue: 1,
+          wordFormRadio: 1,
+          encoded: encoded,
+          subRadioValue: 1,
+          periodId: null,
+          subjectId:this.state.subjectId,
+          listType:this.state.listType,
+          authorId:this.state.authorId,
+          bookLanguage:this.state.bookLanguage,
+          isAudioAvailable:this.state.isAudioAvailable,
+          fromBookList:true
+        });
+      } else {
+        this.props.dispatch(resetBookList());
+        this.props.dispatch(
+          fetchSearch(
+            encoded,
+            this.state.subjectId,
+            language,
+            this.state.listType,
+            this.state.authorId,
+            this.state.bookLanguage,
+            this.state.firstRadioValue,
+            this.state.isAudioAvailable,
+          ),
+        );
+      }
     }
   }
 
   onReport(item) {
-    if (this.state.firstRadioValue != item)
-        this.setState({ firstRadioValue: item, })
-}
+    if (this.state.firstRadioValue != item) {
+      this.setState({firstRadioValue: item});
+    }
+  }
 
   _dropdownOnSelect(idx, value) {
     console.log('idx', idx);
@@ -348,7 +389,7 @@ export class App extends React.Component {
               {
                 flexDirection:
                   this.props.locale == 'ar' ? 'row-reverse' : 'row',
-                marginHorizontal:20,
+                marginHorizontal: 20,
               },
             ]}>
             <MaterialCommunityIcons
@@ -486,8 +527,6 @@ export class App extends React.Component {
           animationInTiming={770}
           animationOutTiming={770}
           hideModalContentWhileAnimating={true}
-          animationInTiming={1000}
-          animationOutTiming={800}
           style={styles.bottomModal}>
           <View
             style={[styles.modal, {height: Platform.OS == 'ios' ? 240 : 220}]}>
@@ -868,10 +907,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   radioContainer: {
-      alignItems: 'center',
+    alignItems: 'center',
   },
   searchOptionText: {
     marginHorizontal: 5,
-    fontFamily: FONT_REGULAR
-},
+    fontFamily: FONT_REGULAR,
+  },
 });

@@ -42,6 +42,7 @@ const App = ({navigation,user,dispatch,route}) => {
     navigation.navigate('Profile');
   };
   const onVerify = () => {
+    if(code?.length == 4){
     setLoading(true);
     let formData = new FormData();
     formData.append('appId', 31);
@@ -60,6 +61,7 @@ const App = ({navigation,user,dispatch,route}) => {
         setError(response?.errormessage)
       }
     });
+  }
   };
 
   return (
@@ -76,7 +78,7 @@ const App = ({navigation,user,dispatch,route}) => {
           autoFocusOnLoad
           codeInputFieldStyle={styles.underlineStyleBase}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
-          onCodeFilled={(code) => {
+          onCodeChanged={(code) => {
             setCode(code);
           }}
         />
