@@ -44,6 +44,7 @@ export default {
     FREE_BOOKS:'Free Books',
     Japanese_Books:'Japanese Books',
     Shakespeare_Books: 'Shakespeare Books',
+    Translated_Books:'Translated Books',
     Author:'Authors',
     Other_Ev_Apps:'Other Ev Apps',
     Ev_Apps:'Ev Apps',

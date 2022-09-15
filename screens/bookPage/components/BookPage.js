@@ -161,6 +161,7 @@ class App extends Component {
       bookMarkModal: false,
       bookMarkList: [],
       bookMarkLoading: true,
+      encoded: this.props.navigation.getParam('item')?.searchtext,
       isbookMarkLastPage: true,
       bookNote: '',
       searchText: '',
@@ -250,21 +251,18 @@ class App extends Component {
     if (this.props.bookMark && this.props.bookMark.length > 0) {
       let obj = temp_arr.find((o, i) => {
         if (o.userId == userId) {
-          // console.log('temp_arr', temp_arr[i])
           // temp[i] = { name: 'new string', value: 'this', other: 'that' };
           let result =
             temp_arr &&
             temp_arr[i] &&
             temp_arr[i].bookMark &&
             temp_arr[i].bookMark.find((o, i) => {
-              console.log('aaa', o.bookId, this.state.bookId);
               if (parseInt(o.bookId) == parseInt(this.state.bookId)) {
                 o.page = this.state.page;
                 return true; // stop searching
               }
             });
           if (!result) {
-            console.log('zzzz', o.bookId, this.state.bookId);
             temp_arr &&
               temp_arr[i] &&
               temp_arr[i].bookMark &&
@@ -273,7 +271,6 @@ class App extends Component {
                 page: this.state.page,
               });
           }
-          console.log('result', result);
           this.props.dispatch(fetchBookMark(temp_arr));
           return true; // stop searching
         } else {
@@ -288,23 +285,13 @@ class App extends Component {
           this.props.dispatch(fetchBookMark(temp_arr));
         }
       });
-      // console.log('final', temp_arr, obj, temp_arr)
-      // if (obj) {
-      //     this.props.dispatch(fetchBookMark(obj))
-      // }
-      // else {
-      //     this.props.dispatch(fetchBookMark(temp_arr))
-      // }
     } else {
-      // console.log('temp111',this.props.bookMark,[{ userId: userId, bookMark: [{ bookId: this.state.bookId, page: this.state.page }] }])
-      // let newUser=[this.props.bookMark]
       let temp = [
         {
           userId: userId,
           bookMark: [{bookId: this.state.bookId, page: this.state.page}],
         },
       ];
-      // let temp = this.props.bookMark.length>0?newUser.push({ userId: userId, bookMark: [{ bookId: this.state.bookId, page: this.state.page }] }):[{ userId: userId, bookMark: [{ bookId: this.state.bookId, page: this.state.page }] }]
       this.props.dispatch(fetchBookMark(temp));
     }
     this.props.navigation.goBack();
@@ -387,7 +374,6 @@ class App extends Component {
           data: response.books[0],
           fromSearch: true,
         });
-        console.log('ha ha response', response.books[0]);
       }
     });
   }
@@ -422,7 +408,6 @@ class App extends Component {
   }
 
   toogleLanguageModal() {
-    // console.log('fff')
     if (this.state.translatedText) {
       this.setState({translatedText: '</div>'});
     }
@@ -430,7 +415,6 @@ class App extends Component {
   }
 
   pageTranlate(toLanguage) {
-    console.log('toLanguage', languageFormat[toLanguage]);
     // if (this.state.translatedText) {
     //     this.setState({ translatedText: null })
     // }
@@ -452,16 +436,12 @@ class App extends Component {
   }
 
   readBook() {
-    console.log('read');
     this.stopRead();
     if (
       !this.state.sound &&
       this.state.pageStriped &&
       this.state.pageStriped.length > 0
     ) {
-      // Api('get', BOOK_READ, { bookId: this.state.bookId, page: this.state.fromSearch ? this.state.fromSearchPageId : this.state.page }).then((response) => {
-      //     if (response) {
-      //         console.log('htmlllll', response)
       Tts.getInitStatus().then(() => {
         Tts.speak(this.state.pageStriped);
       });
@@ -514,11 +494,9 @@ class App extends Component {
 
   bookPageFetch(page) {
     this.setState({webLoad: true});
-    console.log('hhhh1', page, NEW_BOOK_PAGE);
     Api('get', NEW_BOOK_PAGE, {bookId: this.state.bookId, page: page}).then(
       response => {
         if (response) {
-          console.log('hhhh222', response, page);
           this.setState({
             htmlPage: response.page,
             pageAudioUrl: response.bookAudio,
@@ -530,13 +508,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('111111111111');
     this.bookPageFetch(this.state.page);
     if (!this.state.fromSearch) {
       this.getBookPage();
     }
     Tts.addEventListener('tts-finish', event => this.setState({read: true}));
-    console.log('bookId', this.state.bookId);
     this.props.navigation.setParams({
       radioValue: this.props.navigation.getParam('radioValue'),
       isAudioAvailable: this.state.isAudioAvailable,
@@ -565,7 +541,6 @@ class App extends Component {
   //         Api('get', inputUrl).then((response) => {
   //             this.setState({ pageAudioLoading: false })
   //             if (response && response.bookAudios) {
-  //                 console.log('Audio', response.bookAudios.length)
   //                 this.setState({
   //                     pageAudioUrl: response.bookAudios,
   //                     audioModal: true,
@@ -593,30 +568,32 @@ class App extends Component {
     this.setState({translatedText: null});
     this.stopRead();
     let page = parseInt(this.state.page) - 1;
-    console.log('page', this.state.pageIndex);
     if (this.state.page > 1) {
-      console.log('1qqq');
       this.setState({
         page: this.state.page - 1,
         pageIndex: parseInt(this.state.pageIndex) - 1,
       });
-      this.bookPageFetch(page);
+      if (!this.state.fromSearch) {
+        this.bookPageFetch(page);
+      }
     }
-    if (
-      this.state.fromSearch &&
-      page > 0 &&
-      this.props.navigation.getParam('item')
-    ) {
-      console.log('qqq');
-      this.props.dispatch(
-        fetchSearchBookPage(
-          this.props.navigation.getParam('item'),
-          this.props.navigation,
-          page,
-          this.props.navigation.getParam('radioValue'),
-        ),
-      );
-    } else if (this.state.fromSearch && this.state.page > 1) {
+    // if (
+    //   this.state.fromSearch &&
+    //   page > 0 &&
+    //   this.props.navigation.getParam('item')
+    // ) {
+    //   this.props.dispatch(
+    //     fetchSearchBookPage(
+    //       this.props.navigation.getParam('item'),
+    //       this.props.navigation,
+    //       page,
+    //       this.props.navigation.getParam('radioValue'),
+    //       null,
+    //       this.state.encoded,
+    //     ),
+    //   );
+    // }
+    if (this.state.fromSearch && this.state.page > 1) {
       this.onSearchPage(this.state.page - 1);
     }
   }
@@ -625,64 +602,75 @@ class App extends Component {
     this.setState({translatedText: null});
     this.stopRead();
     let page = parseInt(this.state.page) + 1;
-    console.log('page', this.state.pageIndex, page);
     if (this.state.page < parseInt(this.state.totalpages)) {
-      console.log('1111');
       this.setState({
         page: parseInt(this.state.page) + 1,
         pageIndex: parseInt(this.state.pageIndex) + 1,
       });
-      this.bookPageFetch(page);
+      if (!this.state.fromSearch) {
+        this.bookPageFetch(page);
+      }
     }
+    // if (
+    //   this.state.fromSearch &&
+    //   page <= this.state.totalpages &&
+    //   this.props.navigation.getParam('item')
+    // ) {
+    //   this.props.dispatch(
+    //     fetchSearchBookPage(
+    //       this.props.navigation.getParam('item'),
+    //       this.props.navigation,
+    //       page,
+    //       this.props.navigation.getParam('radioValue'),
+    //       null,
+    //       this.state.encoded
+    //     ),
+    //   );
+    // }
     if (
-      this.state.fromSearch &&
-      page <= this.state.totalpages &&
-      this.props.navigation.getParam('item')
-    ) {
-      console.log('222');
-      this.props.dispatch(
-        fetchSearchBookPage(
-          this.props.navigation.getParam('item'),
-          this.props.navigation,
-          page,
-          this.props.navigation.getParam('radioValue'),
-        ),
-      );
-    } else if (
       this.state.fromSearch &&
       this.state.page < parseInt(this.state.totalpages)
     ) {
-      console.log('3333');
       this.onSearchPage(this.state.page + 1);
     }
   }
 
   leftMost() {
+    console.log('item', this.state.page, this.state.totalpages);
     this.stopRead();
     this.setState({
       page: this.state.totalpages,
       pageIndex: this.state.totalpages - 1,
       translatedText: null,
     });
-    this.bookPageFetch(this.state.totalpages);
     if (
-      this.state.fromSearch &&
-      this.state.page < parseInt(this.state.totalpages) &&
-      this.props.navigation.getParam('item')
+      !this.state.fromSearch &&
+      this.state.page < parseInt(this.state.totalpages)
     ) {
-      this.props.dispatch(
-        fetchSearchBookPage(
-          this.props.navigation.getParam('item'),
-          this.props.navigation,
-          this.state.totalpages,
-          this.props.navigation.getParam('radioValue'),
-        ),
-      );
+      console.log('22qq');
+      this.bookPageFetch(this.state.totalpages);
     }
+    // if (
+    //   this.state.fromSearch &&
+    //   this.state.page < parseInt(this.state.totalpages) &&
+    //   this.props.navigation.getParam('item')
+    // ) {
+    //   this.props.dispatch(
+    //     fetchSearchBookPage(
+    //       this.props.navigation.getParam('item'),
+    //       this.props.navigation,
+    //       this.state.totalpages,
+    //       this.props.navigation.getParam('radioValue'),
+    //       null,
+    //       this.state.encoded,
+    //     ),
+    //   );
+    // }
     if (
       this.state.fromSearch &&
       this.state.page < parseInt(this.state.totalpages)
     ) {
+      console.log('qqqq');
       this.onSearchPage(parseInt(this.state.totalpages));
     }
   }
@@ -691,21 +679,25 @@ class App extends Component {
     // this.setState({translatedText:null})
     this.stopRead();
     this.setState({page: 1, pageIndex: 0, translatedText: null});
-    this.bookPageFetch(1);
-    if (
-      this.state.fromSearch &&
-      this.state.page > 1 &&
-      this.props.navigation.getParam('item')
-    ) {
-      this.props.dispatch(
-        fetchSearchBookPage(
-          this.props.navigation.getParam('item'),
-          this.props.navigation,
-          1,
-          this.props.navigation.getParam('radioValue'),
-        ),
-      );
+    if (!this.state.fromSearch&&this.state.page > 1) {
+      this.bookPageFetch(1);
     }
+    // if (
+    //   this.state.fromSearch &&
+    //   this.state.page > 1 &&
+    //   this.props.navigation.getParam('item')
+    // ) {
+    //   this.props.dispatch(
+    //     fetchSearchBookPage(
+    //       this.props.navigation.getParam('item'),
+    //       this.props.navigation,
+    //       1,
+    //       this.props.navigation.getParam('radioValue'),
+    //       null,
+    //       this.state.encoded,
+    //     ),
+    //   );
+    // }
     if (this.state.fromSearch && this.state.page > 1) {
       this.onSearchPage(1);
     }
@@ -770,30 +762,34 @@ class App extends Component {
     this.stopRead();
     // this.setState({ page: this.state.totalpages})
     if (txt > 0 && txt <= this.state.totalpages && !this.state.fromSearch) {
-      console.log('hjdefsdfgs', txt, this.state.totalpages);
       this.setState({
         page: txt,
         visible: false,
         invaliedPage: false,
         pageIndex: txt - 1,
       });
-      this.bookPageFetch(txt);
+
+      if (!this.state.fromSearch) {
+        this.bookPageFetch(txt);
+      }
     }
-    if (
-      this.state.fromSearch &&
-      txt <= parseInt(this.state.totalpages) &&
-      this.props.navigation.getParam('item')
-    ) {
-      this.setState({page: txt, visible: false, invaliedPage: false});
-      this.props.dispatch(
-        fetchSearchBookPage(
-          this.props.navigation.getParam('item'),
-          this.props.navigation,
-          txt,
-          this.props.navigation.getParam('radioValue'),
-        ),
-      );
-    }
+    // if (
+    //   this.state.fromSearch &&
+    //   txt <= parseInt(this.state.totalpages) &&
+    //   this.props.navigation.getParam('item')
+    // ) {
+    //   this.setState({page: txt, visible: false, invaliedPage: false});
+    //   this.props.dispatch(
+    //     fetchSearchBookPage(
+    //       this.props.navigation.getParam('item'),
+    //       this.props.navigation,
+    //       txt,
+    //       this.props.navigation.getParam('radioValue'),
+    //       null,
+    //       this.state.encoded,
+    //     ),
+    //   );
+    // }
     if (this.state.fromSearch && txt < parseInt(this.state.totalpages)) {
       this.setState({page: txt, visible: false, invaliedPage: false});
       this.onSearchPage(txt);
@@ -804,15 +800,12 @@ class App extends Component {
 
   goToBook(pageInfo) {
     this.setState({translatedText: null});
-    console.log('gagg', this.state.exsearchpage);
     this.stopRead();
     let formdata = new FormData();
     formdata.append('bookId', this.state.bookId);
     Api('get', DOCUMENT_INFOS, {bookId: this.state.bookId}).then(response => {
-      console.log('response', response);
       if (response) {
         Api('post', IS_BOOK_BOUGHT, formdata).then(res => {
-          console.log('1234', this.state.exsearchpage);
           if (res) {
             if (
               response.books[0].inapp_free == 0 ||
@@ -1311,31 +1304,21 @@ class App extends Component {
   );
 
   onSearchPage(page) {
-    console.log('111', page);
+    console.log('entered', this.state.encoded);
     this.setState({searchVisible: false, webLoad: true, translatedText: null});
     var base64 = require('base-64');
     var utf8 = require('utf8');
     var text = this.state.searchText;
     var bytes = utf8.encode(text);
     var encoded = base64.encode(bytes);
-    console.log(
-      '2222',
-      encoded,
-      SEARCH_BOOK_PAGE,
-      this.state.bookId,
-      this.state.wordFormRadio,
-      parseInt(this.state.secondRadioValue),
-      page ? page : 1,
-      encoded,
-      this.state.totalpages,
-    );
     // this.props.dispatch(fetchSearchBookPage(this.props.navigation.getParam('data'), this.props.navigation, 1, 0, this.state.secondRadioValue, this.state.wordFormRadio, encoded))
     Api('get', SEARCH_BOOK_PAGE, {
       book: this.state.bookId,
       WordForm: this.state.wordFormRadio,
       option: parseInt(this.state.secondRadioValue),
       offset: page ? page : 1,
-      searchtext: encoded,
+      searchtext:
+        this.state.searchText?.length > 0 ? encoded : this.state.encoded,
       totalpages: this.state.totalpages,
     }).then(response => {
       if (response) {
@@ -1348,7 +1331,6 @@ class App extends Component {
           totalpages: response.exsearchpage[0].totalSearchPages,
           fromSearchPageId: response.exsearchpage[0].pageid,
         });
-        console.log('response', response);
       } else {
       }
     });
@@ -1447,7 +1429,7 @@ class App extends Component {
         <View>
           <TouchableOpacity
             style={styles.buyContainer}
-            onPress={() => this.onSearchPage()}>
+            onPress={() =>this.state.searchText?.trim()&& this.onSearchPage()}>
             <Text style={styles.buyText}>{I18n.t('Search')}</Text>
           </TouchableOpacity>
         </View>

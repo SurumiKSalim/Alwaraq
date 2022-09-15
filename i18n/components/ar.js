@@ -41,6 +41,7 @@ export default {
     FREE_BOOKS:'كتب مجانية',
     Japanese_Books:'كتب يابانية',
     Shakespeare_Books:'أعمال شكسبير',
+    Translated_Books:'كتب مترجمة',
     Author:'المؤلفون',
     Other_Ev_Apps:'تطبيقات أخرى لنا',
     Ev_Apps:'تطبيقات القرية الالكترونية',

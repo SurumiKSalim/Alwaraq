@@ -130,6 +130,10 @@ class SideMenu extends Component {
                             <SimpleLineIcons name='book-open' style={styles.iconContainer} size={20} color={TITLE_COLOR} />
                             <Text style={styles.title}>{I18n.t("Shakespeare_Books")}</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BookList', { listType: 'translated', authorName: I18n.t("Translated_Books") })} style={styles.content}>
+                            <SimpleLineIcons name='book-open' style={styles.iconContainer} size={20} color={TITLE_COLOR} />
+                            <Text style={styles.title}>{I18n.t("Translated_Books")}</Text>
+                        </TouchableOpacity>
 
                         <View style={styles.seperator} />
 

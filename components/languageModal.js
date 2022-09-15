@@ -126,8 +126,8 @@ const styles = StyleSheet.create({
         marginHorizontal: -25,
         marginTop: -25,
         backgroundColor: '#fff',
-        borderTopRightRadius: 45,
-        borderTopLeftRadius: 45,
+        borderTopRightRadius: 25,
+        borderTopLeftRadius: 25,
         height: 350
     },
     content: {

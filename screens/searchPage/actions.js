@@ -85,6 +85,7 @@ export function fetchSearchBookPage(
   page,
   firstRadioValue,
   pageNo,
+  encoded
 ) {
   console.log('hdbshb 111', item);
   var BOOK_PAGE = [];
@@ -102,7 +103,7 @@ export function fetchSearchBookPage(
       WordForm: 1,
       option: item && parseInt(item.searchoption),
       offset: page ? page : parseInt(item.searchoffset),
-      searchtext: item.searchtext,
+      searchtext: encoded?encoded:item.searchtext,
       book: parseInt(item.bookid),
       totalpages: parseInt(item.totalpages),
       searchcolumn: parseInt(item.searchcolumn),
