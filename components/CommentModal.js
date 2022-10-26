@@ -163,7 +163,7 @@ class App extends Component {
                             </ScrollView>
                         </View>
                         {this.state.isCommentLoading &&
-                            <BarIndicator style={{ position: 'absolute', top: 0, bottom: 0, width: width }} color='red' size={34} />}
+                            <BarIndicator style={{ position: 'absolute', top: 0, bottom: 0, width: width }} color={PRIMARY_COLOR} size={34} />}
                     </KeyboardAwareScrollView>
                 </Modal>
             </View>
