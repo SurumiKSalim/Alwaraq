@@ -279,7 +279,7 @@ export class TabViewExample extends React.Component {
         super(props)
         this.state = {
             value: 0,
-            index: 2,
+            index: 1,
             size: { width, height },
             routes: [
                 { key: 'third', title: I18n.t("Contemporary") },
