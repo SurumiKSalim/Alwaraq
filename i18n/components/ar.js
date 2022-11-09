@@ -267,6 +267,7 @@ export default {
     SUCCESS:' تمت العملية بنجاح',
     Ok:'موافق',
     Edit_Email:'Edit Email',
+    Report_Description:'Thanks for your report. We will remove this content if it violates our community guidelines.',
 
 
     EV_Account: 'تسجيل الدخول عبر حساب القرية الإلكترونية ',

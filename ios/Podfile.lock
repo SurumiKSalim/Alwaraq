@@ -436,6 +436,9 @@ PODS:
     - React
   - react-native-progress-view (1.3.1):
     - React-Core
+  - react-native-simple-toast (1.1.4):
+    - React-Core
+    - Toast (~> 4.0.0)
   - react-native-slider (2.0.9):
     - React
   - react-native-splash-screen (3.3.0):
@@ -561,6 +564,7 @@ PODS:
     - React
   - TextToSpeech (2.0.0):
     - React
+  - Toast (4.0.0)
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -620,6 +624,7 @@ DEPENDENCIES:
   - react-native-pdf (from `../node_modules/react-native-pdf`)
   - "react-native-progress-bar-android (from `../node_modules/@react-native-community/progress-bar-android`)"
   - "react-native-progress-view (from `../node_modules/@react-native-community/progress-view`)"
+  - react-native-simple-toast (from `../node_modules/react-native-simple-toast`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-video (from `../node_modules/react-native-video`)
@@ -696,6 +701,7 @@ SPEC REPOS:
     - OpenSSL-Universal
     - PromisesObjC
     - Protobuf
+    - Toast
     - TOCropViewController
     - YogaKit
 
@@ -754,6 +760,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/progress-bar-android"
   react-native-progress-view:
     :path: "../node_modules/@react-native-community/progress-view"
+  react-native-simple-toast:
+    :path: "../node_modules/react-native-simple-toast"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
   react-native-splash-screen:
@@ -890,6 +898,7 @@ SPEC CHECKSUMS:
   react-native-pdf: 909cd849e6a806731b2135263189fea39494b55e
   react-native-progress-bar-android: ce95a69f11ac580799021633071368d08aaf9ad8
   react-native-progress-view: 11298da10e13c29bd28042bc0f284d9868f5da18
+  react-native-simple-toast: 4f6a5b31f7a03bace3388fe9477b4db3de221bdd
   react-native-slider: b34d943dc60deb96d952ba6b6b249aa8091e86da
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-video: 77ce22be7abff9e373527ca10106a99dea3ba56c
@@ -923,10 +932,11 @@ SPEC CHECKSUMS:
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   TextToSpeech: 4e2fc50c7495416c6da5a1662ad3f750c58d3c85
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: 9b6696970c3289e8dea34b3eda93f23e61fb8121
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 1d5f28ea7d9b38889360ef5b463b0c49621fed96
+PODFILE CHECKSUM: b5c7897013134fdc06129f6481595c3b23ce389c
 
 COCOAPODS: 1.11.2

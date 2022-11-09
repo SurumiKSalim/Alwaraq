@@ -248,7 +248,6 @@ class App extends Component {
                                   font-size: 20px;
                                 }
                               `}
-                                scrollEnabled={false}
                                 mixedContentMode="compatibility"
                                 source={{ html: articles && articles.body }}
                             />

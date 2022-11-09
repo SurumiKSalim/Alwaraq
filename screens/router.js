@@ -58,6 +58,7 @@ import TermsConditions from './termsConditions'
 import PublicationsDetails from './publicationsDetails'
 import Articles from './articles'
 import Cart from './cart'
+import ReportPage from './reportPage'
 
 const HomeStack = createStackNavigator({
   Home: {
@@ -385,6 +386,12 @@ const RootStack = createStackNavigator({
   },
   AboutUs: {
     screen: AboutUs,
+  },
+  ReportPage: {
+    screen: ReportPage,
+    navigationOptions: ({ navigation }) => ({
+      headerTintColor:PRIMARY_COLOR
+    })
   },
   SearchPage: {
     screen: SearchPage

@@ -21,6 +21,7 @@ const CONTACT_US                = USER_HOST + '/json_contactus.php'
 const CHANGE_EMAIL              = USER_HOST + '/json_user_changeEmail'
 const SEND_OTP                  = USER_HOST + '/json_sendOtp'
 const USER_DELETE               = USER_HOST + '/json_user_deleteUser'
+const BAD_COMMENTS              = USER_HOST + '/json_register_badcomments.php'
 
 const QURAN                     = HOST + '/json_quranpage.php'
 const QURAN_CONTENTS            = HOST + '/json_surainfos'
@@ -105,6 +106,7 @@ export {
     CHANGE_EMAIL,
     SEND_OTP,
     USER_DELETE,
+    BAD_COMMENTS,
     
     QURAN,
     QURAN_CONTENTS,

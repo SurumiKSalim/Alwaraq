@@ -262,6 +262,7 @@ export default {
     SUCCESS:'SUCCESS',
     Ok: 'Ok',
     Edit_Email:'Edit Email',
+    Report_Description:'Thanks for your report. We will remove this content if it violates our community guidelines.',
 
     
     EV_Account: 'EV Account Login',

@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
+import {store} from '../common/store';
 import {connect} from 'react-redux';
+import Toast from 'react-native-simple-toast';
 import {
   PRIMARY_COLOR,
   SECONDARY_COLOR,
@@ -48,6 +50,7 @@ class App extends Component {
     this.editcomment = this.editcomment.bind(this);
     this.deletecomment = this.deletecomment.bind(this);
     this.emptyComment = this.emptyComment.bind(this);
+    this.navToReportPage = this.navToReportPage.bind(this);
   }
 
   dropDown(rowData, rowID, highlighted, index) {
@@ -60,6 +63,16 @@ class App extends Component {
         </TouchableOpacity>
       </View>
     );
+  }
+
+  navToReportPage() {
+    let user = store.getState().userLogin.user;
+    if (user) {
+      this.props.modalClose();
+      this.props.navigation.navigate('ReportPage', {item: this.state.item});
+    } else {
+      Toast.show('Please login to continue');
+    }
   }
 
   Select(rowID, index) {
@@ -174,7 +187,6 @@ class App extends Component {
                 </Text>
               </View>
               <View style={styles.textContainer}>
-                {/* <Text style={styles.name}>{this.state.item.fullName}</Text> */}
                 <Hyperlink
                   linkStyle={{color: '#0000EE', fontStyle: 'italic'}}
                   onPress={(url, text) => this.openLink(url)}>
@@ -182,7 +194,14 @@ class App extends Component {
                     <Text style={styles.textComment}>{this.state.comment}</Text>
                   </Text>
                 </Hyperlink>
-                <Text style={styles.time}>{this.state.item.commentDate}</Text>
+                <View style={styles.report}>
+                  <Text style={styles.time}>{this.state.item.commentDate}</Text>
+                  {!this.state.item.isOwner && (
+                    <TouchableOpacity onPress={() => this.navToReportPage()}>
+                      <Text style={styles.reportText}>Report</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
             </View>
           )}
@@ -342,10 +361,19 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     marginVertical: 5,
   },
+  report: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   time: {
     fontSize: 13,
     fontFamily: FONT_SECONDARY,
     color: '#A2A2A2',
+  },
+  reportText: {
+    fontSize: 13,
+    fontFamily: FONT_SECONDARY,
+    color: '#0062cc',
   },
   delete: {
     alignItems: 'center',

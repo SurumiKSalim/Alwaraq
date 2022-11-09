@@ -48,9 +48,6 @@ import {
   BarIndicator,
 } from 'react-native-indicators';
 import DateCalc from '../../../components/DateCalc';
-import {fetchSearchBookPage} from '../../searchPage/actions';
-import ModalDropdown from 'react-native-modal-dropdown';
-import VideoPlayer from 'react-native-video-controls';
 import Api from '../../../common/api';
 import Tts from 'react-native-tts';
 import I18n from '../../../i18n';

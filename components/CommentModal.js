@@ -62,6 +62,7 @@ class App extends Component {
     };
     this.commentsFetch = this.commentsFetch.bind(this);
     this.modalClose = this.modalClose.bind(this);
+    this.modalCloseOnReport = this.modalCloseOnReport.bind(this);
     console.log('book', this.props.book);
   }
 
@@ -78,6 +79,11 @@ class App extends Component {
   modalClose() {
     this.setState({page: 1});
     this.props.dispatch(fetchCommentModal(true));
+  }
+
+  modalCloseOnReport() {
+    this.setState({page: 1});
+    this.props.dispatch(fetchCommentModal(false));
   }
 
   commentsFetch(action, comment, commentId, item, page) {
@@ -260,6 +266,8 @@ class App extends Component {
                       index={index}
                       commentsFetch={this.commentsFetch}
                       id={this.state.book.bookid}
+                      navigation={this.props.navigation}
+                      modalClose={this.modalCloseOnReport}
                     />
                   )}
                 />

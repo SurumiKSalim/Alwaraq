@@ -37,7 +37,7 @@ const App = ({
           <ScrollView showsVerticalScrollIndicator={false} style={styles.modalHeader}>
             <Text style={styles.heading}>{header}</Text>
             <View style={styles.seperator}/>
-            <DynamicText style={styles.modalText}>{title}</DynamicText>
+            <DynamicText textAlign={'center'} style={styles.modalText}>{title}</DynamicText>
           </ScrollView>
           <View style={styles.modalFooter}>
           {closeModal&&

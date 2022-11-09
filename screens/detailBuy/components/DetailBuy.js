@@ -1246,6 +1246,8 @@ class App extends Component {
                 modalAction={this.props.modalAction}
                 movieId={this.state.bookId}
                 book={data}
+                navigation={this.props.navigation}
+                modalClose={this.modalClose}
               />
             )}
             {!this.props.modalAction && (
@@ -1254,6 +1256,8 @@ class App extends Component {
                 modalAction={this.props.modalAction}
                 movieId={this.state.bookId}
                 book={data}
+                navigation={this.props.navigation}
+                modalClose={this.modalClose}
               />
             )}
             {/* <CommentModal goToLogin={this.goToLogin} modalAction={this.props.modalAction} movieId={this.state.bookId} book={data} /> */}
