@@ -174,6 +174,7 @@ class App extends Component {
     let email = this.props.user ? this.props.user.email : null;
     this.props.dispatch(updateSubscrition(email));
     if (Platform.OS === "android") {
+      const result = await RNIap.initConnection();
       const purchases = await RNIap.getAvailablePurchases();
       if (purchases && purchases[0]) {
         if (!purchases[0].isAcknowledgedAndroid) {

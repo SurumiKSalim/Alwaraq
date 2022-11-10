@@ -148,10 +148,11 @@ android {
         applicationId "com.evillage.alwaraq"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 106
+        versionCode 108
         versionName "1.0"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
+        missingDimensionStrategy 'store', 'play'
     }
     splits {
         abi {

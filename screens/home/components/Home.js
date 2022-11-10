@@ -47,6 +47,7 @@ import {ImageBackground} from 'react-native';
 import LanguageModal from '../../../components/languageModal';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ToolTip from '../../../components/toolTip';
+import AdsPopUp from '../../../components/AdsPopUp';
 import {copilot, walkthroughable, CopilotStep} from 'react-native-copilot';
 
 const CopilotText = walkthroughable(Text);
@@ -824,6 +825,8 @@ export class TabViewExample extends React.Component {
           labelStyle={styles.labelStyle}
           initialLayout={{width: Dimensions.get('window').width}}
         />
+        {!this.props.isFirstLogin&&
+        <AdsPopUp navigation={this.props.navigation}/>}
         <LanguageModal />
       </SafeAreaView>
     );

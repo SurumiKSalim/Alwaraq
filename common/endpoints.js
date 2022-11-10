@@ -54,6 +54,7 @@ const PUBLISHER                 = HOST + '/json_publisherList.php'
 const BUY_NOW                   = HOST + '/json_order_form.php'
 const COMMENTS_FORM             = HOST + '/book_comment_form.php'
 const LIKE_FORM                 = HOST + '/book_like_form.php'
+const HOME_NOTIFICATION         = HOST + '/json_home_notification.php'
 
 const BOOK_BOUGHT               = HOST + '/json_book_bought.php'
 const IS_BOOK_BOUGHT            = HOST + '/json_isBought_book.php'
@@ -139,6 +140,7 @@ export {
     BUY_NOW,
     COMMENTS_FORM,
     LIKE_FORM,
+    HOME_NOTIFICATION,
 
     BOOK_BOUGHT,
     IS_BOOK_BOUGHT,
