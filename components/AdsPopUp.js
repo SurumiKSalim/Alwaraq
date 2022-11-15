@@ -1,21 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {LinearTextGradient} from 'react-native-text-gradient';
 import {
   View,
   Text,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  ImageBackground,
+  Image,
 } from 'react-native';
-import Carousel from 'react-native-looped-carousel-improved';
+import LinearGradient from 'react-native-linear-gradient'
+import Carousel from 'react-native-snap-carousel'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Modal from 'react-native-modal';
 import {HOME_NOTIFICATION} from '../common/endpoints';
 import Api from '../common/api';
 import {PRIMARY_COLOR} from '../assets/color';
 import I18n from '../i18n';
-import {FONT_REGULAR} from '../assets/fonts';
+import {FONT_MEDIUM, FONT_REGULAR, FONT_SEMIBOLD} from '../assets/fonts';
 
 const {width, height} = Dimensions.get('window');
 const App = ({navigation}) => {
@@ -44,6 +44,30 @@ const App = ({navigation}) => {
     navigation.navigate('Detailbuy', {bookId: item?.bookid});
   };
 
+  
+  const _renderItem = ({item,index}) => {
+    console.log('_renderItem',item)
+    return(
+    <View style={styles.modalHeader}>
+                <Image
+                  resizeMode="stretch"
+                  style={styles.imgStyle}
+                  source={{uri: item?.coverImage}}
+                />
+                <View style={styles.content}>
+                    <Text numberOfLines={1} style={styles.title}>{item?.name}</Text>
+                    <Text numberOfLines={1} style={styles.subTitle}>{item?.author}</Text>
+                    <Text numberOfLines={2} style={styles.desc}>{item?.addinfo}</Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => onSubmit(item)}
+                  style={styles.footer}>
+                  <Text style={styles.footerText}>{I18n.t('Read_now')}</Text>
+                </TouchableOpacity>
+              </View>
+  )
+  }
+
   const renderItem = () => {
     console.log('Carousel', data);
     return (
@@ -56,38 +80,13 @@ const App = ({navigation}) => {
           onPress={() => setVisible(false)}
         />
         <Carousel
-          autoplay={false}
-          delay={2000}
-          style={{width: '100%', height: '100%'}}>
-          {data?.map(item => {
-            return (
-              <View style={styles.modalHeader}>
-                <ImageBackground
-                  blurRadius={0}
-                  borderRadius={10}
-                  resizeMode="stretch"
-                  style={styles.imgStyle}
-                  source={{uri: item?.coverImage}}
-                />
-                <View style={styles.content}>
-                  {/* <LinearTextGradient
-                    style={{fontWeight: 'bold', fontSize: 72}}
-                    locations={[0, 1]}
-                    colors={['red', 'blue']}
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}>
-                    THIS IS TEXT GRADIENT
-                  </LinearTextGradient> */}
-                </View>
-                <TouchableOpacity
-                  onPress={() => onSubmit(item)}
-                  style={styles.footer}>
-                  <Text style={styles.footerText}>{I18n.t('Read_now')}</Text>
-                </TouchableOpacity>
-              </View>
-            );
-          })}
-        </Carousel>
+              data={data}
+              autoplay
+              loop
+              renderItem={_renderItem}
+              sliderWidth={width * 0.85}
+              itemWidth={width * 0.85}
+            />
       </View>
     );
   };
@@ -131,8 +130,12 @@ const styles = StyleSheet.create({
     width: width * 0.85,
   },
   imgStyle: {
-    height: height * 0.8 - 180,
+    height: height * 0.8 - 250,
     width: width * 0.85,
+    backgroundColor:'#fff',
+    borderRadius:10
+    // borderTopLeftRadius:10,
+    // borderTopRightRadius:10
   },
   footer: {
     backgroundColor: PRIMARY_COLOR,
@@ -142,13 +145,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  titleWrapper: {
-    marginVertical: 10,
-    padding: 10,
-  },
   title: {
     fontSize: 18,
+    color: PRIMARY_COLOR,
+    marginVertical:8,
+    fontFamily:FONT_SEMIBOLD,
+    textAlign: 'center',
+  },
+  subTitle: {
+    fontSize: 16,
     color: '#fff',
+    fontFamily:FONT_MEDIUM,
+    textAlign: 'center',
+  },
+  desc: {
+    fontSize: 14,
+    color: '#fff',
+    marginTop:5,
+    fontFamily:FONT_REGULAR,
     textAlign: 'center',
   },
   footerText: {
@@ -161,6 +175,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   content: {
-    height: 100,
+    height: 120,
   },
 });

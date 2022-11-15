@@ -560,8 +560,6 @@ PODS:
     - React-Core
   - RNSVG (12.1.1):
     - React
-  - RNTextGradientView (0.1.7):
-    - React
   - RNVectorIcons (7.1.0):
     - React
   - TextToSpeech (2.0.0):
@@ -658,7 +656,6 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
-  - RNTextGradientView (from `../node_modules/react-native-text-gradient`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - TextToSpeech (from `../node_modules/react-native-tts`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -827,8 +824,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-share"
   RNSVG:
     :path: "../node_modules/react-native-svg"
-  RNTextGradientView:
-    :path: "../node_modules/react-native-text-gradient"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   TextToSpeech:
@@ -935,7 +930,6 @@ SPEC CHECKSUMS:
   RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
   RNShare: 7e22ba3bf66294ff7c122a1f2da8a8ec642091a0
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
-  RNTextGradientView: 3eb4744303f801546fad35ac47a53cc82257cb25
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   TextToSpeech: 4e2fc50c7495416c6da5a1662ad3f750c58d3c85
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196

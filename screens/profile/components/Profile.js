@@ -58,6 +58,7 @@ import {PROMO_COUNTER, HELP_AND_SUPPORT} from '../../../common/endpoints';
 import Api from '../../../common/api';
 import UserDeletion from '../../../components/UserDeletion';
 import EmailEditor from '../../../components/EmailEditor';
+import Toast from 'react-native-simple-toast';
 
 const options = [
   {
@@ -320,10 +321,11 @@ class App extends Component {
       Api('post', PROMO_COUNTER, formdata).then(response => {
         this.setState({promoLoading: false});
         this.props.dispatch(promoSubscription(response));
-        if (response.isPremium) {
+        if (response?.statusCode == 200) {
           this.setState({selection: 4});
         } else {
           this.setState({selection: 5});
+          Toast.show(response?.errormessage);
         }
       });
     }

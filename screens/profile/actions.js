@@ -19,7 +19,7 @@ export function postChangePassword(body) {
     return function (dispatch) {
         dispatch({ type: 'CHANGE_PASSWORD' })
         Api('post', CHANGE_PASSWORD, formdata).then((response) => {
-            if (response.status == true) {
+            if (response?.statusCode== 200) {
                 dispatch({ type: 'CHANGE_PASSWORD_SUCCESS', response: response })
                 Alert.alert('Password Changed Successfully',
                     '',
@@ -29,8 +29,16 @@ export function postChangePassword(body) {
                     { cancelable: false },
                 )
             }
-            else
+            else{
                 dispatch({ type: 'CHANGE_PASSWORD_FAILED', response: response })
+                Alert.alert(response?.errormessage,
+                    '',
+                    [
+                        { text: 'OK', },
+                    ],
+                    { cancelable: false },
+                )
+            }
         })
     }
 }

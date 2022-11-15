@@ -76,10 +76,6 @@ class App extends Component {
           onPress={() => params.this.goBack()}
         />
       ),
-      // headerTitle: (
-      //     <View style={styles.header}>
-      //         <Image style={styles.logo} source={Images.headerName} resizeMode='contain' />
-      //     </View>),
       headerRight: (
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity
@@ -1863,7 +1859,7 @@ class App extends Component {
             </View>
           </Modal>
           <Modal
-            isVisible={this.state.languageModal}
+            isVisible={this.state.languageModal }
             hideModalContentWhileAnimating={true}
             animationIn="zoomIn"
             animationOut="zoomOut"
@@ -2269,6 +2265,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     maxHeight: height * 0.8,
+  },
+  modalHeaderLinks:{
+    maxHeight: height * 0.7,
   },
   header: {
     alignItems: 'center',

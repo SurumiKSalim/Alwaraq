@@ -13,7 +13,6 @@ const App = ({ height, msg }) => {
     return (
         <View style={[styles.container, { height: height }]}>
             <Entypo
-                onPress={() => navigation.toggleDrawer()}
                 name='emoji-sad'
                 color={TEXT_BLACK_COLOR}
                 size={50} />

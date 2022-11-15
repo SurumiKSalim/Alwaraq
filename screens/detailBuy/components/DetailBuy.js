@@ -168,6 +168,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     let data = this.props.navigation.getParam('data', null);
+    let bookId =this.props.navigation.getParam('bookId')
     let dataKey = [
       'publisher',
       'publishingdate',
@@ -196,14 +197,6 @@ class App extends Component {
         zoom: 5,
       },
     ];
-    // var url = Platform.select({
-    //     ios: `${scheme}${label}@${latLng}`,
-    //     android: `${scheme}${latLng}(${label})`
-    // });
-    //  var url = Platform.select({
-    //     ios: `${scheme}${label}@${latLng}`,
-    //     android: `${scheme}${latLng}(${label})`
-    // });
     this.state = {
       percent: 0,
       popularDocumentList: '',
@@ -214,7 +207,7 @@ class App extends Component {
       videoBook: data && data.bookVideos,
       isAudioAvailable: data && data.isAudioAvailable,
       isVideoAvailable: data && data.isVideoAvailable,
-      bookId: data && data.bookid,
+      bookId:bookId?bookId:data?.bookid,
       videoModal: false,
       maxLimit: false,
       isVideo: false,
@@ -389,7 +382,7 @@ class App extends Component {
   addLike(initialFetch) {
     if (!this.props.isLoading) {
       let formdata = new FormData();
-      formdata.append('bookId', this.state.data && this.state.data.bookid);
+      formdata.append('bookId', this.state.bookId);
       if (!initialFetch) {
         formdata.append('action', this.props.isLiked ? 'delete' : 'add');
       }
@@ -510,7 +503,7 @@ class App extends Component {
         this.props.dispatch(
           fetchAddFavourites(
             actions,
-            this.state.data && this.state.data.bookid,
+            this.state.bookId,
           ),
         );
         if (actions == 'add') {
@@ -527,7 +520,7 @@ class App extends Component {
   checkFavourites() {
     if (this.props.user) {
       Api('get', CHECK_FAVOURITES, {
-        bookId: this.state.data && this.state.data.bookid,
+        bookId: this.state.bookId,
       }).then(response => {
         if (response) {
           this.setState({isFavouriste: response.isFavouriste});
@@ -540,7 +533,7 @@ class App extends Component {
   checkBookBought() {
     if (this.props.user) {
       let formdata = new FormData();
-      formdata.append('bookId', this.state.data && this.state.data.bookid);
+      formdata.append('bookId', this.state.bookId);
       Api('post', IS_BOOK_BOUGHT, formdata).then(async response => {
         if (response) {
           this.setState({
@@ -678,13 +671,13 @@ class App extends Component {
     // let bookId=data.bookId
     if (!this.state.downloadStop) {
       let totalpages = this.state.data && this.state.data.totalpages;
-      if (!this.props.offlinebook.find(o => o.bookid == data.bookid) || loop) {
+      if (!this.props.offlinebook.find(o => o.bookid == this.state.bookId) || loop) {
         let page = this.props.page ? this.props.page : 1;
         if (reset) {
           this.props.dispatch(resetBookDownload());
           page = 1;
         }
-        Api('get', OFFLINE_DOWNLOAD, {book: data.bookid, page: page}).then(
+        Api('get', OFFLINE_DOWNLOAD, {book: this.state.bookId, page: page}).then(
           response => {
             let percent =
               this.props.page / (totalpages / 10) < 1
@@ -692,7 +685,7 @@ class App extends Component {
                 : 1;
             this.setState({percent: percent});
             if (response) {
-              this.props.dispatch(fetchBookDownload(response, data.bookid));
+              this.props.dispatch(fetchBookDownload(response, this.state.bookId));
               if (this.props.isLastPage == false) {
                 this.bookDownload(data, false, true);
               } else {
@@ -700,7 +693,7 @@ class App extends Component {
                 // Api('get', this.props.tempBook[0].coverImageB).then((response) => {
                 // let temp= { ...response, imgPath: data.imgPath}
                 // console.log('response',response,temp)
-                this.props.dispatch(fetchCoverImage(data.imgPath, data.bookid));
+                this.props.dispatch(fetchCoverImage(data.imgPath, this.state.bookId));
                 // })
               }
             } else {
@@ -1036,7 +1029,7 @@ class App extends Component {
   }
 
   downloadInitiate(data, action) {
-    if (!this.props.offlinebook.find(o => o.bookid == data.bookid)) {
+    if (!this.props.offlinebook.find(o => o.bookid == this.state.bookId)) {
       if (this.props.offlinebook.length < 5) {
         this.downloadCoverImage(data, action);
       } else {
@@ -1046,7 +1039,7 @@ class App extends Component {
             'You can only download maximum 5 books. please delete any books from download to add new',
         });
       }
-    } else if (this.props.offlinebook.find(o => o.bookid == data.bookid)) {
+    } else if (this.props.offlinebook.find(o => o.bookid == this.state.bookId)) {
       this.props.navigation.navigate('Downloads', {
         onReturn: item => {
           this.setState({
