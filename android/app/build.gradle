@@ -148,7 +148,7 @@ android {
         applicationId "com.evillage.alwaraq"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 108
+        versionCode 112
         versionName "1.0"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true

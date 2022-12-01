@@ -424,6 +424,7 @@ export class TabViewExample extends React.Component {
     super(props);
     this.state = {
       value: 0,
+      isFirstLogin:props.isFirstLogin,
       index: 1,
       size: {width, height},
       routes: [
@@ -825,7 +826,7 @@ export class TabViewExample extends React.Component {
           labelStyle={styles.labelStyle}
           initialLayout={{width: Dimensions.get('window').width}}
         />
-        {!this.props.isFirstLogin&&
+        {!this.state.isFirstLogin&&
         <AdsPopUp navigation={this.props.navigation}/>}
         <LanguageModal />
       </SafeAreaView>

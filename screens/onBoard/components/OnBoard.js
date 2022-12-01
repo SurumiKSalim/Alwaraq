@@ -30,6 +30,7 @@ class App extends Component {
     }
 
     componentDidMount() {
+        I18n.locale = 'en'
         SplashScreen.hide()
     }
 

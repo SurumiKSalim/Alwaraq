@@ -42,7 +42,7 @@ const App = ({locale, navigation}) => {
       setLoading(true);
       let formdata = new FormData();
       formdata.append('action', 'add');
-      formdata.append('appid', 1);
+      formdata.append('appId', 1);
       formdata.append('entityId', data?.commentId);
       formdata.append('entityName', 'commentId');
       formdata.append('abuseType', report);
@@ -61,7 +61,7 @@ const App = ({locale, navigation}) => {
 
   const closeBack = () => {
     setVisible(false);
-    // navigation.goBack()
+    navigation.goBack()
   };
 
   return (
