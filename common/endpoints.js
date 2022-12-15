@@ -79,6 +79,7 @@ const ARTICLE                   = 'https://www.electronicvillage.org/ev_json_art
 const ASTRO                     = 'http://watch.electronicvillage.org/json_astro_indetail.php'
 const EMAIL_VALIDATE            = 'https://open.kickbox.com/v1/disposable/'
 const HIJIRI_CONVERTER          = 'https://alwaraq.net/json_hijri_converter.php'
+const IB_AWARDS_BY_TYPE         = 'https://ib.electronicvillage.org/json_ibAwards_byType.php'
 
 
 
@@ -164,7 +165,8 @@ export {
     ARTICLE,
     ASTRO,
     EMAIL_VALIDATE,
-    HIJIRI_CONVERTER
+    HIJIRI_CONVERTER,
+    IB_AWARDS_BY_TYPE
 }
 
 

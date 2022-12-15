@@ -59,6 +59,7 @@ import PublicationsDetails from './publicationsDetails'
 import Articles from './articles'
 import Cart from './cart'
 import ReportPage from './reportPage'
+import IbnAwards from './ibnAwards'
 
 const HomeStack = createStackNavigator({
   Home: {
@@ -391,6 +392,12 @@ const RootStack = createStackNavigator({
     screen: ReportPage,
     navigationOptions: ({ navigation }) => ({
       headerTintColor:PRIMARY_COLOR
+    })
+  },
+  IbnAwards: {
+    screen: IbnAwards,
+    navigationOptions: ({ navigation }) => ({
+      header: null,
     })
   },
   SearchPage: {

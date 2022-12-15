@@ -219,6 +219,17 @@ class SideMenu extends Component {
                 <Text style={styles.title}>{I18n.t('Cart')}</Text>
               </TouchableOpacity>
             )}
+            <TouchableOpacity
+              onPress={this.navigateToScreen('IbnAwards')}
+              style={styles.content}>
+              <Ionicons
+                name="trophy-outline"
+                style={styles.iconContainer}
+                size={22}
+                color={TITLE_COLOR}
+              />
+              <Text style={styles.title}>{I18n.t('Ibn_Awards')}</Text>
+            </TouchableOpacity>
 
             <View style={styles.seperator} />
 
