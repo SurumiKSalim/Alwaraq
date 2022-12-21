@@ -24,12 +24,13 @@ import {PRIMARY_COLOR} from '../../../assets/color';
 
 const {width, height} = Dimensions.get('window');
 
-const App = ({data, navigation, isLoading}) => {
+const App = ({data, navigation, isLoading,groupType}) => {
   return (
     <View style={styles.container}>
       <HorizontalFlatlist
           navigation={navigation}
           data={data?.winners}
+          groupType={groupType}
           action={'ArticleDetails'}
           isLoading={isLoading}
         />

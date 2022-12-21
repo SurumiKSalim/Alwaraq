@@ -16,6 +16,7 @@ const images = {
     applogo:require('./images/Home/logo.png'),
     map:require('./images/Home/map.jpeg'),
     time:require('./images/Home/time.jpeg'),
+    ibn:require('./images/Home/ibn.jpeg'),
     alwaraqBanner:require('./images/Home/alwaraqBanner.png'),
     coverImage:'https://www.alwaraq.net:443'
 }

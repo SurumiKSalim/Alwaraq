@@ -80,7 +80,9 @@ const ASTRO                     = 'http://watch.electronicvillage.org/json_astro
 const EMAIL_VALIDATE            = 'https://open.kickbox.com/v1/disposable/'
 const HIJIRI_CONVERTER          = 'https://alwaraq.net/json_hijri_converter.php'
 const IB_AWARDS_BY_TYPE         = 'https://ib.electronicvillage.org/json_ibAwards_byType.php'
-
+const IB_AWARDS_ABOUT           = 'https://www.electronicvillage.org/json_evPages.php?pageId=57'
+const IB_AWARDS_CONDITIONS      = 'https://www.electronicvillage.org/json_evPages.php?pageId=56'
+const IB_AWARDS_STATEMENTS      = 'https://www.electronicvillage.org/json_evPages.php?pageId=58'
 
 
 
@@ -166,7 +168,10 @@ export {
     ASTRO,
     EMAIL_VALIDATE,
     HIJIRI_CONVERTER,
-    IB_AWARDS_BY_TYPE
+    IB_AWARDS_BY_TYPE,
+    IB_AWARDS_ABOUT,
+    IB_AWARDS_CONDITIONS,
+    IB_AWARDS_STATEMENTS
 }
 
 

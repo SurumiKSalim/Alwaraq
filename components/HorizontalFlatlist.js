@@ -34,7 +34,7 @@ const App = ({
   isLoading,
   itemStyle,
   locale,
-  action,
+  groupType,
   isPremium,
   navigation,
 }) => {
@@ -112,7 +112,7 @@ const App = ({
           {item?.bookName}
         </DynamicText>
         <DynamicText  textAlign={'left'} numberOfLines={2} style={styles.categoryName}>
-          {item?.categoryName}
+          {groupType=='year'?item?.categoryName:item?.year}
         </DynamicText>
         <DynamicText textAlign={'left'} numberOfLines={2} style={styles.authorName}>
           {item?.authorName}

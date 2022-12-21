@@ -22,6 +22,7 @@ const App = ({
   onPress,
   style,
   fromHome,
+  count
 }) => {
   return (
     <View
@@ -42,6 +43,7 @@ const App = ({
                 {title}
               </Text>
             </View>
+            <Text  style={[styles.titleText,{fontSize:14}]}>{' ('+count+')'}</Text>
           </View>
           {!hideSeeAll && (
             <TouchableOpacity
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     borderColor: PRIMARY_COLOR,
     // width: width - 150,
     marginRight: 10,
+    flexDirection:'row'
   },
   seeAllText: {
     fontFamily: FONT_REGULAR,

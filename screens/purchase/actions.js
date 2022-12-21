@@ -5,7 +5,7 @@ import { store } from '../../App'
 export function fetchCountryList(language) {
     return function (dispatch) {
         dispatch({ type: 'COUNTRY_LIST_FETCHING' })
-        Api('get', COUNTRY_LIST,{language:language}).then(async (response) => {
+        Api('get', COUNTRY_LIST).then(async (response) => {
             if (response.status == true)
                 dispatch({ type: 'COUNTRY_LIST_SUCCESS', response: response.country, })
             else

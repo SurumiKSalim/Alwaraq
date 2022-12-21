@@ -60,6 +60,8 @@ import Articles from './articles'
 import Cart from './cart'
 import ReportPage from './reportPage'
 import IbnAwards from './ibnAwards'
+import AwardInfo from './ibnAwardInfo'
+import ApplyIbnAward from './applyIbnAward'
 
 const HomeStack = createStackNavigator({
   Home: {
@@ -398,6 +400,20 @@ const RootStack = createStackNavigator({
     screen: IbnAwards,
     navigationOptions: ({ navigation }) => ({
       header: null,
+      headerBackTitle: null,
+    })
+  },
+  AwardInfo: {
+    screen: AwardInfo,
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+    })
+  },
+  ApplyIbnAward: {
+    screen: ApplyIbnAward,
+    navigationOptions: ({ navigation }) => ({
+      headerBackTitle: null,
+      headerTintColor:PRIMARY_COLOR
     })
   },
   SearchPage: {
