@@ -22,11 +22,17 @@ const CHANGE_EMAIL              = USER_HOST + '/json_user_changeEmail'
 const SEND_OTP                  = USER_HOST + '/json_sendOtp'
 const USER_DELETE               = USER_HOST + '/json_user_deleteUser'
 const BAD_COMMENTS              = USER_HOST + '/json_register_badcomments.php'
+const APP_HELP_SUPPORT          = USER_HOST + '/json_appHelpSupport.php'
+
 
 const QURAN                     = HOST + '/json_quranpage.php'
 const QURAN_CONTENTS            = HOST + '/json_surainfos'
 const BOOKMARK                  = HOST + '/bookmark_form.php'
 const ENCRYPTION                = HOST + '/Core/SearchServlet/etisalat'
+const IB_AWARDS_BY_TYPE         = HOST + '/json_ibAwards_byType.php'
+const IB_AWARDS_LOCATION        = HOST + '/json_ibawards_locations.php'
+const IB_AWARDS                 = HOST + '/json_ibAwards.php'
+
 
 const DASHBOARD_CATEGORY        = HOST + '/json_subjectinfos.php'
 const DOCUMENT_INFOS            = HOST + '/json_booklist.php'
@@ -79,7 +85,6 @@ const ARTICLE                   = 'https://www.electronicvillage.org/ev_json_art
 const ASTRO                     = 'http://watch.electronicvillage.org/json_astro_indetail.php'
 const EMAIL_VALIDATE            = 'https://open.kickbox.com/v1/disposable/'
 const HIJIRI_CONVERTER          = 'https://alwaraq.net/json_hijri_converter.php'
-const IB_AWARDS_BY_TYPE         = 'https://ib.electronicvillage.org/json_ibAwards_byType.php'
 const IB_AWARDS_ABOUT           = 'https://www.electronicvillage.org/json_evPages.php?pageId=57'
 const IB_AWARDS_CONDITIONS      = 'https://www.electronicvillage.org/json_evPages.php?pageId=56'
 const IB_AWARDS_STATEMENTS      = 'https://www.electronicvillage.org/json_evPages.php?pageId=58'
@@ -111,11 +116,15 @@ export {
     SEND_OTP,
     USER_DELETE,
     BAD_COMMENTS,
+    APP_HELP_SUPPORT,
     
     QURAN,
     QURAN_CONTENTS,
     BOOKMARK,
     ENCRYPTION,
+    IB_AWARDS_BY_TYPE,
+    IB_AWARDS_LOCATION,
+    IB_AWARDS,
 
     DASHBOARD_CATEGORY,
     DOCUMENT_INFOS,
@@ -168,7 +177,6 @@ export {
     ASTRO,
     EMAIL_VALIDATE,
     HIJIRI_CONVERTER,
-    IB_AWARDS_BY_TYPE,
     IB_AWARDS_ABOUT,
     IB_AWARDS_CONDITIONS,
     IB_AWARDS_STATEMENTS

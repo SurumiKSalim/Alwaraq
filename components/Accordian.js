@@ -7,6 +7,7 @@ import {
   Platform,
   UIManager,
   Dimensions,
+  Linking
 } from 'react-native';
 import AutoHeightWebView from 'react-native-autoheight-webview';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -68,13 +69,13 @@ export default class Accordian extends Component {
               domStorageEnabled={true}
               // scalesPageToFit={true}
               scrollEnabled={false}
-              onShouldStartLoadWithRequest={event => {
-                if (event.url.slice(0, 4) === 'http') {
-                  Linking.openURL(event.url);
-                  return false;
-                }
-                return true;
-              }}
+              // onShouldStartLoadWithRequest={event => {
+              //   if (event.url.slice(0, 4) === 'http') {
+              //     Linking.openURL(event.url);
+              //     return false;
+              //   }
+              //   return true;
+              // }}
               customStyle={
                 Platform.OS != 'ios'
                   ? `

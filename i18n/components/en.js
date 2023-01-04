@@ -49,7 +49,7 @@ export default {
     Other_Ev_Apps:'Other Ev Apps',
     Ev_Apps:'Ev Apps',
     Cart: 'Cart',
-    Ibn_Awards:'Ibn Awards',
+    Ibn_Awards:'IB Awards',
 
     //dashboard
     Latest: 'Latest',

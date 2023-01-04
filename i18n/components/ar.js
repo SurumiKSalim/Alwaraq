@@ -46,7 +46,7 @@ export default {
     Other_Ev_Apps:'تطبيقات أخرى لنا',
     Ev_Apps:'تطبيقات القرية الالكترونية',
     Cart :'عربة التسوق',
-    Ibn_Awards:'Ibn Awards',
+    Ibn_Awards:'IB Awards',
 
 
     //dashboard

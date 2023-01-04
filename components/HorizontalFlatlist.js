@@ -15,7 +15,12 @@ import DynamicText, {DynamicView} from '../common/dynamicviews';
 import I18n from '../i18n';
 import Images from '../assets/images';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {FONT_REGULAR, FONT_SEMIBOLD, FONT_LIGHT, FONT_MEDIUM} from '../assets/fonts';
+import {
+  FONT_REGULAR,
+  FONT_SEMIBOLD,
+  FONT_LIGHT,
+  FONT_MEDIUM,
+} from '../assets/fonts';
 import {
   PRIMARY_COLOR,
   TITLE_COLOR,
@@ -37,12 +42,17 @@ const App = ({
   groupType,
   isPremium,
   navigation,
+  isSwapImg
 }) => {
   const [isVisible, setModal] = useState(false);
 
   const closeModal = () => {
     setModal(false);
   };
+
+  // useEffect(() => {
+  //   console.log('isSwapImg',isSwapImg)
+  // }, [isSwapImg]);
 
   const onSubmit = () => {
     setModal(false);
@@ -61,7 +71,11 @@ const App = ({
     return (
       <Placeholder Animation={Shine} style={{flexDirection: 'row'}}>
         <View style={styles.placeholder}>
-          <View style={{marginLeft:locale=='en'?0:20,marginRight:locale=='en'?20:0}}>
+          <View
+            style={{
+              marginLeft: locale == 'en' ? 0 : 20,
+              marginRight: locale == 'en' ? 20 : 0,
+            }}>
             <PlaceholderMedia style={styles.placeHolderCard} />
             <PlaceholderLine height={12} style={styles.placeholderLine} />
           </View>
@@ -77,13 +91,7 @@ const App = ({
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          onClick(
-            'Detailbuy',
-            {bookId:item?.bookId},
-            item,
-          )
-        }
+        onPress={() => onClick('Detailbuy', {bookId: item?.bookId}, item)}
         style={
           itemStyle
             ? itemStyle
@@ -97,7 +105,8 @@ const App = ({
           <Image
             style={styles.card}
             defaultSource={Images.logo}
-            source={item?.coverImage ? {uri: item.coverImage} : Images.default}
+            source={isSwapImg?item?.authorImage ? {uri: item.authorImage} : Images.default:
+              item?.coverImage ? {uri: item.coverImage} : Images.default}
           />
           {item.isPremium == 1 && (
             <FontAwesome5
@@ -108,13 +117,19 @@ const App = ({
             />
           )}
         </LinearGradient>
-        <DynamicText  textAlign={'left'} numberOfLines={2} style={styles.title}>
+        <DynamicText textAlign={'left'} numberOfLines={2} style={styles.title}>
           {item?.bookName}
         </DynamicText>
-        <DynamicText  textAlign={'left'} numberOfLines={2} style={styles.categoryName}>
-          {groupType=='year'?item?.categoryName:item?.year}
+        <DynamicText
+          textAlign={'left'}
+          numberOfLines={2}
+          style={styles.categoryName}>
+          {groupType == 'year' ? item?.categoryName : item?.year}
         </DynamicText>
-        <DynamicText textAlign={'left'} numberOfLines={2} style={styles.authorName}>
+        <DynamicText
+          textAlign={'left'}
+          numberOfLines={2}
+          style={styles.authorName}>
           {item?.authorName}
         </DynamicText>
       </TouchableOpacity>

@@ -15,7 +15,6 @@ import I18n from '../../../i18n';
 import SectionBox from './SessionBox';
 import {connect} from 'react-redux';
 import CustomHeader from '../../../components/CustomHeader';
-import LanguageModal from '../../../components/languageModal';
 import DynamicText from '../../../common/dynamicviews';
 import {PRIMARY_COLOR} from '../../../assets/color';
 import {FONT_REGULAR} from '../../../assets/fonts';
@@ -30,6 +29,7 @@ const App = ({navigation, locale, dispatch}) => {
   const [data, setData] = useState(['']);
   const [isLoading, setLoading] = useState(true);
   const [groupType, setType] = useState('year');
+  const [isSwapImg, setSwapImg] = useState(false);
 
   const fetchData = () => {
     setLoading(true);
@@ -45,21 +45,24 @@ const App = ({navigation, locale, dispatch}) => {
 
   useEffect(() => {
     fetchData();
-  }, [locale, groupType]);
-
-  const toogleSearchModal = () => {
-    console.log('item');
-  };
+  }, [groupType]);
 
   const renderItem = ({item}) => {
     return (
       <SectionBox
-        onPress={() => navigation.navigate('Article')}
+        onPress={() =>
+          navigation.navigate('IbnAwardBookList', {
+            categoryId: item?.typeId,
+            groupType: groupType,
+            title: item?.typeName,
+          })
+        }
         locale={locale}
         fromHome
         count={item?.winners?.length}
         title={item?.typeName}>
         <ListSection
+          isSwapImg={isSwapImg}
           isLoading={isLoading}
           data={item}
           groupType={groupType}
@@ -67,6 +70,10 @@ const App = ({navigation, locale, dispatch}) => {
         />
       </SectionBox>
     );
+  };
+
+  const toogleSwapImage = () => {
+    setSwapImg(!isSwapImg);
   };
 
   const sortItemRender = () => (
@@ -105,9 +112,11 @@ const App = ({navigation, locale, dispatch}) => {
   return (
     <SafeAreaView style={styles.container}>
       <CustomHeader
+        toogleSwapImage={toogleSwapImage}
+        isSwapImg={isSwapImg}
         dispatch={dispatch}
         navigation={navigation}
-        toogleSearchModal={toogleSearchModal}
+        fromSearchPage={true}
       />
       {sortItemRender()}
       <FlatList
@@ -116,13 +125,13 @@ const App = ({navigation, locale, dispatch}) => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
-      <LanguageModal fromHome={true} />
-      {isLoading&&
-      <BarIndicator
-        style={styles.loaderContainer}
-        color={PRIMARY_COLOR}
-        size={34}
-      />}
+      {isLoading && (
+        <BarIndicator
+          style={styles.loaderContainer}
+          color={PRIMARY_COLOR}
+          size={34}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -157,6 +166,7 @@ const styles = StyleSheet.create({
   sortContain: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    paddingBottom: 5,
   },
   loaderContainer: {
     position: 'absolute',

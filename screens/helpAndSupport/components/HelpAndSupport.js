@@ -19,79 +19,42 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {PRIMARY_COLOR} from '../../../assets/color';
 import Api from '../../../common/api';
 import Accordian from '../../../components/Accordian';
-import {
-  IB_AWARDS_ABOUT,
-  IB_AWARDS_CONDITIONS,
-  IB_AWARDS_STATEMENTS,
-} from '../../../common/endpoints';
+import {APP_HELP_SUPPORT} from '../../../common/endpoints';
 import {FONT_BOLD, FONT_SEMIBOLD} from '../../../assets/fonts';
 import Images from '../../../assets/images';
+import I18n from '../../../i18n';
 
 const {width, height} = Dimensions.get('window');
 let data = [];
 const App = ({navigation}) => {
-  const [about, setAbout] = useState([]);
+  const [data, setdata] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
-  const fetchAbout = () => {
+  const fetchData = () => {
     setLoading(true);
-    Api('get', IB_AWARDS_ABOUT).then(response => {
-      if (response?.page) {
-        fetchConditions();
-        data.push(response?.page);
+    Api('get', APP_HELP_SUPPORT, {appId: 1}).then(response => {
+      if (response?.supports?.[0]) {
+        setdata(response);
       } else {
         Toast.show(I18n.t('Something_went_wrong_Try'));
       }
-    });
-  };
-
-  const fetchConditions = () => {
-    setLoading(true);
-    Api('get', IB_AWARDS_CONDITIONS).then(response => {
-      if (response?.page) {
-        fetchStatement();
-        data.push(response?.page);
-      } else {
-        Toast.show(I18n.t('Something_went_wrong_Try'));
-      }
-    });
-  };
-
-  const getValue = async response => {
-    // Assign a value to a variable asynchronously
-    await data.push(response?.page);
-    // Set the state variable with the value of the variable
-    setAbout(data);
-  };
-
-  const fetchStatement = () => {
-    setLoading(true);
-    Api('get', IB_AWARDS_STATEMENTS).then(response => {
       setLoading(false);
-      if (response?.page) {
-        getValue(response);
-        //    await data.push(response?.page);
-        //     setAbout(data)
-      } else {
-        Toast.show(I18n.t('Something_went_wrong_Try'));
-      }
     });
   };
-
   useEffect(() => {
-    data = [];
-    fetchAbout();
+    fetchData();
   }, []);
 
-  console.log('about', about);
 
   const renderAccordians = () => {
+    console.log('qqq',data.supports)
     const items = [];
     {
-      about?.map((item, index) => {
+      data?.supports?.map((item, index) => {
+        console.log('item',item)
         items.push(
           <Accordian
-            len={about?.length}
+            len={data?.length}
             index={index}
             title={item.name}
             data={item.description}
@@ -108,7 +71,7 @@ const App = ({navigation}) => {
       <View style={styles.header}>
         <View style={styles.titleContainer}>
           {/* <Image style={styles.logo} source={Images.ibn} resizeMode="contain" /> */}
-          <Text style={styles.title}>IB AWARDS</Text>
+          <Text style={styles.title}>{I18n.t('Help_Support')}</Text>
         </View>
         <TouchableOpacity
           style={styles.icon}
@@ -121,14 +84,15 @@ const App = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {isLoading&&
-      <BarIndicator
-      style={styles.loaderContainer}
-      color={PRIMARY_COLOR}
-      size={34}
-    />}
-        {about?.length > 0 && renderAccordians()}
+        {data?.supports?.length > 0 && renderAccordians()}
       </ScrollView>
+        {isLoading&& (
+          <BarIndicator
+            style={styles.loaderContainer}
+            color={PRIMARY_COLOR}
+            size={34}
+          />
+        )}
     </SafeAreaView>
   );
 };
@@ -150,7 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   title: {
     textAlign: 'center',
@@ -159,8 +123,8 @@ const styles = StyleSheet.create({
     fontFamily: FONT_BOLD,
     fontSize: 18,
     color: PRIMARY_COLOR,
-    marginRight:8,
-    marginLeft:40
+    marginRight: 8,
+    marginLeft: 40,
   },
   icon: {
     width: 30,
@@ -170,7 +134,9 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 15,
   },
-  loaderContainer:{
-    height:height*.5
-  }
+  loaderContainer: {
+    height: height * 0.5,
+    position:'absolute',
+    alignSelf:'center'
+  },
 });

@@ -22,8 +22,9 @@ const App = ({
   onPress,
   style,
   fromHome,
-  count
+  count,
 }) => {
+  console.log('title',count)
   return (
     <View
       style={
@@ -35,27 +36,31 @@ const App = ({
             : styles.container
           : styles.contentContainer
       }>
-      {title && (
+      {title?.length>0 && 
         <DynamicView style={styles.header}>
           <View style={styles.titleContainer}>
             <View style={styles.underline}>
-              <Text numberOfLines={1} style={styles.titleText}>
+              <Text
+                numberOfLines={1}
+                style={[
+                  styles.titleText,
+                  {maxWidth: hideSeeAll ? width - 60 : width - 150},
+                ]}>
                 {title}
               </Text>
             </View>
-            <Text  style={[styles.titleText,{fontSize:14}]}>{' ('+count+')'}</Text>
+            {count>0&&
+            <Text style={styles.count}> ( {count} )</Text>}
           </View>
           {!hideSeeAll && (
-            <TouchableOpacity
-              // onPress={onPress}
-              style={styles.contain}>
+            <TouchableOpacity onPress={onPress} style={styles.contain}>
               <Text style={styles.seeAllText}>
                 {hideSeeAll ? '' : I18n.t('See_All')}
               </Text>
             </TouchableOpacity>
           )}
         </DynamicView>
-      )}
+      }
       {children}
     </View>
   );
@@ -67,7 +72,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     marginVertical: 15,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
   },
   container: {
     flex: 1,
@@ -79,19 +84,20 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     paddingRight: 15,
   },
-  contain: {flexDirection: 'row'},
+  contain: {},
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+    width: width - 20,
   },
   titleContainer: {
     paddingBottom: 2,
     borderColor: PRIMARY_COLOR,
     // width: width - 150,
     marginRight: 10,
-    flexDirection:'row'
+    flexDirection: 'row',
   },
   seeAllText: {
     fontFamily: FONT_REGULAR,
@@ -100,9 +106,17 @@ const styles = StyleSheet.create({
     margin: 2,
     opacity: 0.6,
     marginHorizontal: 15,
+    alignSelf: 'flex-end',
   },
   titleText: {
     fontSize: 20,
+    fontFamily: FONT_MEDIUM,
+    color: PRIMARY_COLOR,
+    lineHeight: 24,
+    maxWidth: width - 150,
+  },
+  count: {
+    fontSize: 14,
     fontFamily: FONT_MEDIUM,
     color: PRIMARY_COLOR,
     lineHeight: 24,

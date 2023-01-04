@@ -1,27 +1,49 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, ScrollView, TextInput} from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {connect} from 'react-redux';
 import DropDownPicker from 'react-native-dropdown-picker';
+import DocumentPicker from 'react-native-document-picker';
+import ImagePicker from 'react-native-image-crop-picker';
+import ActionSheet from 'react-native-actionsheet';
+import Toast from 'react-native-simple-toast';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {SECONDARY_COLOR, TITLE_COLOR} from '../../../assets/color';
-import {FONT_SEMIBOLD} from '../../../assets/fonts';
+import {
+  PRIMARY_COLOR,
+  SECONDARY_COLOR,
+  TITLE_COLOR,
+} from '../../../assets/color';
+import {FONT_REGULAR, FONT_SEMIBOLD} from '../../../assets/fonts';
 import I18n from '../../../i18n';
 import {fetchCountryList} from '../../AddressManager/actions';
+import RNFetchBlob from 'rn-fetch-blob';
+
+const keyArray = [
+  'Name',
+  'literary name',
+  'Manuscript name',
+  'e-mail',
+  'Country of Residence',
+  'Phone',
+  'Nationality',
+  'nickname',
+  'About the manuscript',
+  'About the participant',
+];
 
 const App = ({country, dispatch}) => {
   let inputData = {};
-  const keyArray = [
-    'Name',
-    'literary name',
-    'Manuscript name',
-    'e-mail',
-    'Country of Residence',
-    'Phone',
-    'Nationality',
-    'nickname',
-    'About the manuscript',
-    'About the participant',
-  ];
+  const [doc, setDoc] = useState(null);
+  const [id, setId] = useState(null);
+  const [photo, setPhoto] = useState(null);
+  const [param, setParam] = useState(null);
+  const actionSheetRef = useRef();
 
   useEffect(() => {
     dispatch(fetchCountryList());
@@ -75,6 +97,88 @@ const App = ({country, dispatch}) => {
     console.log(inputData);
   };
 
+  const normalize = path => {
+    if (Platform.OS === 'ios' || Platform.OS === 'android') {
+      const filePrefix = 'file://';
+      if (path.startsWith(filePrefix)) {
+        path = path.substring(filePrefix.length);
+        try {
+          path = decodeURI(path);
+        } catch (e) {}
+      }
+    }
+    return path;
+  };
+
+  const imagePicker = index => {
+    console.log('item', index);
+    let image_temp = null;
+    switch (index) {
+      case 0:
+        ImagePicker.openCamera({
+          width: 400,
+          height: 400,
+          cropping: true,
+        }).then(image => {
+          image_temp = {uri: image.path, type: image.mime, name: 'test.jpg'};
+          if (param == 'id') {
+            setId({uri: image.path, type: image.mime, name: 'test.png'});
+          } else {
+            setPhoto({uri: image.path, type: image.mime, name: 'test.png'});
+          }
+          // this.submitImage(image_temp);
+        });
+        break;
+      case 1:
+        ImagePicker.openPicker({
+          width: 400,
+          height: 400,
+          cropping: true,
+        }).then(image => {
+          image_temp = {uri: image.path, type: image.mime, name: 'test.jpg'};
+          if (param == 'id') {
+            console.log('item1', param);
+            setId({uri: image.path, type: image.mime, name: 'test.png'});
+          } else {
+            console.log('item2', param);
+            setPhoto({uri: image.path, type: image.mime, name: 'test.png'});
+          }
+          // this.submitImage(image_temp);
+        });
+        break;
+    }
+  };
+
+  const selectDocument = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles],
+        copyTo: 'cachesDirectory',
+      });
+      console.log(
+        res,
+        res[0].fileCopyUri,
+        res.type, // mime type
+        res.name,
+        res.size,
+      );
+      const base64 = await RNFetchBlob.fs.readFile(
+        normalize(res[0].fileCopyUri),
+        'base64',
+      );
+      let obj = {base64: base64};
+      let temp_obj = {...res[0], ...obj};
+      setDoc(temp_obj);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        Toast.show('User cancelled picker');
+        // User cancelled the picker, exit any dialogs or menus and move on
+      } else {
+        throw err;
+      }
+    }
+  };
+
   const InputData = placeholder => {
     return (
       <View style={styles.email}>
@@ -115,6 +219,72 @@ const App = ({country, dispatch}) => {
     );
   };
 
+  const showActionsheet = async index => {
+    console.log('item', index);
+    await setParam(index);
+    actionSheetRef.current.show();
+  };
+
+  const renderDocFetch = () => (
+    <View>
+      <Text style={styles.subTitle}>
+        An electronic copy of the manuscript (PDF / Word)
+      </Text>
+      <TouchableOpacity onPress={() => selectDocument()} style={styles.email}>
+        <Text numberOfLines={1} style={styles.textField}>
+          {doc ? doc?.name : 'Upload file'}
+        </Text>
+        <Text style={styles.uploadButton}>Choose file</Text>
+      </TouchableOpacity>
+      <Text style={styles.desc}>Allowed types: pdf, doc, docx</Text>
+    </View>
+  );
+
+  const renderIdFetch = () => (
+    <View>
+      <Text style={styles.subTitle}>
+        A copy of the passport or identity card
+      </Text>
+      <TouchableOpacity
+        onPress={() => showActionsheet('id')}
+        style={styles.email}>
+        <Text style={styles.textField}>{id ? id?.name : 'Upload file'}</Text>
+        <Text style={styles.uploadButton}>Choose file</Text>
+      </TouchableOpacity>
+      <Text style={styles.desc}>Allowed types: jpg, png</Text>
+    </View>
+  );
+
+  const renderPhotoFetch = () => (
+    <View>
+      <Text style={styles.subTitle}>A print-sized personal photo</Text>
+      <TouchableOpacity
+        onPress={() => showActionsheet('photo')}
+        style={styles.email}>
+        <Text style={styles.textField}>{photo ? photo?.name : 'Upload file'}</Text>
+        <Text style={styles.uploadButton}>Choose file</Text>
+      </TouchableOpacity>
+      <Text style={styles.desc}>Allowed types: jpg, png</Text>
+    </View>
+  );
+
+  const actionSheet = item => {
+    return (
+      <ActionSheet
+        ref={actionSheetRef}
+        title={'Pick Image'}
+        options={['Take Photo', 'Choose from Library', 'Cancel']}
+        cancelButtonIndex={2}
+        destructiveButtonIndex={2}
+        onPress={index => {
+          imagePicker(index);
+        }}
+      />
+    );
+  };
+
+  console.log('photo', id, photo);
+
   return (
     <KeyboardAwareScrollView
       showsVerticalScrollIndicator={false}
@@ -128,6 +298,10 @@ const App = ({country, dispatch}) => {
           }
         }
       })}
+      {renderDocFetch()}
+      {renderIdFetch()}
+      {renderPhotoFetch()}
+      {actionSheet()}
     </KeyboardAwareScrollView>
   );
 };
@@ -161,6 +335,24 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     justifyContent: 'center',
   },
+  desc: {
+    flex: 1,
+    fontSize: 12,
+    fontFamily: FONT_REGULAR,
+    paddingLeft: 15,
+    color: '#9c9c9c',
+    paddingVertical: 8,
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    marginTop: -14,
+  },
+  subTitle: {
+    flex: 1,
+    fontSize: 12,
+    fontFamily: FONT_SEMIBOLD,
+    paddingVertical: 8,
+    justifyContent: 'center',
+  },
   multiLineTextField: {
     flex: 1,
     fontSize: 18,
@@ -185,5 +377,16 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     justifyContent: 'flex-start',
+  },
+  uploadButton: {
+    borderColor: PRIMARY_COLOR,
+    borderWidth: 0.5,
+    alignSelf: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    fontFamily: FONT_REGULAR,
+    color: PRIMARY_COLOR,
+    marginHorizontal: 5,
+    borderRadius: 5,
   },
 });

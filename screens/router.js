@@ -62,6 +62,8 @@ import ReportPage from './reportPage'
 import IbnAwards from './ibnAwards'
 import AwardInfo from './ibnAwardInfo'
 import ApplyIbnAward from './applyIbnAward'
+import IbnAwardBookList from './ibnAwardBookList'
+import HelpAndSupport from './helpAndSupport'
 
 const HomeStack = createStackNavigator({
   Home: {
@@ -342,6 +344,12 @@ const RootStack = createStackNavigator({
       headerTintColor:PRIMARY_COLOR
     })
   },
+  HelpAndSupport: {
+    screen: HelpAndSupport,
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+    })
+  },
   BookList: {
     screen: BookList,
   },
@@ -398,6 +406,13 @@ const RootStack = createStackNavigator({
   },
   IbnAwards: {
     screen: IbnAwards,
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+      headerBackTitle: null,
+    })
+  },
+  IbnAwardBookList: {
+    screen: IbnAwardBookList,
     navigationOptions: ({ navigation }) => ({
       header: null,
       headerBackTitle: null,

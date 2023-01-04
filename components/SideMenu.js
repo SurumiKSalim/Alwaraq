@@ -361,9 +361,7 @@ class SideMenu extends Component {
                 <Text style={styles.footerTitle}>{I18n.t('About_Us')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>
-                  Linking.openURL(HELP_AND_SUPPORT + `${this.state.languageId}`)
-                }
+                onPress={this.navigateToScreen('HelpAndSupport')}
                 style={styles.footerContent}>
                 <Text style={styles.footerTitle}>{I18n.t('Help_Support')}</Text>
               </TouchableOpacity>
