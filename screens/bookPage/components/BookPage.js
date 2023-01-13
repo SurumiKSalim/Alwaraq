@@ -494,6 +494,7 @@ class App extends Component {
             htmlPage: response.page,
             pageAudioUrl: response.bookAudio,
             pageStriped: response.pageStriped,
+            webLoad:false
           });
         }
       },
@@ -629,7 +630,6 @@ class App extends Component {
   }
 
   leftMost() {
-    console.log('item', this.state.page, this.state.totalpages);
     this.stopRead();
     this.setState({
       page: this.state.totalpages,
@@ -640,7 +640,6 @@ class App extends Component {
       !this.state.fromSearch &&
       this.state.page < parseInt(this.state.totalpages)
     ) {
-      console.log('22qq');
       this.bookPageFetch(this.state.totalpages);
     }
     // if (
@@ -663,7 +662,6 @@ class App extends Component {
       this.state.fromSearch &&
       this.state.page < parseInt(this.state.totalpages)
     ) {
-      console.log('qqqq');
       this.onSearchPage(parseInt(this.state.totalpages));
     }
   }
@@ -927,6 +925,7 @@ class App extends Component {
   }
 
   renderAudioItem(item, index) {
+    console.log('item',item)
     return (
       <TouchableOpacity
         onPress={() => this.playAudio(item)}
@@ -1297,7 +1296,6 @@ class App extends Component {
   );
 
   onSearchPage(page) {
-    console.log('entered', this.state.encoded);
     this.setState({searchVisible: false, webLoad: true, translatedText: null});
     var base64 = require('base-64');
     var utf8 = require('utf8');

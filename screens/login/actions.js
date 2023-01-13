@@ -125,7 +125,6 @@ export function sendFCMToken(fcmToken, osType, uniqueId, forced) {
 }
 
 export function postChangeLanguage(body) {
-  console.log('this.state.currentLanguage', body);
   let formdata = new FormData();
   formdata.append('language', body.language);
   formdata.append('appid', 1);
@@ -133,7 +132,6 @@ export function postChangeLanguage(body) {
     dispatch({type: 'CHANGE_LANGUAGE'});
     Api('post', CHANGELANGUAGE, formdata).then(response => {
       if (response.status == true) {
-        console.log('this.state.currentLanguage111', response);
         dispatch({type: 'CHANGE_LANGUAGE_SUCCESS', locale: response.language});
       } else {
         dispatch({type: 'CHANGE_LANGUAGE_FAILED', response: response});
@@ -189,11 +187,9 @@ export function updateUserSubscrition(isPremium) {
 }
 
 export function updateSubscrition(email) {
-  console.log('ssss');
   return async function (dispatch) {
     let ios_pass = 'cac55a76ec174f6586e96f32e34bb75f';
     let result = await RNIap.initConnection();
-    console.log('connnection', result);
     dispatch({type: 'USER_SUBSCRIBE'});
     const availableItems = await RNIap.getSubscriptions(SubscribeItems);
     // const clearing = await RNIap.clearProductsIOS();
@@ -205,7 +201,6 @@ export function updateSubscrition(email) {
       };
       const valllid = await validateReceiptIos(receiptBody, false)
         .then(receipt => {
-          console.log('receipt', receipt);
           //check test receipt
           if (receipt?.status === 21007) {
             return validateReceiptIos(receiptBody, true);
@@ -214,16 +209,11 @@ export function updateSubscrition(email) {
           }
         })
         .then(receipt => {
-          console.log('receipt', receipt);
           const renewalHistory = receipt?.latest_receipt_info;
           const expiration =
             renewalHistory[renewalHistory.length - 1].expires_date_ms;
           let subscrition_type = 0;
           if (expiration > Date.now()) {
-            console.log(
-              'inapp valid',
-              renewalHistory[renewalHistory.length - 1],
-            );
             if (purchases[0].productId == SubscribeItems[0]) {
               subscrition_type = 1;
             } else if (purchases[0].productId == SubscribeItems[1]) {
@@ -231,10 +221,6 @@ export function updateSubscrition(email) {
             }
             dispatch({type: 'USER_SUBSCRIBE_SUCCESS'});
           } else {
-            console.log(
-              'inapp un-valid',
-              renewalHistory[renewalHistory.length - 1],
-            );
             dispatch({type: 'USER_SUBSCRIBE_FAILED'});
           }
         })
@@ -243,7 +229,6 @@ export function updateSubscrition(email) {
           dispatch({type: 'USER_SUBSCRIBE_FAILED'});
         });
     } else {
-      // console.log('purchase android', purchases)
       let subscrition_type = 0;
       if (purchases && purchases.length > 0) {
         if (purchases[0].productId == SubscribeItems[0]) {
@@ -266,13 +251,11 @@ export function updateSubscrition(email) {
     );
     formdata.append('subscriptionId', purchases && purchases[0].productId);
     Api('post', PROMO_COUNTER, formdata).then(response => {
-      console.log('count', response, purchases);
     });
   };
 }
 
 export function addSubscrition(subscrition_type) {
-  console.log('enters');
   return {type: 'USER_SUBSCRIBE_SUCCESS'};
 }
 

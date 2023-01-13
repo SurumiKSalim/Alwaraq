@@ -55,7 +55,6 @@ class App extends Component {
 
   onLanguageChange() {
     if (this.state.currentLanguage != this.props.locale) {
-      console.log('huhuhu11', this.state.currentLanguage, this.props.locale);
       I18n.locale = this.state.currentLanguage
         ? this.state.currentLanguage
         : this.state.user?.language;

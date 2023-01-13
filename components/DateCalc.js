@@ -35,8 +35,6 @@ const App = (props) => {
     const [isLoading, setLoader] = useState(false)
     const elRefs = React.useRef([]);
     const refs = useRef(null);
-    // console.log('new test',hijri.convert(new Date(), 1))
-    // console.log('new test11',new Date())
 
     if (elRefs.current.length !== 3) {
         // add or remove refs
@@ -98,7 +96,6 @@ const App = (props) => {
         formData.append('convert_to',isHijri?'hijri':'greg');
         Api('post', HIJIRI_CONVERTER, formData)
             .then((response) => {
-                console.log('HIJIRI_CONVERTER',MONTH[parseInt(response.month)]+' '+response.date+' '+response.year)
                 let temp_result=isHijri?HMONTH[parseInt(response.month)]+' '+response.date+' '+response.year:
                 MONTH[parseInt(response.month)]+' '+response.date+' '+response.year
                 setResult(temp_result)

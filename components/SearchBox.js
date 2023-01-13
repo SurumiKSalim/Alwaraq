@@ -26,7 +26,6 @@ const App = ({toogleModal, fromSearchPage, moduleId, title,navigation}) => {
   const onSearch = () => {
     if (searchText?.length>0) {
     toogleModal();
-    console.log('item',fromSearchPage)
     if (fromSearchPage!=true) {
       navigation.replace('IbnAwardBookList', {
         searchText: searchText,

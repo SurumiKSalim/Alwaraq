@@ -78,7 +78,7 @@ class App extends Component {
     fetchData(searchText, refresh) {
         this.setState({ isLoading: true, publisher: this.state.publisher, encoded: this.state.encoded })
         Api('get', PUBLISHER, { language: this.props.locale == 'ar' ? 1 : 2, searchtext: searchText ? searchText : this.state.encoded, page: this.state.page }).then((response) => {
-            console.log('APP_INFO', response)
+            
             if (response) {
                 this.setState({ publisher: this.state.publisher.concat(response.publishers), isLastPage: response.isLastPage, isLoading: false, page: parseInt(this.state.page) + 1 })
             }

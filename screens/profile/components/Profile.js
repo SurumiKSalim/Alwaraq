@@ -133,7 +133,6 @@ class App extends Component {
   }
 
   async configureFCM() {
-    console.log('allowed fcm222');
     firebase
       .messaging()
       .hasPermission()

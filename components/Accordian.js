@@ -30,7 +30,6 @@ export default class Accordian extends Component {
   }
 
   render() {
-    console.log('title', this.props.title);
     return (
       <View style={{width: width-30}}>
         <TouchableOpacity
@@ -128,13 +127,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowOpacity:.2,
     shadowOffset: { width: 0, height: 0 },
+    elevation:2,
     backgroundColor:'#fff',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     marginTop: 8,
     paddingLeft: 15,
     width: width-32,
-    marginLeft:1
+    marginLeft:1,
+    marginBottom:1
   },
   parentHr: {
     height: 1,

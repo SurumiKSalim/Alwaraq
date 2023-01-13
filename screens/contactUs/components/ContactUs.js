@@ -38,23 +38,19 @@ const App = (props) => {
   }
 
   const validate = (text) => {
-    console.log(text);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (reg.test(text) === false) {
-      console.log("Email is Not Correct");
       setErrors({ errors: { ...errors, emailError: true,errorMessage:'Please check Email format' } })
       // this.setState({ email: text })
       return false;
     }
     else {
       // this.setState({ email: text })
-      console.log("Email is Correct");
       return true;
     }
   }
 
   const onSubmit = (action) => {
-    console.log('validate', validate(email))
     if (!isLoading) {
       setErrors({ errors: {} })
       if (!isvaildData())
@@ -69,7 +65,6 @@ const App = (props) => {
         formdata.append('email', email)
         formdata.append('mobile', mobile)
         formdata.append('appId', 1)
-        console.log('formdata', formdata)
         Api('post', CONTACT_US, formdata).then(async (response) => {
           setisLoading(false)
           if (response && response.statusCode == 200) {

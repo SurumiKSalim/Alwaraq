@@ -54,7 +54,6 @@ class App extends Component {
         })
         Api('get', APP_INFO, { appId: 31, language: this.state.languageId }).then((response) => {
             this.fetchData()
-            console.log('APP_INFO', response)
             this.setState({ evAppInfo: response.appInfo })
             if (response.appInfo && response.appInfo.applicationIcon) {
                 this.getBase64FromUri(response.appInfo.applicationIcon)
@@ -67,7 +66,7 @@ class App extends Component {
 
     fetchData() {
         Api('get', APP_INFO, { appId: 1, language: this.state.languageId }).then((response) => {
-            console.log('res', response)
+            
             if (response) {
                 this.setState({ appInfo: response.appInfo, isLoading: false })
                 // this.props.dispatch(fetchAppInfo(response.appInfo))

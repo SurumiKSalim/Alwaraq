@@ -63,14 +63,8 @@ class App extends Component {
                         .then(res =>
                             videoLink = res.request.files.hls.cdns[res.request.files.hls.default_cdn].url.trim(),
                         );
-                    console.log('videoLink', videoLink)
                     return videoLink
                 }
-                // if(!match){
-                //     console.log('enteredwrong',url)
-                //     videoLink = ''
-                //     return videoLink
-                // }
                 if (this.state.videoLink != videoLink) {
                     this.setState({ videoLink: videoLink, videoName: item.videoTitle })
                 }

@@ -118,7 +118,6 @@ class App extends Component {
   }
 
   loadQuran(sura, page) {
-    console.log('hahaah', page);
     this.setState({
       loading: true,
       visibleModal: false,
@@ -148,7 +147,6 @@ class App extends Component {
         }
       } else {
         this.setState({loading: false});
-        console.log('QURAN_FETCHING_FAILED');
       }
     });
   }

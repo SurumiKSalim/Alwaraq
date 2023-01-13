@@ -154,7 +154,6 @@ class App extends Component {
   }
 
   dataFetch = (bookId, page) => {
-    console.log('pageInfo', bookId);
     this.setState({isLoading: true});
     Api('get', SEARCH_INTERMEDIATE, {
       language: this.props.locale == 'ar' ? 1 : 2,
@@ -401,7 +400,6 @@ class App extends Component {
 
   onLoad() {
     if (!this.props.isLoading && !this.props.isLastPage) {
-      console.log('gfvdsghvdshjgv');
       this.props.dispatch(
         fetchSearchResult(
           this.state.firstRadioValue,

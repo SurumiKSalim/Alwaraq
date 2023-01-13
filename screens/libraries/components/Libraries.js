@@ -466,7 +466,6 @@ export class TabViewExample extends React.Component {
                         <TabBar
                             {...props}
                             onTabPress={({ route }) => {
-                                //console.log(props)
                             }}
                             activeColor="#272727"
                             inactiveColor="#c2c3c8"

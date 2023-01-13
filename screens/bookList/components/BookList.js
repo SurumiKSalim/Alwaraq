@@ -203,7 +203,6 @@ export class App extends React.Component {
       var text = this.state.searchText;
       var bytes = utf8.encode(text);
       encoded = base64.encode(bytes);
-      console.log('firstRadioValue',this.state.firstRadioValue)
       if (this.state.firstRadioValue==1) {
         this.props.dispatch(resetSearchResult());
         this.props.dispatch(
@@ -261,7 +260,6 @@ export class App extends React.Component {
   }
 
   _dropdownOnSelect(idx, value) {
-    console.log('idx', idx);
     this.setState({bookLanguage: parseInt(idx) + 1});
     this.fetchData(parseInt(idx) + 1);
     this.props.navigation.setParams({

@@ -23,7 +23,6 @@ export function resetDashboardCategory() {
 export function fetchDocumentInfos(listType, subjectId, fromOnLoad) {
     return function (dispatch) {
         let language = store.getState().userLogin.locale
-        console.log('1111', language)
         if (listType === 'popular') {
             if (!store.getState().dashboard.isPopularLoading) {
                 dispatch({ type: 'POPULAR_DOCUMENT_INFO_FETCHING', fromOnLoad: fromOnLoad })
@@ -42,7 +41,7 @@ export function fetchDocumentInfos(listType, subjectId, fromOnLoad) {
                 let page = store.getState().dashboard.latestPage != null ? store.getState().dashboard.latestPage : 1
                 Api('get', DOCUMENT_INFOS, { listType: listType, subjectId: subjectId, page: page, language: language == 'ar' ? 1 : 2 }).then((response) => {
                     if (response.status && (response.statusCode == 200 || response.status == 200)) {
-                        console.log('44444', response)
+                        
                         dispatch({ type: 'LATEST_DOCUMENT_INFO_FETCHING_SUCCESS', response: response })
                     }
                     else
@@ -56,7 +55,7 @@ export function fetchDocumentInfos(listType, subjectId, fromOnLoad) {
                 let page = store.getState().dashboard.ContemporaryPage != null ? store.getState().dashboard.ContemporaryPage : 1
                 Api('get', DOCUMENT_INFOS, { listType: listType, subjectId: subjectId, page: page, language: language == 'ar' ? 1 : 2 }).then((response) => {
                     if (response.status && (response.statusCode == 200 || response.status == 200)) {
-                        console.log('44444', response)
+                        
                         dispatch({ type: 'CONTEMPORARY_DOCUMENT_INFO_FETCHING_SUCCESS', response: response })
                     }
                     else
@@ -97,15 +96,14 @@ export function toogleLanguageModal() {
 
 export function fetchLatestAds() {
     let language = store.getState().userLogin.locale
-    console.log('5555')
+    
     return function (dispatch) {
-        console.log('5555')
+        
         Api('get', DOCUMENT_INFOS, { listType: 'slideshow', page: 1,language: language == 'ar' ? 1 : 2 }).then((response) => {
-            console.log('55556', response)
+            
             if (response && response.books && response.books.length > 0) {
                 var arr = response.books
                 arr = arr.slice(0, 5)
-                console.log('ggg', arr)
                 dispatch({ type: 'LATEST_ADS_FETCHING_SUCCESS', response: arr })
             }
         })

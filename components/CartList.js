@@ -39,19 +39,6 @@ const App = ({ data, isLoading, locale, scrollEnable, action, addItem, counter,o
         setCount(counter)
     }, [counter])
 
-    // const addItem = (index, action) => {
-    //     let oldObject = data[index]
-    //     let quantity = oldObject.quantity ? oldObject.quantity : 0
-    //     if (action == 'add') {
-    //         quantity++
-    //     }
-    //     else {
-    //         quantity--
-    //     }
-    //     let newObject = { ...oldObject, quantity: quantity }
-    //     console.log('item', newObject)
-    // }
-
 
     const renderItem = ({ item, index }) => {
         let picture = item.productPicture

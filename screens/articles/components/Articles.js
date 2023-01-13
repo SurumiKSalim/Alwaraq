@@ -43,7 +43,6 @@ class App extends Component {
         }
         this.renderPublications = this.renderPublications.bind(this)
         this.dataFetch = this.dataFetch.bind(this)
-        console.log('title', this.props.navigation.getParam('index'))
     }
 
     dataFetch() {
@@ -112,7 +111,7 @@ class App extends Component {
                         onMomentumScrollEnd={({ nativeEvent }) => {
                             if (isCloseToBottom(nativeEvent)) {
                                 if (!this.state.isLastPage && !this.state.isLoading) {
-                                    console.log('hdjsfgakjsdfg ')
+                                    
                                     this.dataFetch()
                                 }
                             }

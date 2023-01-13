@@ -30,7 +30,6 @@ const App = ({navigation}) => {
         setTimeout(() => {
           setVisible(true);
         }, 2000);
-        console.log('ads', response?.data);
       }
     });
   };
@@ -46,7 +45,6 @@ const App = ({navigation}) => {
 
   
   const _renderItem = ({item,index}) => {
-    console.log('_renderItem',item)
     return(
     <View style={styles.modalHeader}>
                 <Image
@@ -69,7 +67,6 @@ const App = ({navigation}) => {
   }
 
   const renderItem = () => {
-    console.log('Carousel', data);
     return (
       <View style={styles.modalContainer}>
         <AntDesign

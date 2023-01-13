@@ -61,7 +61,6 @@ class BottomTab extends Component {
             isAddModalShow: false,
         }
         this._onPress = this._onPress.bind(this)
-        console.log("Props bottom ", props)
     }
 
 
@@ -87,7 +86,6 @@ class BottomTab extends Component {
         const {
             routes
         } = navigation.state;
-        console.log('profile_pic',profile_pic)
         return (
             <SafeAreaView style={styles.container}>
 

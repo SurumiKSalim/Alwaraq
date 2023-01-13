@@ -24,7 +24,6 @@ const App = ({
   fromHome,
   count,
 }) => {
-  console.log('title',count)
   return (
     <View
       style={

@@ -39,7 +39,6 @@ class App extends Component {
             successModel: false,
             orderId: this.props.navigation.getParam('orderId')
         }
-        console.log('jsdfg ', this.props.navigation.getParam('secureUrlPayment'))
         // this.orderInfo = this.orderInfo.bind(this)
         this.goBack = this.goBack.bind(this)
         // this.onLoad = this.onLoad.bind(this)
@@ -61,7 +60,6 @@ class App extends Component {
     // }
 
     goBack(action) {
-        console.log('hahhah',action)
         this.setState({ faildModel: false, declineModel: false, successModel: false })
         // this.props.navigation.navigate('Detailbuy')
         if (action == 1) {
@@ -82,10 +80,8 @@ class App extends Component {
                         mixedContentMode="compatibility"
                         style={styles.fullFlux}
                         onShouldStartLoadWithRequest={event => {
-                            console.log('event', event, event.url.slice(0, 22))
                             if (event.url.slice(0, 20) === 'https://alwaraq.net/') {
                                 // Linking.openURL(event.url)
-                                console.log('link...........................', event.url)
                                 if (event.url.includes('transactionStatus=0')) {
                                     this.setState({ payModel: false })
                                     setTimeout(() => {

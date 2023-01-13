@@ -584,13 +584,7 @@ export class TabViewExample extends React.Component {
     ) {
       var arr = this.props.latestAds;
       arr = arr.slice(0, 4);
-      // {this.props.latestDocumentList.map(item => {
-      //     return (
-      //         console.log('qqq',item)
-      //     );
-      // })}
       var count = arr.length;
-      console.log('zzzz', arr.length);
     }
     var tabWidth = this.props.locale == 'ar' ? width / 4 + 30 : width / 4;
     var lastTabWidth =

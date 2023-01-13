@@ -37,7 +37,6 @@ const App = ({ user, dispatch }) => {
     formData.append('action', user?.markDeletion == 0 ? 'delete' : 'undelete');
     Api('post', USER_DELETE, formData).then((response) => {
       setLoading(false);
-      console.log('response', response);
       if (response?.statusCode == 200) {
         setResult('success');
         setError(response?.errormessage);
@@ -45,7 +44,6 @@ const App = ({ user, dispatch }) => {
           ...user,
           markDeletion: response.userinfo?.markDeletion,
         };
-        console.log('user_updated', user_updated);
         dispatch(changeEmail(user_updated));
       } else {
         setResult('failed');

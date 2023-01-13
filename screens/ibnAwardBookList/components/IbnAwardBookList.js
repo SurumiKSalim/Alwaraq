@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Placeholder, PlaceholderMedia, Shine} from 'rn-placeholder';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import Api from '../../../common/api';
 import {IB_AWARDS} from '../../../common/endpoints';
@@ -23,20 +24,25 @@ import Images from '../../../assets/images';
 import {FONT_LIGHT, FONT_MEDIUM, FONT_SEMIBOLD} from '../../../assets/fonts';
 import {PRIMARY_COLOR, TITLE_COLOR} from '../../../assets/color';
 import AlertModal from '../../../components/AlertModal';
+import FBCollage from 'react-native-fb-collage';
+import {ImageGallery} from '@georstat/react-native-image-gallery';
 
 const {width, height} = Dimensions.get('window');
 
 const App = ({dispatch, navigation, locale}) => {
-  console.log('searchText', navigation.getParam('searchText'));
+  let galleryList = [];
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [isVisible, setModal] = useState(false);
   const [isSwapImg, setSwapImg] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [groupType, setType] = useState(navigation.getParam('groupType'));
 
   const closeModal = () => {
     setModal(false);
   };
+
+  const closeGallery = () => setIsOpen(false);
 
   const onSubmit = () => {
     setModal(false);
@@ -48,14 +54,13 @@ const App = ({dispatch, navigation, locale}) => {
   };
 
   const fetchData = () => {
-    console.log('groupType', groupType);
     setLoading(true);
-    if(navigation.getParam('searchText')){
-    var base64 = require('base-64');
-    var utf8 = require('utf8');
-    var text = navigation.getParam('searchText');
-    var bytes = utf8.encode(text);
-    var encoded = base64.encode(bytes);
+    if (navigation.getParam('searchText')) {
+      var base64 = require('base-64');
+      var utf8 = require('utf8');
+      var text = navigation.getParam('searchText');
+      var bytes = utf8.encode(text);
+      var encoded = base64.encode(bytes);
     }
     Api('get', IB_AWARDS, {
       categoryId:
@@ -142,13 +147,37 @@ const App = ({dispatch, navigation, locale}) => {
     );
   };
 
+  const imageCollage = () => {
+    imagesList = data?.photos?.map(({picture}) => picture);
+    galleryList = imagesList.map(url => ({url}));
+    return (
+      <TouchableOpacity
+        onPress={() => setIsOpen(true)}
+        style={styles.collageContainer}>
+        <FBCollage images={imagesList} imageOnPress={() => setIsOpen(true)} />
+      </TouchableOpacity>
+    );
+  };
+
+  const renderHeaderComponent = () => {
+    return (
+      <SafeAreaView style={styles.closeContainer}>
+        <AntDesign
+          onPress={() => closeGallery()}
+          name={'closecircleo'}
+          color={'#fff'}
+          size={30}
+        />
+      </SafeAreaView>
+    );
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
-  console.log('navigation.getParam',navigation.getParam('title'))
   return (
     <SafeAreaView style={styles.container}>
-       <CustomHeader
+      <CustomHeader
         toogleSwapImage={toogleSwapImage}
         isSwapImg={isSwapImg}
         dispatch={dispatch}
@@ -159,13 +188,13 @@ const App = ({dispatch, navigation, locale}) => {
           locale={locale}
           hideSeeAll
           count={data?.items?.length ? data?.items?.length : 0}
-          title={navigation.getParam('title')}
-          // title={
-          //   navigation.getParam('searchText')
-          //     ?'Search ('+ navigation.getParam('searchText')+')'
-          //     : navigation.getParam('title')?navigation.getParam('title'):''
-          // }
-          >
+          title={
+            navigation.getParam('searchText')
+              ? 'Search (' + navigation.getParam('searchText') + ')'
+              : navigation.getParam('title')
+              ? navigation.getParam('title')
+              : ''
+          }>
           {data?.items && (
             <FlatList
               style={styles.flatlistStyle}
@@ -178,6 +207,15 @@ const App = ({dispatch, navigation, locale}) => {
               keyExtractor={(item, index) => index.toString()}
             />
           )}
+          {data?.photos?.[0] && (
+            <SectionBox
+              locale={locale}
+              hideSeeAll
+              count={data?.photos?.length ? data?.photos?.length : 0}
+              title={'Gallery'}>
+              {imageCollage()}
+            </SectionBox>
+          )}
           {isLoading && !data?.items && (
             <View>
               {loader()}
@@ -187,6 +225,13 @@ const App = ({dispatch, navigation, locale}) => {
             </View>
           )}
         </SectionBox>
+        <ImageGallery
+          thumbSize={60}
+          close={closeGallery}
+          isOpen={isOpen}
+          images={galleryList}
+          renderHeaderComponent={renderHeaderComponent}
+        />
         <AlertModal
           isVisible={isVisible}
           closeModal={closeModal}
@@ -195,7 +240,7 @@ const App = ({dispatch, navigation, locale}) => {
           butttonlabel={I18n.t('SUBSCRIBE')}
           title={'You need to have Premium Account to view this content'}
         />
-      </ScrollView> 
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -266,5 +311,18 @@ const styles = StyleSheet.create({
   crown: {
     padding: 15,
     position: 'absolute',
+  },
+  collageContainer: {
+    backgroundColor: '#fff',
+    shadowOpacity: 0.2,
+    borderRadius: 15,
+    shadowOffset: {width: 0, height: 0},
+    marginBottom: 15,
+    marginHorizontal: -10,
+    elevation: 2,
+  },
+  closeContainer: {
+    marginHorizontal: 20,
+    alignItems: 'flex-end',
   },
 });

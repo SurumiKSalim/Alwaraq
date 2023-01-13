@@ -102,7 +102,6 @@ class App extends Component {
     }
 
     purchase() {
-        console.log('PURCHASE', this.state.prePurchaseUrl)
         let formData = new FormData()
         formData.append('productId', this.state.data && this.state.data.bookid);
         formData.append('unique', Date.now());
@@ -112,7 +111,6 @@ class App extends Component {
         formData.append('orderId', this.state.orderId);
         Api('post', this.state.prePurchaseUrl, formData)
             .then((response) => {
-                console.log('PURCHASE', response)
                 this.setState({ isLoading: false })
                 if (response.statusCode === 200) {
                     this.setState({ orderReference: response.orderReference, secureUrlPayment: response.secureUrlPayment })
@@ -140,7 +138,7 @@ class App extends Component {
             formData.append('orderReference', this.state.orderReference);
             formData.append('language', this.props.locale == 'ar' ? 1 : 2);
             formData.append('shippingId', this.state.buyOption == 1 ? null : shippingId);
-            console.log('orderUpdate', formData)
+            
             Api('post', BUY_NOW, formData)
                 .then((response) => {
                     this.setState({ isLoading: false })
@@ -296,7 +294,6 @@ class App extends Component {
     }
 
     isvaildData() {
-        console.log('buyOption', this.state.buyOption)
         // if (this.state.buyOption == '' || this.state.buyOption == null) {
         //     this.setState({ errors: { ...this.state.errors, buyOptionError: true } })
         //     return false;
@@ -350,7 +347,6 @@ class App extends Component {
 
     render() {
         var data = this.state.data
-        console.log('data', data)
         let price = data.price != 0 ? data.price : data.hardcoverprice != 0 ? data.hardcoverprice : data.hardcoverAndPdfPrice
         var buyDetails = this.state.buyDetails
         return (

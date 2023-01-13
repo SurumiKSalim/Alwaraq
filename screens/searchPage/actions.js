@@ -27,7 +27,6 @@ export function fetchSearchResult(
   bookLanguage,
   isAudioAvailable,
 ) {
-  console.log('dsgfdhg', subRadioValue, option2);
   var SEARCH = [];
   if (option1 == 0) {
     SEARCH = SEARCH_LIBRARY;
@@ -71,7 +70,6 @@ export function fetchSearchResult(
             option1: option1,
           });
         } else {
-          console.log('else response', response);
           dispatch({type: 'SEARCH__FETCHING_FAILED'});
         }
       });
@@ -87,7 +85,6 @@ export function fetchSearchBookPage(
   pageNo,
   encoded
 ) {
-  console.log('hdbshb 111', item);
   var BOOK_PAGE = [];
   if (firstRadioValue == 0) {
     BOOK_PAGE = SEARCH_BOOK_PAGE;
@@ -112,8 +109,6 @@ export function fetchSearchBookPage(
       if (response) {
         dispatch({type: 'SEARCH_BOOK_PAGE_SUCCESS', response: response});
         if (firstRadioValue != 1) {
-          // console.log('pageNo', pageNo,)
-          // console.log('page',response.exsearchpage[0].pageid)
           navigation.navigate('BookPage', {
             response: response.exsearchpage[0].pagecontent,
             pageNo: pageNo,

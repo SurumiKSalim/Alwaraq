@@ -294,7 +294,6 @@ class App extends Component {
   }
 
   startAudio(isVideo) {
-    console.log('entr');
     if (isVideo) {
       this.setState({isVideo: true, audioModal: true});
     } else {
@@ -568,11 +567,6 @@ class App extends Component {
     }).then(response => {
       if (response) {
         this.setState({appInfo: response.appInfo});
-        // console.log('APP_INFO', response.appInfo.applicationIcon)
-        // if (response.appInfo && response.appInfo.applicationIcon) {
-        //     this.getBase64FromUri(response.appInfo.applicationIcon)
-        // }
-        // this.props.dispatch(fetchAppInfo(response.appInfo))
       }
     });
   }
@@ -689,15 +683,10 @@ class App extends Component {
               if (this.props.isLastPage == false) {
                 this.bookDownload(data, false, true);
               } else {
-                // this.downloadCoverImage(data)
-                // Api('get', this.props.tempBook[0].coverImageB).then((response) => {
-                // let temp= { ...response, imgPath: data.imgPath}
-                // console.log('response',response,temp)
                 this.props.dispatch(fetchCoverImage(data.imgPath, this.state.bookId));
-                // })
+                
               }
             } else {
-              console.log('failed', response);
             }
           },
         );
@@ -710,7 +699,6 @@ class App extends Component {
   };
 
   readBook(data) {
-      console.log('item',)
     if (
       (data.isBoughtIndividually == 0 && this.props.isPremium) ||
       data.inapp_free == 0 ||
@@ -726,7 +714,6 @@ class App extends Component {
   }
 
   gotoSubject(item, data) {
-    console.log('data', data);
     this.setState({moreInfo: false});
     if (item == 'subject') {
       this.props.navigation.push('BookList', {data: this.state.data});
@@ -931,8 +918,6 @@ class App extends Component {
       });
     } else if (data.isPdfAvailable) {
       this.tooglePdfList(true);
-      // console.log('data.bookPDFs',data.bookPDFs)
-      // this.props.navigation.navigate('PdfViewer', { data: data.bookPDFs })
     } else if (data.isAudioAvailable) {
       this.audioPlay();
     } else {
@@ -988,9 +973,6 @@ class App extends Component {
       .then(res => {
         this.props.dispatch(fetchPdfDownload(data, res.path(), imgPath));
         this.setState({percent: 1});
-        // the temp file path
-        // this.downloadCoverImage(data)
-        console.log('The file saved to ', res.path());
       });
   }
 

@@ -58,7 +58,6 @@ class PDFExample extends React.Component {
     }
 
     Select(rowData, rowID, highlighted) {
-        console.log('rowData', rowData)
         if (refs) {
             refs.hide()
         }

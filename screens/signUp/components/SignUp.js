@@ -279,13 +279,11 @@ class App extends Component {
     });
 
     // 2). if the request was successful, extract the token and nonce
-    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
     const {identityToken, nonce} = appleAuthRequestResponse;
 
     // can be null in some scenarios
     if (identityToken) {
       var decoded = jwt_decode(identityToken);
-      console.log('decoded', decoded.email);
       let user = {};
       user.name =
         appleAuthRequestResponse.fullName.givenName +

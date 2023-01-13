@@ -58,7 +58,6 @@ const App = ({selection}) => {
   };
 
   const renderChildItem=({ item, index })=> {
-    console.log('item',item)
     return (
         <TouchableOpacity onPress={() => handleClick(item)} style={styles.containerContent1}>
             <View style={styles.renderItemImg}>

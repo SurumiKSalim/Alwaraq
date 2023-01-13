@@ -80,7 +80,6 @@ class App extends Component {
     }
 
     renderTimeItem({ item, index }) {
-        console.log('item',item.periodId,this.state.selectedPeriod)
         return (
             <View style={styles.whiteContainer}>
                 <TouchableOpacity onPress={() => this.periodSelection(index + 1, item.periodId)}
@@ -226,15 +225,12 @@ class App extends Component {
 
 
     close() {
-        // Voice.destroy().then(Voice.removeAllListeners);
-        console.log('start', this.state.searchText)
         this.setState({ searchText: '',selectedPeriod:null })
         this.props.dispatch(resetSearchModal(false))
     }
     onSearch() {
 
         if (this.state.searchText !== '') {
-            console.log('hasf dgjskhcvskla;djsfbvsadk')
             this.close();
             var base64 = require('base-64');
             var utf8 = require('utf8');

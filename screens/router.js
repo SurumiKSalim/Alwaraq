@@ -428,6 +428,7 @@ const RootStack = createStackNavigator({
     screen: ApplyIbnAward,
     navigationOptions: ({ navigation }) => ({
       headerBackTitle: null,
+      header: null,
       headerTintColor:PRIMARY_COLOR
     })
   },

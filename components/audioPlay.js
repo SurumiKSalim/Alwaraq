@@ -24,7 +24,6 @@ class App extends Component {
       screenType: 'contain',
     };
     this.onFullScreen = this.onFullScreen.bind(this)
-    console.log('this.props.videoLink ', this.props.audioArray )
     // audioArray={audioUrl}
     // isPlayAll={this.state.isPlayAll}
     // videoLink={this.state.audioLink} />
@@ -36,7 +35,6 @@ class App extends Component {
   };
 
   onPaused = playerState => {
-    console.log('pau', playerState)
     //Handler for Video Pause
     this.setState({
       paused: !this.state.paused,

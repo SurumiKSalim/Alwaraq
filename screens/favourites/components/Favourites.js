@@ -91,9 +91,8 @@ class App extends Component {
     }
 
     renderItem({ item, index }) {
-        console.log('item',item.coverImage)
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Detailbuy', { data: item })} style={[styles.cardGrid,{flexDirection:this.props.locale=='ar'?'row-reverse':'row'}]}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Detailbuy', { data: item,bookId:item?.bookid })} style={[styles.cardGrid,{flexDirection:this.props.locale=='ar'?'row-reverse':'row'}]}>
                 <View styl={styles.cardContainer}>
                     <Image style={styles.card} source={{uri:item.coverImage}}></Image>
                 </View>

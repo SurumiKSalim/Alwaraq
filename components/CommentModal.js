@@ -63,7 +63,6 @@ class App extends Component {
     this.commentsFetch = this.commentsFetch.bind(this);
     this.modalClose = this.modalClose.bind(this);
     this.modalCloseOnReport = this.modalCloseOnReport.bind(this);
-    console.log('book', this.props.book);
   }
 
   componentDidMount() {
@@ -107,10 +106,8 @@ class App extends Component {
       // formdata.append('mansionId', this.props.mansionId)
       // formdata.append('categoryId', this.state.item.categoryId)
       Api('post', COMMENTS_FORM, formdata).then(response => {
-        console.log('dxgfghf', response);
         if (response && response.statusCode == 200) {
           this.props.dispatch(fetchCommentCount(response.totalComments));
-          console.log('COMMENTS_FETCHING_SUCCESS', response);
           if (action == 'add' || action == undefined) {
             this.setState({
               comments: this.state.comments.concat(response.comments),
@@ -147,7 +144,6 @@ class App extends Component {
         }
       });
     } else {
-      console.log('fjdh');
       this.props.dispatch(fetchCommentModal(false));
       // this.props.goToLogin(true)
       setTimeout(() => {
@@ -236,7 +232,6 @@ class App extends Component {
                 scrollEventThrottle={1}
                 onMomentumScrollEnd={({nativeEvent}) => {
                   if (isCloseToBottom(nativeEvent)) {
-                    console.log('scroll');
                     !this.state.isCommentLoading &&
                       !this.state.isLastPage &&
                       this.commentsFetch(

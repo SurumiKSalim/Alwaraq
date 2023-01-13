@@ -27,8 +27,6 @@ const bookpage = (state = initialStage, actions) => {
             return { ...state, suraInfoLoading: false }
             break;
         case "BOOK_MARK_FETCHING_SUCCESS":
-            console.log('actions',actions.bookmark )
-            // let temp={actions.userid:actions.bookMark}
             return { ...state, bookMark: actions.bookmark }
             break;
         default:

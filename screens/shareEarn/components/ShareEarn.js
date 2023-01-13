@@ -67,7 +67,6 @@ class App extends Component {
         formData.append('language', this.props.locale == 'ar' ? 1 : 2);
         formData.append('appid', 1);
         Api('post', WALLET, formData).then((response) => {
-            console.log('res', response)
             if (response) {
                 this.fetchData()
                 this.setState({ data: response, isLoading: false })
@@ -130,10 +129,9 @@ class App extends Component {
 
     fetchData() {
         Api('get', APP_INFO, { appId: 1, language: this.state.languageId }).then((response) => {
-            console.log('res', response)
+            
             if (response) {
                 this.setState({ appInfo: response.appInfo })
-                console.log('APP_INFO', response.appInfo.applicationIcon)
                 if (response.appInfo && response.appInfo.applicationIcon) {
                     this.getBase64FromUri(response.appInfo.applicationIcon)
                 }
@@ -144,7 +142,6 @@ class App extends Component {
 
     render() {
         var data = this.state.data
-        console.log('djsfgv', this.state.data)
         return (
             <SafeAreaView style={styles.container}>
                 {!this.state.isLoading ?

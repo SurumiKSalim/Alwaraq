@@ -31,7 +31,6 @@ class App extends Component {
   };
 
   onPaused = playerState => {
-    console.log('pau',playerState)
     //Handler for Video Pause
     this.setState({
       paused: !this.state.paused,
@@ -85,7 +84,6 @@ class App extends Component {
   onSeeking = currentTime => this.setState({ currentTime });
 
   render() {
-    console.log('this.props.videoLink',this.props && this.props.videoLink)
     return (
         this.props && this.props.videoLink ?
       <View style={styles.container}>

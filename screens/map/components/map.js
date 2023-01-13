@@ -120,11 +120,6 @@ class App extends Component {
     this.onLoad = this.onLoad.bind(this);
     this.loader = this.loader.bind(this);
     this.markerSelect = this.markerSelect.bind(this);
-    console.log(
-      'this.props.nav',
-      this.props.navigation.getParam('data'),
-      this.props.navigation.getParam('fromIbnAwards'),
-    );
   }
 
   componentDidMount() {
@@ -136,12 +131,10 @@ class App extends Component {
       Api('get', fromIbnAwards ? IB_AWARDS_LOCATION : MAP).then(
         async response => {
           if (response) {
-            console.log('MAP', response);
             this.setState({
               feed: response && response.locations,
               isLoading: false,
             });
-            console.log('response.locations', response.locations);
           }
         },
       );
@@ -165,10 +158,8 @@ class App extends Component {
   }
 
   fitToMarkersToMap(location) {
-    console.log('response.dsfgh', location);
     if (location && location.length > 0) {
       if (location.length == 1) {
-        console.log('ccc', location[0]);
         if (this.props.navigation.getParam('data')) {
           var region = {
             latitude: location[0].latitude,
@@ -194,7 +185,6 @@ class App extends Component {
   }
 
   openPanel = item => {
-    console.log('vvvzasdw', item);
     let region = {
       latitude: this.state.selectedLocation.latitude,
       longitude: this.state.selectedLocation.longitude,
@@ -382,7 +372,6 @@ class App extends Component {
                   onPress={() => this.markerSelect(item)}
                 />
               ),
-              // console.log('map',item)
             )}
         </MapView>
         <Modal

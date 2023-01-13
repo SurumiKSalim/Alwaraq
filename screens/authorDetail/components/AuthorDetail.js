@@ -49,7 +49,6 @@ const App = (props) => {
   }
 
   const renderItem = ({ item }) => {
-    console.log('item', item)
     return (
       <TouchableOpacity style={[styles.cardRelated, { marginHorizontal: 5 }]}
         onPress={() => props.navigation.navigate('Detailbuy', { data: item })}>

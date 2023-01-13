@@ -74,7 +74,6 @@ class App extends Component {
   };
 
   _getPermission = async () => {
-    console.log("qqqq");
     firebase
       .messaging()
       .requestPermission()

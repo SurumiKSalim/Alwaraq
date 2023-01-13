@@ -62,8 +62,8 @@ class App extends Component {
                         {/* <Image source={{ uri: 'titlelogo' }} style={styles.headerImage} resizeMode='contain' /> */}
                     </View>
                     {/* <View style={styles.imageContainer}>
-                        {/* <Image source={{ uri: 'onboard' }} style={styles.image} /> */}
-                    {/* </View>  */}
+                        <Image source={Images.applogo} style={styles.image} />
+                    </View>  */}
 
                     <View style={styles.choiceContainer}>
                         <View style={styles.changeLanguage}>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     header: {
-        flex: 1,
+        flex: .8,
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 15

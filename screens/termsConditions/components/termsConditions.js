@@ -14,11 +14,9 @@ const YourApp = (props) => {
     const [title, setTitle] = useState('')
 
     useEffect(() => {
-        console.log('locale', props.locale)
         Api('get', ALWARAQ_PAGES, { language: props.locale == 'ar' ? 1 : 2 }).then((response) => {
-            console.log('res', response)
+           
             if (response) {
-                console.log('resn', response.page.description)
                 setTerms(response.page && response.page.description)
                 setTitle(response.page && response.page.name)
             }

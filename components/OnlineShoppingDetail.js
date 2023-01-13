@@ -91,7 +91,6 @@ class App extends Component {
         Api('get', PRODUCT_LISTING + `?language=${language}&productId=${productData.productId}`)
             .then((response) => {
                 if (response) {
-                    console.log('daaaaaaaaaaaaatttttttttttaaaaa', response[0])
                     this.setState({ products: response[0], pictures: response[0].pictures })
                 }
             })
@@ -149,9 +148,7 @@ class App extends Component {
         formData.append('action', 'add');
         Api('post', CART, formData)
             .then((response) => {
-                console.log('respppppppppoooooooooooonsssssssssssseeeeeeeeee', response)
                 if (response) {
-                    console.log('succcccceesssssssss')
                     this.setState({ cartLoading: false })
                 }
                 else {
@@ -173,7 +170,6 @@ class App extends Component {
     shippingInfo() {
         Api('post', SHIPPING_INFO_USER)
             .then((response) => {
-                console.log('shipping inffffffffffffooo', response)
                 if (response) {
                     this.setState({ shippingInfo: response, addressModel: true, itemAddress: response[0] })
                 }
@@ -195,7 +191,6 @@ class App extends Component {
         formData.append('shippingId', shippingId);
         Api('post', ADD_ORDER, formData)
             .then((response) => {
-                console.log('byyyyyyyyyyyyyyyyynnwwwwwwwwwww', response)
                 if (response.statusCode === 200) {
                     this.setState({ buyModel: true, buyLoading: false, buyDetails: response })
                 }
@@ -219,7 +214,6 @@ class App extends Component {
         formData.append('shippingId', shippingId);
         Api('post', ADD_ORDER, formData)
             .then((response) => {
-                console.log('confirmmmmmmmmmmmmmmmmmmmm', response)
                 if (response.statusCode === 200) {
                     this.setState({ confirm: response })
                     this.createOrder()
@@ -248,7 +242,6 @@ class App extends Component {
         formData.append('orderId', orderId);
         Api('post', 'https://reacthub.org/createOrder.php', formData)
             .then((response) => {
-                console.log('reeeeeeeeeeeeecattttt', response)
                 if (response.statusCode === 200) {
                     this.setState({ orderData: response })
                     this.orderUpdate()
@@ -269,7 +262,6 @@ class App extends Component {
         Api('post', ADD_ORDER, formData)
             .then((response) => {
                 if (response.statusCode === 200) {
-                    console.log('order updated')
                     this.setState({ buyModel: false, payModel: true })
                     // Linking.openURL(this.state.orderData.secureUrlPayment)
                 }
@@ -285,7 +277,6 @@ class App extends Component {
         Api('post', ADD_ORDER, formData)
             .then((response) => {
                 if (response.statusCode === 200) {
-                    console.log('order infof')
                 }
             }
             )
@@ -375,7 +366,7 @@ class App extends Component {
         );
     }
     _onNavigationStateChange(webViewState) {
-        console.log('linkkkkkkkkkeeeeeed', webViewState)
+        console.log('linked', webViewState)
     }
 
     render() {
@@ -627,7 +618,6 @@ class App extends Component {
                         onShouldStartLoadWithRequest={event => {
                             if (event.url.slice(0, 33) === 'https://www.khawlafoundation.com/') {
                                 // Linking.openURL(event.url)
-                                console.log('link...........................', event.url)
                                 if (event.url.includes('transactionStatus=0')) {
                                     this.setState({ payModel: false, faildModel: true })
                                     setTimeout(() => {

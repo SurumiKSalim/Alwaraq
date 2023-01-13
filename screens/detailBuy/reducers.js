@@ -24,7 +24,6 @@ const offlinebook = (state = initialStage, actions) => {
             break;
         case "FETCH_BOOK_DOWNLOAD_SUCCESS":
             let preResponse = []
-            console.log('actions.response', actions.response)
             let book = (state.tempBook[0] && state.tempBook[0].page) ?
                 state.tempBook[0].page.concat(actions.response.book.page) : actions.response.book.page;
             preResponse = [{ ...actions.response.book, page: book }]
@@ -43,7 +42,6 @@ const offlinebook = (state = initialStage, actions) => {
             let ob = state.tempBook.find(o => o.bookid == actions.bookId);
             let ind = state.tempBook.indexOf(ob);
             let preBook = [{ ...state.tempBook[ind], imgPath: actions.imgPath }]
-            console.log('preBook', preBook)
             return { ...state, offlinebook: state.offlinebook.concat(preBook), tempBook: [] }
             break;
         case "FETCH_PDF_DOWNLOAD_SUCCESS":
@@ -64,7 +62,6 @@ const offlinebook = (state = initialStage, actions) => {
             let obj = state.tempBook.find(o => o.bookid == actions.bookId);
             let index = state.tempBook.indexOf(obj);
             let preBooks = [{ ...state.tempBook[index] }]
-            console.log('preBook', preBook, state.tempBook)
             return { ...state, }
             break;
         case "LIKE_FORM_FETCHING":

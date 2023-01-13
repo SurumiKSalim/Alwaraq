@@ -33,27 +33,11 @@ const App = (props) => {
     }, [])
 
     const renderApplications=({ item, index })=> {
-        console.log('item',item)
         return (
             <TouchableOpacity style={styles.cardGrid} onPress={() => props.navigation.navigate('ApplicationDetails', { data: item })}>
                 <LinearGradient style={styles.card} colors={['rgba(0,0,0,.2)', 'rgba(0,0,0,.2)', 'rgba(0,0,0,.2)']}>
                     <Image style={styles.card} source={item.applicationIcon ? { uri: item.applicationIcon } : Images.default}
                         imageStyle={styles.imageStyle}>
-                        {/* <LinearGradient style={styles.linear} colors={['rgba(0,0,0,.2)', 'rgba(0,0,0,.2)', 'rgba(0,0,0,.2)']}> */}
-                        {/* <View style={styles.cardHeader}>
-                            <View style={styles.profie}>
-                                <Image source={item.author.profilePic ? { uri: item.author.profilePic } : Images.avatar} style={styles.profileImage} />
-                                <View style={styles.name}>
-                                    <Text style={styles.textName}>{item.author.userName}</Text>
-                                    <Text style={styles.time}>{item.timeAgo}</Text>
-                                </View>
-                            </View>
-                            <View>{item.isPremium && <Icon5 name='crown' size={20} color='#FFC300' />}</View>
-                        </View> */}
-                        {/* <View style={styles.cardFooter}>
-                            <Text style={styles.title} numberOfLines={2}>{item.application}</Text>
-                        </View> */}
-                        {/* </LinearGradient> */}
                     </Image>
                 </LinearGradient>
                 <View style={styles.cardFooter}>

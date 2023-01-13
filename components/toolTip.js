@@ -76,7 +76,6 @@ const Tooltip = ({
                                 handleStop()
                             }
                             else {
-                                console.log("isShowWalkThrough False", isHomePage)
                                 store.dispatch(updateWalkThrough(false))
                                 handleStop()
                             }

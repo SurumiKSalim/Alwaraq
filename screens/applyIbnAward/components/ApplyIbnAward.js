@@ -3,11 +3,13 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
+  Dimensions,
   TextInput,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {HeaderBackButton} from 'react-navigation-stack';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DocumentPicker from 'react-native-document-picker';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -19,11 +21,12 @@ import {
   SECONDARY_COLOR,
   TITLE_COLOR,
 } from '../../../assets/color';
-import {FONT_REGULAR, FONT_SEMIBOLD} from '../../../assets/fonts';
+import {FONT_BOLD, FONT_REGULAR, FONT_SEMIBOLD} from '../../../assets/fonts';
 import I18n from '../../../i18n';
 import {fetchCountryList} from '../../AddressManager/actions';
 import RNFetchBlob from 'rn-fetch-blob';
 
+const {width, height} = Dimensions.get('window');
 const keyArray = [
   'Name',
   'literary name',
@@ -37,9 +40,10 @@ const keyArray = [
   'About the participant',
 ];
 
-const App = ({country, dispatch}) => {
-  let inputData = {};
+const App = ({country, dispatch, navigation}) => {
+  // let inputData = {};
   const [doc, setDoc] = useState(null);
+  const [inputData, setInputData] = useState({});
   const [id, setId] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [param, setParam] = useState(null);
@@ -55,46 +59,45 @@ const App = ({country, dispatch}) => {
     switch (key) {
       case keyArray[0]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[1]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[2]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[3]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[4]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[5]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[6]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[7]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[8]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
       case keyArray[9]:
         obj[key] = text;
-        inputData = {...inputData, ...obj};
+        setInputData({...inputData, ...obj});
         break;
     }
-    console.log(inputData);
   };
 
   const normalize = path => {
@@ -111,7 +114,6 @@ const App = ({country, dispatch}) => {
   };
 
   const imagePicker = index => {
-    console.log('item', index);
     let image_temp = null;
     switch (index) {
       case 0:
@@ -137,10 +139,8 @@ const App = ({country, dispatch}) => {
         }).then(image => {
           image_temp = {uri: image.path, type: image.mime, name: 'test.jpg'};
           if (param == 'id') {
-            console.log('item1', param);
             setId({uri: image.path, type: image.mime, name: 'test.png'});
           } else {
-            console.log('item2', param);
             setPhoto({uri: image.path, type: image.mime, name: 'test.png'});
           }
           // this.submitImage(image_temp);
@@ -155,13 +155,6 @@ const App = ({country, dispatch}) => {
         type: [DocumentPicker.types.allFiles],
         copyTo: 'cachesDirectory',
       });
-      console.log(
-        res,
-        res[0].fileCopyUri,
-        res.type, // mime type
-        res.name,
-        res.size,
-      );
       const base64 = await RNFetchBlob.fs.readFile(
         normalize(res[0].fileCopyUri),
         'base64',
@@ -220,7 +213,6 @@ const App = ({country, dispatch}) => {
   };
 
   const showActionsheet = async index => {
-    console.log('item', index);
     await setParam(index);
     actionSheetRef.current.show();
   };
@@ -248,7 +240,9 @@ const App = ({country, dispatch}) => {
       <TouchableOpacity
         onPress={() => showActionsheet('id')}
         style={styles.email}>
-        <Text style={styles.textField}>{id ? id?.name : 'Upload file'}</Text>
+        <Text style={styles.textField}>
+          {id ? 'Passport or ID' : 'Upload file'}
+        </Text>
         <Text style={styles.uploadButton}>Choose file</Text>
       </TouchableOpacity>
       <Text style={styles.desc}>Allowed types: jpg, png</Text>
@@ -261,7 +255,7 @@ const App = ({country, dispatch}) => {
       <TouchableOpacity
         onPress={() => showActionsheet('photo')}
         style={styles.email}>
-        <Text style={styles.textField}>{photo ? photo?.name : 'Upload file'}</Text>
+        <Text style={styles.textField}>{photo ? 'Photo' : 'Upload file'}</Text>
         <Text style={styles.uploadButton}>Choose file</Text>
       </TouchableOpacity>
       <Text style={styles.desc}>Allowed types: jpg, png</Text>
@@ -283,26 +277,67 @@ const App = ({country, dispatch}) => {
     );
   };
 
-  console.log('photo', id, photo);
+  const header = () => (
+    <View style={styles.header}>
+      <HeaderBackButton
+        tintColor={PRIMARY_COLOR}
+        onPress={() => navigation.goBack()}
+      />
+      <Text style={styles.headerTitle}>Apply IB Award</Text>
+    </View>
+  );
+
+  const checkProperties = obj => {
+    for (let key in obj) {
+      console.log(key, obj[key]);
+      if (obj[key] == null || obj[key] == '') {
+        Toast.show(` * ${key} field required`);
+        return false
+      }
+    }
+    return true
+  };
+
+  const validate = () => {
+    if (Object.keys(inputData).length == 10) {
+      if(checkProperties(inputData)){
+        if(id && photo && doc){
+          Toast.show('Suceess');
+        }
+        else{
+          Toast.show('Please Upload all 3 files');
+        }
+      }
+    } else {
+      Toast.show('Please fill all fields');
+      console.log('item', inputData);
+    }
+  };
 
   return (
-    <KeyboardAwareScrollView
-      showsVerticalScrollIndicator={false}
-      style={styles.container}>
-      {keyArray?.map((item, index) => {
-        {
-          if (index == 4 || index == 6) {
-            return RenderDropdown(keyArray[index]);
-          } else {
-            return InputData(item);
+    <SafeAreaView style={styles.contain}>
+      {header()}
+      <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.container}>
+        {keyArray?.map((item, index) => {
+          {
+            if (index == 4 || index == 6) {
+              return RenderDropdown(keyArray[index]);
+            } else {
+              return InputData(item);
+            }
           }
-        }
-      })}
-      {renderDocFetch()}
-      {renderIdFetch()}
-      {renderPhotoFetch()}
-      {actionSheet()}
-    </KeyboardAwareScrollView>
+        })}
+        {renderDocFetch()}
+        {renderIdFetch()}
+        {renderPhotoFetch()}
+        {actionSheet()}
+        <TouchableOpacity onPress={() => validate()} style={styles.button}>
+          <Text style={styles.submit}>Submit</Text>
+        </TouchableOpacity>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -318,6 +353,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 15,
+  },
+  contain: {
+    flex: 1,
+  },
+  header: {
+    height: 50,
+    marginHorizontal: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerTitle: {
+    flex: 1,
+    fontSize: 22,
+    fontFamily: FONT_BOLD,
+    color: PRIMARY_COLOR,
   },
   email: {
     justifyContent: 'center',
@@ -388,5 +439,23 @@ const styles = StyleSheet.create({
     color: PRIMARY_COLOR,
     marginHorizontal: 5,
     borderRadius: 5,
+  },
+  button: {
+    height: 50,
+    width: width - 60,
+    backgroundColor: PRIMARY_COLOR,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    margin: 15,
+  },
+  submit: {
+    fontFamily: FONT_SEMIBOLD,
+    fontSize: 18,
+    color: TITLE_COLOR,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    paddingRight: 15,
   },
 });

@@ -65,13 +65,11 @@ class App extends Component {
         this.restorePurchase = this.restorePurchase.bind(this)
         this.goBack = this.goBack.bind(this)
         this.productDetails = this.productDetails.bind(this)
-        console.log('id', this.props.navigation.getParam('Promo', null))
     }
     goBack() {
     }
 
     async componentDidMount() {
-            console.log('sjnfghg22')
             this.promoVerification(this.state.promocode)
         SplashScreen.hide()
         // try {
@@ -138,7 +136,6 @@ class App extends Component {
         formdata.append('subscriptionId', product.subscriptionId)
         Api('post', PROMO_COUNTER, formdata)
             .then((response) => {
-                console.log('count', response)
             })
     }
 
@@ -147,7 +144,6 @@ class App extends Component {
             this.setState({ promoValidate: true, promocode: null })
         }
         else {
-            console.log('ksfhj')
             let formdata = new FormData()
             formdata.append('appId', 1)
             formdata.append('discountCode', this.state.promocode)
@@ -155,16 +151,13 @@ class App extends Component {
             Api('post', PREMIUM_SUBSCRIPTION, formdata)
                 .then((response) => {
                     if (response.status == true) {
-                        console.log('resp', response.info)
                         let sku = Platform.OS === 'ios' ? response.info[0].iosProductId : response.android_inapp_productId
                         let sku_year = Platform.OS === 'ios' ? response.info[1].iosProductId : response.android_inapp_productId
                         if (response.isCodeValid) {
-                            console.log('222jgdfhghjaskhjfgvhjkkljdkh')
                             this.productDetails(sku, sku_year)
                             this.setState({ couponResponse: response, sku: [sku, sku_year], isVisiblePromo: false, approved: true })
                         }
                         else {
-                            console.log('jgdfhghjaskhjfgvhjkkljdkh')
                             setTimeout(() => {
                                 Alert.alert(
                                     '',
@@ -196,7 +189,6 @@ class App extends Component {
     }
 
     productDetails = async (sku, sku_year) => {
-        console.log('producr sku', [sku, sku_year])
         try {
             const result = await RNIap.initConnection();
             const products = await RNIap.getSubscriptions([sku, sku_year]);
@@ -213,7 +205,6 @@ class App extends Component {
 
     buySubscribeItem = async (sku, index) => {
         if (this.props.user) {
-            console.log('SKU', sku, this.state.couponResponse.info[index])
             try {
                 this.setState({ isSubscribing: true })
                 this.addPromo(this.state.couponResponse.info[index])

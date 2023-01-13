@@ -228,7 +228,6 @@ class App extends Component {
     }
 
     renderItem({ item, index }) {
-        console.log('item', item)
         return (
             <TouchableOpacity onPress={() =>this.state.fromPurchase&& this.props.navigation.navigate('Purchase', { index: index })} style={styles.cardGrid}>
                 <Text style={styles.nameText}>{item.name}</Text>

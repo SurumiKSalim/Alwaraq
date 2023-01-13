@@ -50,10 +50,6 @@ const App = ({
     setModal(false);
   };
 
-  // useEffect(() => {
-  //   console.log('isSwapImg',isSwapImg)
-  // }, [isSwapImg]);
-
   const onSubmit = () => {
     setModal(false);
     navigation.navigate('Subscribe');

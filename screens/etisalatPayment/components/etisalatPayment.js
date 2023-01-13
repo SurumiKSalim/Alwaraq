@@ -39,11 +39,9 @@ const App = (props) => {
 
 
     useEffect(() => {
-        console.log('locale',props.locale)
         Api('get', ALWARAQ_PAGES, { language: props.locale == 'ar' ? 1 : 2 }).then((response) => {
-            console.log('res', response)
+            
             if (response) {
-                console.log('resn', response.page.description)
                 setTerms(response.page && response.page.description)
             }
         })
@@ -64,7 +62,6 @@ const App = (props) => {
         Api('post', SIMBILLING, formData)
             .then((result) => {
                 setLoading(false)
-                console.log('BUY_NOW', result.result.substring(result.result.indexOf('|') + 1))
                 if (result.statusCode === 200) {
                     if (result.result.substring(0, 7) == 'success') {
                         setLoading(true)
@@ -117,7 +114,6 @@ const App = (props) => {
     const encoder = (item, index, encryptdNO) => {
         setLoading(true)
         Api('get', ENCRYPTION, { data: item }).then((response) => {
-            console.log('res', response)
             if (response && response.statusCode == 200) {
                 let result = response.result
                 switch (index) {
@@ -141,7 +137,6 @@ const App = (props) => {
     const buyNow = (encryptdNO) => {
         setLoading(true)
         setEncryptNO(encryptdNO)
-        console.log('encryptNO', encryptNO)
         let formData = new FormData()
         formData.append('action', 'orderNow');
         formData.append('subscriptionId', SubscribeItems.subscriptionId);
@@ -150,7 +145,6 @@ const App = (props) => {
         formData.append('credentials', contactNo);
         Api('post', PROMO_COUNTER, formData)
             .then((response) => {
-                console.log('BUY_NOW', response)
                 if (response.statusCode === 200) {
                     setLoading(false)
                     setOrderId(response.orderId)
@@ -189,10 +183,6 @@ const App = (props) => {
         setOtp(null)
         simBill()
     }
-
-    // let result = { result: "success|pJlUhI3B+872wqkvOQ0/OtFK3J1v/fUmyyLJtA3c3lg=", statusCode: 200 }
-    // console.log('susse', result.result.substring(0, 7))
-
 
     return (
         <SafeAreaView style={styles.safeArea}>

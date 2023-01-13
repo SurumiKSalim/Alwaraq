@@ -47,11 +47,9 @@ const App = ({navigation}) => {
 
 
   const renderAccordians = () => {
-    console.log('qqq',data.supports)
     const items = [];
     {
       data?.supports?.map((item, index) => {
-        console.log('item',item)
         items.push(
           <Accordian
             len={data?.length}

@@ -83,8 +83,6 @@ const App = ({navigation}) => {
     fetchAbout();
   }, []);
 
-  console.log('about', about);
-
   const renderAccordians = () => {
     const items = [];
     {

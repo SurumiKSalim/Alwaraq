@@ -50,7 +50,6 @@ const App = ({navigation,user,dispatch,route}) => {
     formData.append('email', updateEmail);
     Api('post', CHANGE_EMAIL, formData).then((response) => {
       setLoading(false);
-      console.log('response', response);
       if (response?.statusCode == 200) {
         setModal('success');
         setError(response?.errormessage)

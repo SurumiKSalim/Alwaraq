@@ -82,7 +82,6 @@ const App = ({locale, shipping, dispatch, navigation}) => {
     formdata.append('language', 2);
     formdata.append('appId', 1);
     formdata.append('page', 1);
-    console.log('formdata', formdata);
     Api('post', CART_LIST, formdata).then(response => {
       if (response) {
         if (refresh) {
@@ -118,7 +117,6 @@ const App = ({locale, shipping, dispatch, navigation}) => {
           setPrice(response);
           setFlag(true);
         } else {
-          console.log('wwww');
           navigation.navigate('PaymentWebView', {
             orderId: response.orderId,
             totalPrice: amount,

@@ -76,7 +76,6 @@ class App extends Component {
     // }
 
     renderItem({ item, index }) {
-        console.log('item',item)
         return (
             <TouchableOpacity onPress={() =>this.props.navigation.navigate('Detailbuy', { data: item })} style={[styles.cardGrid,{flexDirection:this.props.locale=='ar'?'row-reverse':'row'}]}>
                 <View styl={styles.cardContainer}>

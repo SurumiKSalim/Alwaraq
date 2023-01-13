@@ -43,11 +43,9 @@ class App extends Component {
         this.renderItem = this.renderItem.bind(this)
         this.readBook = this.readBook.bind(this)
         this.deleteBook = this.deleteBook.bind(this)
-        console.log('qqq', this.props.navigation.state.params)
     }
 
     getUrl(bookid, callback) {
-        console.log('jhgy')
         AsyncStorage.getItem(bookid)
             .then(resp => {
                 // const data = JSON.parse(resp);
@@ -81,24 +79,20 @@ class App extends Component {
             RNFetchBlob.fs.unlink(item.pdfPath).then(() => {
             })
             RNFetchBlob.fs.unlink(item.imgPath).then(() => {
-                console.log('img deleted')
             })
         }
         else if (item.audioArray && item.audioArray.length > 0) {
             this.props.dispatch(fetchDeleteBook(item))
             for (let i = 0; i < item.audioArray.length; i++) {
                 RNFetchBlob.fs.unlink(item.audioArray[i]).then(() => {
-                    console.log('audioArray deleted', item.audioArray[i])
                 })
             }
             RNFetchBlob.fs.unlink(item.imgPath).then(() => {
-                console.log('img deleted')
             })
         }
         else {
             this.props.dispatch(fetchDeleteBook(item))
             RNFetchBlob.fs.unlink(item.imgPath).then(() => {
-                console.log('img deleted')
             })
         }
     }

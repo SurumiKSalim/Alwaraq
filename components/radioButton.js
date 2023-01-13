@@ -25,7 +25,6 @@ export default class RadioButton extends Component {
         return (
             <View>
                 {options.map(item => {
-                    console.log('value',value)
                     return (
                         <TouchableOpacity key={item.key} style={styles.buttonContainer} onPress={() => this.onClick(item.key)} >
                             <Text style={styles.txt}>{item.text}</Text>

@@ -50,7 +50,7 @@ class App extends Component {
 
     fetchData() {
         Api('get', ARTICLE, { articleid: this.state.data && this.state.data.id, language: this.props.locale == 'ar' ? 1 : 2 }).then((response) => {
-            console.log('res', response)
+            
             if (response) {
                 this.setState({ articles: response.articles && response.articles[0], isLoading: false })
                 if (response.articles && response.articles[0] && response.articles[0].videoURL) {
@@ -152,7 +152,6 @@ class App extends Component {
     }
 
     vimeoPlay(item) {
-        console.log('videoLink', item)
         if (item && item.includes('vimeo')) {
             if (item) {
                 var url = item;
@@ -165,14 +164,8 @@ class App extends Component {
                         .then(res =>
                             videoLink = res.request.files.hls.cdns[res.request.files.hls.default_cdn].url.trim(),
                         );
-                    console.log('videoLink', videoLink)
                     return videoLink
                 }
-                // if(!match){
-                //     console.log('enteredwrong',url)
-                //     videoLink = ''
-                //     return videoLink
-                // }
                 if (this.state.videoLink != videoLink) {
                     this.setState({ videoLink: videoLink, videoName: item.videoTitle })
                 }
@@ -197,7 +190,6 @@ class App extends Component {
 
     render() {
         var articles = this.state.articles
-        console.log('articles', articles && articles.publicationIcon)
         return (
             <SafeAreaView style={styles.SafeAreaViewContainer}>
                 {!this.state.isLoading ?

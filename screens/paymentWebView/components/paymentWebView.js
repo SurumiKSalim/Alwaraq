@@ -56,11 +56,8 @@ const App = ({ navigation }) => {
     }
 
     const _onURLChanged = (e) => {
-        console.log('e', e?.url)
-        console.log('halink...........................', e.url.slice(0, 21))
         if (e.url.slice(0, 21) === 'https://alwaraq.net/?') {
             // Linking.openURL(e.url)
-            console.log('link...........................', e.url)
             if (e.url.includes('transactionStatus=0')) {
                 navigation.navigate('Detailbuy')
                 Alert.alert(
@@ -112,7 +109,7 @@ const App = ({ navigation }) => {
 
     const messageSignature = CryptoJS.HmacSHA256(messageSignatureContent.join("|"), sharedsecret);
     const messageSignatureBase64 = CryptoJS.enc.Base64.stringify(messageSignature);
-    console.log("messagesig", messageSignatureBase64)
+    
     var testContent = `
         <form id="paymentForm" method="post" action="https://test.ipg-online.com/connect/gateway/processing">
             <input type="hidden" name="sharedsecret" value=${sharedsecret}/>

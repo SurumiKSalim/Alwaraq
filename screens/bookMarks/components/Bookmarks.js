@@ -22,7 +22,6 @@ const App = (props) => {
   const dataFetch = (reset) => {
     setLoading(true)
     Api('post', BOOKMARK).then((response) => {
-      console.log('hhh', response.bookmarks)
       if (response&&response.bookmarks) {
         const newArrayList = [];
         response.bookmarks.forEach(obj => {
@@ -37,7 +36,6 @@ const App = (props) => {
   }
 
   const renderdata = ({ item, index }) => {
-    console.log('item', item, index)
     return (
       <TouchableOpacity onPress={() => props.navigation.navigate('Detailbuy', { bookId: item.bookId})} style={styles.cardGrid} >
         <LinearGradient style={styles.card} colors={['rgba(0,0,0,.2)', 'rgba(0,0,0,.2)', 'rgba(0,0,0,.2)']}>
