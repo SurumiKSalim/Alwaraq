@@ -13,6 +13,7 @@ import {HeaderBackButton} from 'react-navigation-stack';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DocumentPicker from 'react-native-document-picker';
 import ImagePicker from 'react-native-image-crop-picker';
+import {BarIndicator} from 'react-native-indicators';
 import ActionSheet from 'react-native-actionsheet';
 import Toast from 'react-native-simple-toast';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -25,6 +26,9 @@ import {FONT_BOLD, FONT_REGULAR, FONT_SEMIBOLD} from '../../../assets/fonts';
 import I18n from '../../../i18n';
 import {fetchCountryList} from '../../AddressManager/actions';
 import RNFetchBlob from 'rn-fetch-blob';
+import Api from '../../../common/api';
+import AlertModal from '../../../components/AlertModal';
+import {EMAIL_VALIDATE, IB_AWARDS_NOMINATE} from '../../../common/endpoints';
 
 const {width, height} = Dimensions.get('window');
 const keyArray = [
@@ -41,7 +45,8 @@ const keyArray = [
 ];
 
 const App = ({country, dispatch, navigation}) => {
-  // let inputData = {};
+  const [isLoading, setLoading] = useState(false);
+  const [isVisible, setModal] = useState(false);
   const [doc, setDoc] = useState(null);
   const [inputData, setInputData] = useState({});
   const [id, setId] = useState(null);
@@ -138,12 +143,15 @@ const App = ({country, dispatch, navigation}) => {
           cropping: true,
         }).then(image => {
           image_temp = {uri: image.path, type: image.mime, name: 'test.jpg'};
-          if (param == 'id') {
-            setId({uri: image.path, type: image.mime, name: 'test.png'});
+          if (image?.size <= 2097152) {
+            if (param == 'id') {
+              setId({uri: image.path, type: image.mime, name: 'test.png'});
+            } else {
+              setPhoto({uri: image.path, type: image.mime, name: 'test.png'});
+            }
           } else {
-            setPhoto({uri: image.path, type: image.mime, name: 'test.png'});
+            Toast.show('Size should be less than 2MB');
           }
-          // this.submitImage(image_temp);
         });
         break;
     }
@@ -155,13 +163,17 @@ const App = ({country, dispatch, navigation}) => {
         type: [DocumentPicker.types.allFiles],
         copyTo: 'cachesDirectory',
       });
-      const base64 = await RNFetchBlob.fs.readFile(
-        normalize(res[0].fileCopyUri),
-        'base64',
-      );
-      let obj = {base64: base64};
-      let temp_obj = {...res[0], ...obj};
-      setDoc(temp_obj);
+      // const base64 = await RNFetchBlob.fs.readFile(
+      //   normalize(res[0].fileCopyUri),
+      //   'base64',
+      // );
+      // let obj = {base64: base64};
+      // let temp_obj = {...res[0], ...obj};
+      if (res[0]?.size <= 5242880) {
+        setDoc(res[0]);
+      } else {
+        Toast.show('Size should be less than 5MB');
+      }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         Toast.show('User cancelled picker');
@@ -174,26 +186,31 @@ const App = ({country, dispatch, navigation}) => {
 
   const InputData = placeholder => {
     return (
-      <View style={styles.email}>
-        <TextInput
-          placeholder={placeholder}
-          placeholderTextColor={TITLE_COLOR}
-          onChangeText={text => fetchInput(placeholder, text)}
-          style={
-            placeholder == keyArray[8] || placeholder == keyArray[9]
-              ? styles.multiLineTextField
-              : styles.textField
-          }
-          multiline={placeholder == keyArray[8] || placeholder == keyArray[9]}
-          keyboardType={
-            placeholder == keyArray[3]
-              ? 'email-address'
-              : placeholder == keyArray[5]
-              ? 'number-pad'
-              : ''
-          }
-          autoCompleteType={placeholder == keyArray[3] ? 'email' : ''}
-        />
+      <View>
+        <Text style={[styles.subTitle, {paddingVertical: 0}]}>
+          {placeholder}
+        </Text>
+        <View style={styles.email}>
+          <TextInput
+            placeholder={placeholder}
+            placeholderTextColor={TITLE_COLOR}
+            onChangeText={text => fetchInput(placeholder, text)}
+            style={
+              placeholder == keyArray[8] || placeholder == keyArray[9]
+                ? styles.multiLineTextField
+                : styles.textField
+            }
+            multiline={placeholder == keyArray[8] || placeholder == keyArray[9]}
+            keyboardType={
+              placeholder == keyArray[3]
+                ? 'email-address'
+                : placeholder == keyArray[5]
+                ? 'phone-pad'
+                : ''
+            }
+            autoCompleteType={placeholder == keyArray[3] ? 'email' : ''}
+          />
+        </View>
       </View>
     );
   };
@@ -292,25 +309,83 @@ const App = ({country, dispatch, navigation}) => {
       console.log(key, obj[key]);
       if (obj[key] == null || obj[key] == '') {
         Toast.show(` * ${key} field required`);
-        return false
+        return false;
       }
     }
-    return true
+    return true;
+  };
+
+  const onSuccessSubmit = () => {
+    setModal(false);
+    navigation.goBack();
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
+
+  const submit = () => {
+    let formdata = new FormData();
+    formdata.append('action', 'contact');
+    formdata.append('literaryname', inputData[keyArray[1]]);
+    formdata.append('manuscriptname', inputData[keyArray[2]]);
+    formdata.append('nomineename', inputData[keyArray[0]]);
+    formdata.append('phone', inputData[keyArray[5]]);
+    formdata.append('email', inputData[keyArray[3]]);
+    formdata.append('nationality', inputData[keyArray[6]].value);
+    formdata.append('countryofresidence', inputData[keyArray[4]].value);
+    formdata.append('description', inputData[keyArray[8]]);
+    formdata.append('biography', inputData[keyArray[9]]);
+    formdata.append('literaryFile', doc);
+    formdata.append('idFile', id);
+    formdata.append('nomineePhotoFile', photo);
+    formdata.append('appId', 1);
+    setLoading(true);
+    Api('post', IB_AWARDS_NOMINATE, formdata).then(response => {
+      setLoading(false);
+      if(response?.statusCode==200){
+        setModal('success');
+      }
+      else{
+        setModal('failed');
+      }
+    });
+  };
+
+  const emailvalidate = email => {
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(email)) {
+      return false;
+    }
+    // get the domain
+    const domain = email.split('@')[1];
+    // check if the domain has at least one "."
+    if (!domain.includes('.')) {
+      return false;
+    }
+    // check if domain is IP address
+    if (domain.match(/\d+\.\d+\.\d+\.\d+/)) {
+      return false;
+    }
+    return true;
   };
 
   const validate = () => {
     if (Object.keys(inputData).length == 10) {
-      if(checkProperties(inputData)){
-        if(id && photo && doc){
-          Toast.show('Suceess');
-        }
-        else{
-          Toast.show('Please Upload all 3 files');
+      if (checkProperties(inputData)) {
+        if (emailvalidate(inputData[keyArray[3]])) {
+          if (id && photo && doc) {
+            submit();
+          } else {
+            Toast.show('Please Upload all 3 files');
+          }
+        } else {
+          Toast.show('Please use a valied e-mail');
         }
       }
     } else {
       Toast.show('Please fill all fields');
-      console.log('item', inputData);
     }
   };
 
@@ -337,6 +412,27 @@ const App = ({country, dispatch, navigation}) => {
           <Text style={styles.submit}>Submit</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
+        {isLoading && (
+          <BarIndicator
+            style={styles.loaderContainer}
+            color={PRIMARY_COLOR}
+            size={34}
+          />
+        )}
+        <AlertModal
+        isVisible={isVisible == 'success'}
+        onSubmit={onSuccessSubmit}
+        header={I18n.t('SUCCESS')}
+        butttonlabel={I18n.t('Ok')}
+        title={"Your nomination is successfully submitted"}
+      />
+       <AlertModal
+        isVisible={isVisible == 'failed'}
+        onSubmit={closeModal}
+        header={I18n.t('FAILED')}
+        butttonlabel={I18n.t('Ok')}
+        title={"Sorry something Went Wrong"}
+      />
     </SafeAreaView>
   );
 };
@@ -403,6 +499,8 @@ const styles = StyleSheet.create({
     fontFamily: FONT_SEMIBOLD,
     paddingVertical: 8,
     justifyContent: 'center',
+    paddingBottom: 8,
+    opacity: 0.6,
   },
   multiLineTextField: {
     flex: 1,
@@ -457,5 +555,10 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
     paddingRight: 15,
+  },
+  loaderContainer: {
+    height: height * 0.5,
+    position: 'absolute',
+    alignSelf: 'center',
   },
 });

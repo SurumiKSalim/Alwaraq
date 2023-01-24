@@ -23,7 +23,7 @@ const SEND_OTP                  = USER_HOST + '/json_sendOtp'
 const USER_DELETE               = USER_HOST + '/json_user_deleteUser'
 const BAD_COMMENTS              = USER_HOST + '/json_register_badcomments.php'
 const APP_HELP_SUPPORT          = USER_HOST + '/json_appHelpSupport.php'
-
+const IB_AWARDS_NOMINATE        = USER_HOST + '//json_ibawards_nominate.php'
 
 const QURAN                     = HOST + '/json_quranpage.php'
 const QURAN_CONTENTS            = HOST + '/json_surainfos'
@@ -117,6 +117,7 @@ export {
     USER_DELETE,
     BAD_COMMENTS,
     APP_HELP_SUPPORT,
+    IB_AWARDS_NOMINATE,
     
     QURAN,
     QURAN_CONTENTS,

@@ -45,7 +45,6 @@ const App = ({navigation}) => {
     fetchData();
   }, []);
 
-
   const renderAccordians = () => {
     const items = [];
     {
@@ -84,13 +83,13 @@ const App = ({navigation}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         {data?.supports?.length > 0 && renderAccordians()}
       </ScrollView>
-        {isLoading&& (
-          <BarIndicator
-            style={styles.loaderContainer}
-            color={PRIMARY_COLOR}
-            size={34}
-          />
-        )}
+      {isLoading && (
+        <BarIndicator
+          style={styles.loaderContainer}
+          color={PRIMARY_COLOR}
+          size={34}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
   },
   loaderContainer: {
     height: height * 0.5,
-    position:'absolute',
-    alignSelf:'center'
+    position: 'absolute',
+    alignSelf: 'center',
   },
 });
