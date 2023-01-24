@@ -274,6 +274,8 @@ const user = (state = initialStage, actions) => {
       return {...state, user: actions.user};
     case 'UPDATE_REMEMBER_USER':
       return {...state, rememberUser: actions.user};
+    case 'BIOMETRIC_CHANGED':
+      return {...state, isBiometric: actions.value};
     default:
       return state;
   }

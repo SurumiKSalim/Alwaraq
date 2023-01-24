@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {View, Switch, StyleSheet,Text} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import ReactNativeBiometrics, {BiometryTypes} from 'react-native-biometrics';
-import {PRIMARY_COLOR} from '../assets/color';
+import {PRIMARY_COLOR, TITLE_COLOR} from '../assets/color';
 import {changeBiometric} from '../screens/login/actions';
-import { FONT_REGULAR } from '../assets/fonts';
+import { FONT_REGULAR, FONT_SEMIBOLD } from '../assets/fonts';
 import I18n from '../i18n';
 
 const App = ({dispatch, isBiometric}) => {
@@ -78,8 +78,8 @@ contain:{
     justifyContent:'flex-end'
 },
 title:{
-    color:PRIMARY_COLOR,
-    fontFamily:FONT_REGULAR,
+    color:TITLE_COLOR,
+    fontFamily:FONT_SEMIBOLD,
     fontSize:12
 }
 });

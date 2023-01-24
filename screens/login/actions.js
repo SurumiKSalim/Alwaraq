@@ -274,3 +274,7 @@ export function changeEmail(user) {
 export function rememberUser(user) {
   return {type: 'UPDATE_REMEMBER_USER', user: user};
 }
+
+export function changeBiometric(value) {
+  return {type: 'BIOMETRIC_CHANGED',value:value};
+}

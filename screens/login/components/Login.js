@@ -46,6 +46,8 @@ import appleAuth, {
   AppleAuthCredentialState,
   AppleAuthRequestOperation,
 } from '@invertase/react-native-apple-authentication';
+import Biometric from '../../../components/Biometric';
+import BiometricLogin from '../../../components/BiometricLogin';
 
 class App extends Component {
   static navigationOptions = {
@@ -70,6 +72,7 @@ class App extends Component {
     this._setupGoogleSignin = this._setupGoogleSignin.bind(this);
     this.sentUserToServer = this.sentUserToServer.bind(this);
     this.onLogin = this.onLogin.bind(this);
+    this.biometricLogin = this.biometricLogin.bind(this);
   }
 
   async componentDidMount() {
@@ -94,6 +97,12 @@ class App extends Component {
     // this.props.dispatch(signup(user, this.props.navigation))
     this.props.dispatch(
       signup(user, this.props.navigation, this.props.locale, this.state.goBack),
+    );
+  }
+
+  biometricLogin() {
+    this.props.dispatch(
+      fetchUser(this.props.rememberUser, this.props.navigation),
     );
   }
 
@@ -309,6 +318,13 @@ class App extends Component {
           {this.props.error && (
             <Text style={styles.validationText}>{this.props.error} </Text>
           )}
+          <Biometric
+              isBiometric={this.props.isBiometric}
+              dispatch={this.props.dispatch}
+            />
+            {this.props.rememberUser && this.props.isBiometric && (
+              <BiometricLogin biometricLogin={this.biometricLogin} />
+            )}
           <TouchableOpacity onPress={this.onLogin} style={styles.button}>
             {this.props.isLogging ? (
               <View style={styles.indicatorContainer}>
@@ -376,6 +392,7 @@ const mapStateToProps = state => {
     activeSession: state.userLogin.activeSession,
     locale: state.userLogin.locale,
     rememberUser: state.userLogin.rememberUser,
+    isBiometric: state.userLogin.isBiometric,
   };
 };
 

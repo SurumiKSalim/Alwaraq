@@ -408,6 +408,8 @@ PODS:
   - React-jsinspector (0.67.2)
   - React-logger (0.67.2):
     - glog
+  - react-native-biometrics (3.0.1):
+    - React-Core
   - react-native-document-picker (8.1.3):
     - React-Core
   - react-native-fbsdk (3.0.0):
@@ -619,6 +621,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-biometrics (from `../node_modules/react-native-biometrics`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
@@ -749,6 +752,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-biometrics:
+    :path: "../node_modules/react-native-biometrics"
   react-native-document-picker:
     :path: "../node_modules/react-native-document-picker"
   react-native-fbsdk:
@@ -896,6 +901,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 52beb652bbc61201bd70cbe4f0b8edb607e8da4f
   React-jsinspector: 595f76eba2176ebd8817a1fffd47b84fbdab9383
   React-logger: 23de8ea0f44fa00ee77e96060273225607fd4d78
+  react-native-biometrics: 352e5a794bfffc46a0c86725ea7dc62deb085bdc
   react-native-document-picker: 4e7773361aea6ce573f6a2f0618041bba443eaa7
   react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-google-maps: 2e2e697dab576abd5809d78cd74e775865b62bf7

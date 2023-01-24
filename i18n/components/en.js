@@ -268,5 +268,9 @@ export default {
     
     EV_Account: 'EV Account Login',
     EV_SignUp:'EV Account SignUp',
-    EV_Account_Description: 'EV Account can be used in all the apps and websites of Electronic Village.'
+    EV_Account_Description: 'EV Account can be used in all the apps and websites of Electronic Village.',
+
+    Enable_Biometric:'Enable Biometric Sign In ?',
+    Biometric_Sign_In:'Biometric Sign In',
+    No_Fav_Found: 'No favourites found',
 }

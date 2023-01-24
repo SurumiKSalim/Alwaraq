@@ -274,4 +274,8 @@ export default {
     EV_Account: 'تسجيل الدخول عبر حساب القرية الإلكترونية ',
     EV_SignUp:'شاء حساب القرية الإلكترونية ',
     EV_Account_Description: 'يمكن استخدام حساب القرية الإلكترونية في جميع تطبيقات ومواقع القرية الإلكترونية. ',
+    
+    Enable_Biometric:'تمكين تسجيل الدخول بالبصمة؟',
+    Biometric_Sign_In:'تسجيل الدخول بالبصمة',
+    No_Fav_Found: 'No favourites found',
 }
