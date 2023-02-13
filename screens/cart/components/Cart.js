@@ -266,8 +266,16 @@ const App = ({locale, shipping, dispatch, navigation}) => {
     </View>
   );
 
+  const format_money = amount => {
+    return (Math.round(amount * 100) / 100)
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scroll}
@@ -293,6 +301,7 @@ const App = ({locale, shipping, dispatch, navigation}) => {
           action={'CuisinesDetails'}
           isLoading={isLoading}
           counter={counter}
+          navigation={navigation}
         />
         {data && data.length > 0 && (
           <View style={styles.dataContainer}>
@@ -316,15 +325,15 @@ const App = ({locale, shipping, dispatch, navigation}) => {
         {isUpdateLoading && (
           <BarIndicator style={styles.loader} color={PRIMARY_COLOR} size={34} />
         )}
-        {!isLastPage && <MaterialIndicator color={PRIMARY_COLOR} size={25} />}
+        {!isLastPage &&data?.length > 0 && <MaterialIndicator color={PRIMARY_COLOR} size={25} />}
       </ScrollView>
       {data && data.length > 0 && (
         <View style={styles.bottomTab}>
           <View style={styles.bottomTxtContainer}>
             {enablePurchase && (
               <Text style={styles.priceSubTxt}>
-                Total : USD {priceData?.totalPriceUSD}
-                {'\n'} (AED {priceData?.totalPriceAed} )
+                Total : USD {format_money(priceData?.totalPriceUSD)}
+                {'\n'} (AED {format_money(priceData?.totalPriceAed)} )
               </Text>
             )}
           </View>

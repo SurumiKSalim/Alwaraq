@@ -760,9 +760,7 @@ class App extends Component {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                Linking.openURL(HELP_AND_SUPPORT + `${this.state.languageId}`)
-              }
+              onPress={() => this.props.navigation.navigate('HelpAndSupport')}
               style={styles.subContainerContents}>
               <SimpleLineIcons
                 name={'info'}

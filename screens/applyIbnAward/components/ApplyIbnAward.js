@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  Image
 } from 'react-native';
 import {connect} from 'react-redux';
 import {HeaderBackButton} from 'react-navigation-stack';
@@ -16,6 +17,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {BarIndicator} from 'react-native-indicators';
 import ActionSheet from 'react-native-actionsheet';
 import Toast from 'react-native-simple-toast';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   PRIMARY_COLOR,
@@ -39,7 +41,6 @@ const keyArray = [
   'Country of Residence',
   'Phone',
   'Nationality',
-  'nickname',
   'About the manuscript',
   'About the participant',
 ];
@@ -127,11 +128,11 @@ const App = ({country, dispatch, navigation}) => {
           height: 400,
           cropping: true,
         }).then(image => {
-          image_temp = {uri: image.path, type: image.mime, name: 'test.jpg'};
+          image_temp = {uri: image.path, type: image.mime, name: image?.filename};
           if (param == 'id') {
-            setId({uri: image.path, type: image.mime, name: 'test.png'});
+            setId(image_temp);
           } else {
-            setPhoto({uri: image.path, type: image.mime, name: 'test.png'});
+            setPhoto(image_temp);
           }
           // this.submitImage(image_temp);
         });
@@ -142,12 +143,12 @@ const App = ({country, dispatch, navigation}) => {
           height: 400,
           cropping: true,
         }).then(image => {
-          image_temp = {uri: image.path, type: image.mime, name: 'test.jpg'};
+          image_temp = {uri: image.path, type: image.mime, name: image?.filename};
           if (image?.size <= 2097152) {
             if (param == 'id') {
-              setId({uri: image.path, type: image.mime, name: 'test.png'});
+              setId(image_temp);
             } else {
-              setPhoto({uri: image.path, type: image.mime, name: 'test.png'});
+              setPhoto(image_temp);
             }
           } else {
             Toast.show('Size should be less than 2MB');
@@ -196,7 +197,7 @@ const App = ({country, dispatch, navigation}) => {
             placeholderTextColor={TITLE_COLOR}
             onChangeText={text => fetchInput(placeholder, text)}
             style={
-              placeholder == keyArray[8] || placeholder == keyArray[9]
+              placeholder == keyArray[7] || placeholder == keyArray[8]
                 ? styles.multiLineTextField
                 : styles.textField
             }
@@ -256,9 +257,18 @@ const App = ({country, dispatch, navigation}) => {
       </Text>
       <TouchableOpacity
         onPress={() => showActionsheet('id')}
-        style={styles.email}>
+        style={styles.photoContainer}>
+        {id ? (
+          <Image source={{uri: id?.uri}} style={styles.assets} />
+        ) : (
+          <MaterialCommunityIcons
+            name="image-plus"
+            size={40}
+            color={SECONDARY_COLOR}
+          />
+        )}
         <Text style={styles.textField}>
-          {id ? 'Passport or ID' : 'Upload file'}
+          {id ? id.name : 'Upload file'}
         </Text>
         <Text style={styles.uploadButton}>Choose file</Text>
       </TouchableOpacity>
@@ -271,8 +281,17 @@ const App = ({country, dispatch, navigation}) => {
       <Text style={styles.subTitle}>A print-sized personal photo</Text>
       <TouchableOpacity
         onPress={() => showActionsheet('photo')}
-        style={styles.email}>
-        <Text style={styles.textField}>{photo ? 'Photo' : 'Upload file'}</Text>
+        style={styles.photoContainer}>
+        {photo ? (
+          <Image source={{uri: photo?.uri}} style={styles.assets} />
+        ) : (
+          <MaterialCommunityIcons
+            name="image-plus"
+            size={40}
+            color={SECONDARY_COLOR}
+          />
+        )}
+        <Text style={styles.textField}>{photo ? photo.name : 'Upload file'}</Text>
         <Text style={styles.uploadButton}>Choose file</Text>
       </TouchableOpacity>
       <Text style={styles.desc}>Allowed types: jpg, png</Text>
@@ -343,10 +362,9 @@ const App = ({country, dispatch, navigation}) => {
     setLoading(true);
     Api('post', IB_AWARDS_NOMINATE, formdata).then(response => {
       setLoading(false);
-      if(response?.statusCode==200){
+      if (response?.statusCode == 200) {
         setModal('success');
-      }
-      else{
+      } else {
         setModal('failed');
       }
     });
@@ -372,7 +390,7 @@ const App = ({country, dispatch, navigation}) => {
   };
 
   const validate = () => {
-    if (Object.keys(inputData).length == 10) {
+    if (Object.keys(inputData).length == 9) {
       if (checkProperties(inputData)) {
         if (emailvalidate(inputData[keyArray[3]])) {
           if (id && photo && doc) {
@@ -388,7 +406,7 @@ const App = ({country, dispatch, navigation}) => {
       Toast.show('Please fill all fields');
     }
   };
-
+console.log('inputData',inputData)
   return (
     <SafeAreaView style={styles.contain}>
       {header()}
@@ -412,26 +430,26 @@ const App = ({country, dispatch, navigation}) => {
           <Text style={styles.submit}>Submit</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
-        {isLoading && (
-          <BarIndicator
-            style={styles.loaderContainer}
-            color={PRIMARY_COLOR}
-            size={34}
-          />
-        )}
-        <AlertModal
+      {isLoading && (
+        <BarIndicator
+          style={styles.loaderContainer}
+          color={PRIMARY_COLOR}
+          size={34}
+        />
+      )}
+      <AlertModal
         isVisible={isVisible == 'success'}
         onSubmit={onSuccessSubmit}
         header={I18n.t('SUCCESS')}
         butttonlabel={I18n.t('Ok')}
-        title={"Your nomination is successfully submitted"}
+        title={'Your nomination is successfully submitted'}
       />
-       <AlertModal
+      <AlertModal
         isVisible={isVisible == 'failed'}
         onSubmit={closeModal}
         header={I18n.t('FAILED')}
         butttonlabel={I18n.t('Ok')}
-        title={"Sorry something Went Wrong"}
+        title={'Sorry something Went Wrong'}
       />
     </SafeAreaView>
   );
@@ -560,5 +578,21 @@ const styles = StyleSheet.create({
     height: height * 0.5,
     position: 'absolute',
     alignSelf: 'center',
+  },
+  photoContainer: {
+    justifyContent: 'center',
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: SECONDARY_COLOR,
+    borderRadius: 5,
+    paddingLeft: 10,
+    height: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  assets: {
+    height: 45,
+    width: 50,
+    borderRadius: 5,
   },
 });

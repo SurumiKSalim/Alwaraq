@@ -10,6 +10,7 @@ import DynamicText, { DynamicView, IS_IPAD } from '../common/dynamicviews'
 import { CartOptions } from '../components/CartComponents'
 import ErrorMsg from './ErrorMsg'
 import MaterialIcons from "react-native-vector-icons/MaterialIcons"
+import AnimatedEmptyCart from './AnimatedEmptyCart';
 
 const { height, width } = Dimensions.get('screen')
 
@@ -104,12 +105,7 @@ const App = ({ data, isLoading, locale, scrollEnable, action, addItem, counter,o
             </ScrollView> :
             <View>
                 {isLoading && placeHolder()}
-                {!isLoading &&
-                    <ErrorMsg
-                        height={156}
-                        msg={"Cart is Empty"}
-                    />
-                }
+      {!isLoading && AnimatedEmptyCart(navigation)}
             </View>
     );
 }

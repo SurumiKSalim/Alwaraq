@@ -23,7 +23,7 @@ const App = ({ navigation }) => {
     var responseSuccessURL = `https://alwaraq.net/payment/orderBookFinish.php?returnUrl=https://alwaraq.net&orderId=${navigation.getParam('orderId')}&productType=${navigation.getParam('productType')}&sessiontoken=${sessionToken}&refCode=${navigation.getParam('refCode')}&appId=1&transactionStatus=1`
 
     var messageSignatureContent = ["false",
-        "false",
+        "true",
         navigation.getParam('totalPrice'),
         "combinedpage",
         "784",
@@ -151,7 +151,7 @@ const App = ({ navigation }) => {
                     <input type="hidden" name="txndatetime" value="${time}" />
                     <input type="hidden" name="txntype" value="sale" />
                     <input type="hidden" name="chargetotal" value="${navigation.getParam('totalPrice')}" />
-                    <input type="hidden" name="authenticateTransaction" value="false" />
+                    <input type="hidden" name="authenticateTransaction" value="true" />
                     <input type="hidden" name="currency" value="784" />
                     <input type="hidden" name="referencedSchemeTransactionId" value="" />
                     <input type="hidden" name="unscheduledCredentialOnFileType" value="" />
