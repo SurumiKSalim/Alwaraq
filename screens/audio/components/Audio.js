@@ -157,11 +157,11 @@ class App extends Component {
     }
   }
 
-  selection(item, info, article) {
+  selection(item, info, article,subjectName) {
     if (!article) {
       this.props.dispatch(resetModulesList());
       if (item?.subjectId) {
-        this.props.navigation.push('BookList', { subjectId:item?.subjectId,isAudioAvailable:1 })
+        this.props.navigation.push('BookList', { subjectId:item?.subjectId,isAudioAvailable:1,authorName:subjectName})
       } else if (item?.moduleId != 5) {
         this.props.dispatch(fetchModulesList(item?.moduleId));
       } else {

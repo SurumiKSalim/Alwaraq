@@ -18,6 +18,7 @@ const images = {
     time:require('./images/Home/time.jpeg'),
     ibn:require('./images/Home/ibn.jpeg'),
     alwaraqBanner:require('./images/Home/alwaraqBanner.png'),
+    languageGlobe:require('./images/Home/languageGlobe.jpeg'),
     coverImage:'https://www.alwaraq.net:443'
 }
 export default images

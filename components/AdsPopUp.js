@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient'
-import Carousel from 'react-native-snap-carousel'
+import LinearGradient from 'react-native-linear-gradient';
+import Carousel from 'react-native-snap-carousel';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Modal from 'react-native-modal';
 import {HOME_NOTIFICATION} from '../common/endpoints';
 import Api from '../common/api';
@@ -26,7 +27,6 @@ const App = ({navigation}) => {
     Api('get', HOME_NOTIFICATION).then(response => {
       if (response?.statusCode == 200 && response?.data) {
         setData(response?.data);
-
         setTimeout(() => {
           setVisible(true);
         }, 2000);
@@ -38,33 +38,47 @@ const App = ({navigation}) => {
     fetchData();
   }, []);
 
-  const onSubmit = item => {
+  const onSubmit = (item,playAudio) => {
     setVisible(false);
-    navigation.navigate('Detailbuy', {bookId: item?.bookid});
+    navigation.navigate('Detailbuy', {bookId: item?.bookid,playAudio:playAudio});
   };
 
-  
-  const _renderItem = ({item,index}) => {
-    return(
-    <View style={styles.modalHeader}>
-                <Image
-                  resizeMode="stretch"
-                  style={styles.imgStyle}
-                  source={{uri: item?.coverImage}}
-                />
-                <View style={styles.content}>
-                    <Text numberOfLines={1} style={styles.title}>{item?.name}</Text>
-                    <Text numberOfLines={1} style={styles.subTitle}>{item?.author}</Text>
-                    <Text numberOfLines={2} style={styles.desc}>{item?.addinfo}</Text>
-                </View>
-                <TouchableOpacity
-                  onPress={() => onSubmit(item)}
-                  style={styles.footer}>
-                  <Text style={styles.footerText}>{I18n.t('Read_now')}</Text>
-                </TouchableOpacity>
-              </View>
-  )
-  }
+  const _renderItem = ({item, index}) => {
+    return (
+      <View style={styles.modalHeader}>
+        <Image
+          resizeMode="stretch"
+          style={styles.imgStyle}
+          source={{uri: item?.coverImage}}
+        />
+        <View style={styles.content}>
+          <Text numberOfLines={1} style={styles.title}>
+            {item?.name}
+          </Text>
+          <Text numberOfLines={1} style={styles.subTitle}>
+            {item?.author}
+          </Text>
+          <Text numberOfLines={2} style={styles.desc}>
+            {item?.addinfo}
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() => onSubmit(item)}
+            style={styles.footer}>
+            <Text style={styles.footerText}>{I18n.t('Read_now')}</Text>
+          </TouchableOpacity>
+          {item?.isAudioAvailable && (
+            <TouchableOpacity
+              onPress={() => onSubmit(item,true)}
+              style={styles.sound}>
+              <FontAwesome5 name="volume-up" size={24} color={'#fff'} />
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
+    );
+  };
 
   const renderItem = () => {
     return (
@@ -77,13 +91,13 @@ const App = ({navigation}) => {
           onPress={() => setVisible(false)}
         />
         <Carousel
-              data={data}
-              autoplay
-              loop
-              renderItem={_renderItem}
-              sliderWidth={width * 0.85}
-              itemWidth={width * 0.85}
-            />
+          data={data}
+          autoplay
+          loop
+          renderItem={_renderItem}
+          sliderWidth={width * 0.85}
+          itemWidth={width * 0.85}
+        />
       </View>
     );
   };
@@ -129,14 +143,25 @@ const styles = StyleSheet.create({
   imgStyle: {
     height: height * 0.8 - 250,
     width: width * 0.85,
-    backgroundColor:'#fff',
-    borderRadius:10
+    backgroundColor: '#fff',
+    borderRadius: 10,
     // borderTopLeftRadius:10,
     // borderTopRightRadius:10
   },
   footer: {
     backgroundColor: PRIMARY_COLOR,
     height: 50,
+    flex: 1,
+    marginTop: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  sound: {
+    backgroundColor: PRIMARY_COLOR,
+    height: 50,
+    width: 50,
+    marginLeft: 15,
     marginTop: 10,
     borderRadius: 10,
     alignItems: 'center',
@@ -145,21 +170,21 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     color: PRIMARY_COLOR,
-    marginVertical:8,
-    fontFamily:FONT_SEMIBOLD,
+    marginVertical: 8,
+    fontFamily: FONT_SEMIBOLD,
     textAlign: 'center',
   },
   subTitle: {
     fontSize: 16,
     color: '#fff',
-    fontFamily:FONT_MEDIUM,
+    fontFamily: FONT_MEDIUM,
     textAlign: 'center',
   },
   desc: {
     fontSize: 14,
     color: '#fff',
-    marginTop:5,
-    fontFamily:FONT_REGULAR,
+    marginTop: 5,
+    fontFamily: FONT_REGULAR,
     textAlign: 'center',
   },
   footerText: {

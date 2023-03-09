@@ -168,7 +168,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     let data = this.props.navigation.getParam('data', null);
-    let bookId =this.props.navigation.getParam('bookId')
+    let bookId = this.props.navigation.getParam('bookId');
     let dataKey = [
       'publisher',
       'publishingdate',
@@ -207,7 +207,7 @@ class App extends Component {
       videoBook: data && data.bookVideos,
       isAudioAvailable: data && data.isAudioAvailable,
       isVideoAvailable: data && data.isVideoAvailable,
-      bookId:bookId?bookId:data?.bookid,
+      bookId: bookId ? bookId : data?.bookid,
       videoModal: false,
       maxLimit: false,
       isVideo: false,
@@ -327,7 +327,7 @@ class App extends Component {
         this.setState({maxLimit: true, message: 'Subscribe to read this book'});
       }
     } else {
-        this.startAudio(isVideo);
+      this.startAudio(isVideo);
     }
   }
 
@@ -499,12 +499,7 @@ class App extends Component {
     if (this.props.user) {
       if (this.state.isFavouriste != null) {
         let actions = this.state.isFavouriste ? 'delete' : 'add';
-        this.props.dispatch(
-          fetchAddFavourites(
-            actions,
-            this.state.bookId,
-          ),
-        );
+        this.props.dispatch(fetchAddFavourites(actions, this.state.bookId));
         if (actions == 'add') {
           this.setState({isFavouriste: true});
         } else {
@@ -615,6 +610,11 @@ class App extends Component {
             response.books[0].isAudioAvailable,
         });
       }
+      if (this.props.navigation.getParam('playAudio')) {
+        setTimeout(() => {
+        this.audioPlay();
+        }, 500);
+      }
     });
   }
 
@@ -665,31 +665,36 @@ class App extends Component {
     // let bookId=data.bookId
     if (!this.state.downloadStop) {
       let totalpages = this.state.data && this.state.data.totalpages;
-      if (!this.props.offlinebook.find(o => o.bookid == this.state.bookId) || loop) {
+      if (
+        !this.props.offlinebook.find(o => o.bookid == this.state.bookId) ||
+        loop
+      ) {
         let page = this.props.page ? this.props.page : 1;
         if (reset) {
           this.props.dispatch(resetBookDownload());
           page = 1;
         }
-        Api('get', OFFLINE_DOWNLOAD, {book: this.state.bookId, page: page}).then(
-          response => {
-            let percent =
-              this.props.page / (totalpages / 10) < 1
-                ? this.props.page / (totalpages / 10)
-                : 1;
-            this.setState({percent: percent});
-            if (response) {
-              this.props.dispatch(fetchBookDownload(response, this.state.bookId));
-              if (this.props.isLastPage == false) {
-                this.bookDownload(data, false, true);
-              } else {
-                this.props.dispatch(fetchCoverImage(data.imgPath, this.state.bookId));
-                
-              }
+        Api('get', OFFLINE_DOWNLOAD, {
+          book: this.state.bookId,
+          page: page,
+        }).then(response => {
+          let percent =
+            this.props.page / (totalpages / 10) < 1
+              ? this.props.page / (totalpages / 10)
+              : 1;
+          this.setState({percent: percent});
+          if (response) {
+            this.props.dispatch(fetchBookDownload(response, this.state.bookId));
+            if (this.props.isLastPage == false) {
+              this.bookDownload(data, false, true);
             } else {
+              this.props.dispatch(
+                fetchCoverImage(data.imgPath, this.state.bookId),
+              );
             }
-          },
-        );
+          } else {
+          }
+        });
       }
     }
   }
@@ -1021,7 +1026,9 @@ class App extends Component {
             'You can only download maximum 5 books. please delete any books from download to add new',
         });
       }
-    } else if (this.props.offlinebook.find(o => o.bookid == this.state.bookId)) {
+    } else if (
+      this.props.offlinebook.find(o => o.bookid == this.state.bookId)
+    ) {
       this.props.navigation.navigate('Downloads', {
         onReturn: item => {
           this.setState({

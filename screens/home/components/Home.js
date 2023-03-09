@@ -424,7 +424,7 @@ export class TabViewExample extends React.Component {
     super(props);
     this.state = {
       value: 0,
-      isFirstLogin:props.isFirstLogin,
+      isFirstLogin: props.isFirstLogin,
       index: 1,
       size: {width, height},
       routes: [
@@ -627,10 +627,10 @@ export class TabViewExample extends React.Component {
                 order={2}
                 name={I18n.t('Language')}>
                 <CopilotText>
-                  <FontAwesome5
-                    name="globe-asia"
-                    color={TITLE_COLOR}
-                    size={26}
+                  <Image
+                    style={styles.languageGlobe}
+                    source={Images.languageGlobe}
+                    resizeMode="contain"
                   />
                 </CopilotText>
               </CopilotStep>
@@ -820,8 +820,9 @@ export class TabViewExample extends React.Component {
           labelStyle={styles.labelStyle}
           initialLayout={{width: Dimensions.get('window').width}}
         />
-        {!this.state.isFirstLogin&&
-        <AdsPopUp navigation={this.props.navigation}/>}
+        {!this.state.isFirstLogin && (
+          <AdsPopUp navigation={this.props.navigation} />
+        )}
         <LanguageModal />
       </SafeAreaView>
     );
@@ -1161,5 +1162,9 @@ const styles = StyleSheet.create({
   },
   menu: {
     marginRight: 10,
+  },
+  languageGlobe: {
+    height:30,
+    width:30
   },
 });

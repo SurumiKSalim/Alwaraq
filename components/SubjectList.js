@@ -42,9 +42,9 @@ const App = ({selection}) => {
     });
   };
 
-  const handleClick =(item)=>{
+  const handleClick =(item,subjectName)=>{
     setVisible(false)
-    selection(item)
+    selection(item,null,null,subjectName)
   }
 
   const onClick = item => {
@@ -59,7 +59,7 @@ const App = ({selection}) => {
 
   const renderChildItem=({ item, index })=> {
     return (
-        <TouchableOpacity onPress={() => handleClick(item)} style={styles.containerContent1}>
+        <TouchableOpacity onPress={() => handleClick(item,item.subjectName)} style={styles.containerContent1}>
             <View style={styles.renderItemImg}>
                 <Image style={styles.card} source={{ uri: item.picture }}></Image>
             </View>

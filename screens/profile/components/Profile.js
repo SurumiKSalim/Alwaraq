@@ -232,8 +232,16 @@ class App extends Component {
   }
 
   changeFullname() {
+    if(this.state.updateUserName ==this.props.user?.fullname ){
+      Toast.show('No Change');
+    }
+    else if(this.state.updateUserName == ''){
+      Toast.show("Name can't be empty");
+    }
+    else{
     this.props.dispatch(fetchChangeName(this.state.updateUserName));
     this.setState({isVisible: null, initial: true});
+    }
   }
 
   imagePicker(index) {
@@ -354,7 +362,7 @@ class App extends Component {
         <Text style={styles.info}>* {I18n.t('user_name_cant_be_empty')}</Text>
       )}
       <TouchableOpacity
-        onPress={this.state.updateUserName !== '' && this.changeFullname}
+        onPress={this.changeFullname}
         style={styles.modalButton}>
         <View style={styles.TouchableContentView}>
           <Text style={styles.modalButtonFont}>
@@ -402,11 +410,12 @@ class App extends Component {
             style={styles.modalSelectionContent1}>
             <Text style={styles.modalText}>{I18n.t('Change_Language')}</Text>
           </TouchableOpacity>
+          {(Platform.OS!=='ios'||this.props.user?.showInvitationKey)&&
           <TouchableOpacity
             onPress={() => this.setState({selection: 3})}
             style={styles.modalSelectionContent2}>
             <Text style={styles.modalText}>Add Invitation Key</Text>
-          </TouchableOpacity>
+          </TouchableOpacity>}
         </View>
       )}
       {this.state.selection == 1 && (
@@ -1172,5 +1181,10 @@ const styles = StyleSheet.create({
   profInfoContainerContent: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  info: {
+    color: 'red',
+    marginBottom: 8,
+    fontFamily: FONT_REGULAR,
   },
 });
