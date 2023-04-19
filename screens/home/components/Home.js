@@ -626,13 +626,10 @@ export class TabViewExample extends React.Component {
                 text={I18n.t('Change_Language')}
                 order={2}
                 name={I18n.t('Language')}>
-                <CopilotText>
-                  <Image
-                    style={styles.languageGlobe}
+                  <CopilotImage
+                    style={styles.languageGlobes}
                     source={Images.languageGlobe}
-                    resizeMode="contain"
                   />
-                </CopilotText>
               </CopilotStep>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.onSearch()}>
@@ -1163,8 +1160,8 @@ const styles = StyleSheet.create({
   menu: {
     marginRight: 10,
   },
-  languageGlobe: {
-    height:30,
-    width:30
+  languageGlobes: {
+    height:28,
+    width:28,
   },
 });

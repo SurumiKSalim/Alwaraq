@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { store, persistor } from './common/store'
 import Router from './screens/router'
-import {SafeAreaView } from 'react-native'
+import {AppRegistry } from 'react-native'
 import { PersistGate } from 'redux-persist/integration/react'
 import 'react-native-gesture-handler'
 

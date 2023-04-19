@@ -34,6 +34,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import Search from '../../../components/Search';
 import Modal from 'react-native-modal';
 import I18n from '../../../i18n';
+import Api from '../../../common/api';
+import {MUSCIC} from '../../../common/endpoints';
+import MusicPlayer from '../../../components/musicPlayer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {MaterialIndicator} from 'react-native-indicators';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -99,6 +102,11 @@ export class App extends React.Component {
           <Text style={styles.headerText}>
             {LanguageList[params?.bookLanguage]?.slice(0, 2)}
           </Text>
+            <TouchableOpacity
+              style={{marginRight: 8}}
+              onPress={() => params.this.setState({isMusicModal: true})}>
+              <FontAwesome name="volume-up" color={PRIMARY_COLOR} size={28} />
+            </TouchableOpacity>
           {/* {params.this && params.this.props.navigation.getParam('fromLibrary') && */}
           <ModalDropdown
             options={LanguageList}
@@ -136,6 +144,8 @@ export class App extends React.Component {
       modalVisible: false,
       searchText: '',
       isSearchPage: false,
+      isMusicModal: false,
+      musicBooks: [],
       bookLanguage: this.props.navigation.getParam('isJapanese')
         ? 5
         : undefined,
@@ -164,6 +174,37 @@ export class App extends React.Component {
     this.fetchData = this.fetchData.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this._dropdownOnSelect = this._dropdownOnSelect.bind(this);
+    // this.fetchMusic = this.fetchMusic.bind(this);
+    this.fetchMusicArray = this.fetchMusicArray.bind(this);
+    this.closeMusicModal = this.closeMusicModal.bind(this);
+  }
+
+  fetchMusicArray(books) {
+    const bookAudios = books.reduce((acc, book) => {
+      return [...acc, ...book.bookAudio];
+    }, []);
+    this.setState({musicBooks: bookAudios});
+  }
+
+  // fetchMusic(bookLanguage) {
+  //   if (this.props.navigation.getParam('listType') == '101books') {
+  //     Api('get', MUSCIC, {bookLanguage: bookLanguage}).then(response => {
+  //       if (response && response.statusCode == 200) {
+  //         this.fetchMusicArray(response?.books);
+  //       } else {
+  //       }
+  //     });
+  //   }
+  // }
+
+  closeMusicModal(){
+    this.setState({isMusicModal:false})
+  }
+
+  componentDidUpdate(prevProps){
+    if (prevProps.bookList !== this.props.bookList) {
+      this.fetchMusicArray(this.props.bookList);
+    }
   }
 
   fetchData(bookLanguage) {
@@ -180,9 +221,11 @@ export class App extends React.Component {
         this.state.isAudioAvailable,
       ),
     );
+    // this.fetchMusic(bookLanguage ? bookLanguage : this.state.bookLanguage);
   }
 
   componentDidMount() {
+    console.log('item', this.props.navigation.getParam('listType'));
     this.props.navigation.setParams({
       this: this,
       bookLanguage: this.state.bookLanguage,
@@ -203,7 +246,7 @@ export class App extends React.Component {
       var text = this.state.searchText;
       var bytes = utf8.encode(text);
       encoded = base64.encode(bytes);
-      if (this.state.firstRadioValue==1) {
+      if (this.state.firstRadioValue == 1) {
         this.props.dispatch(resetSearchResult());
         this.props.dispatch(
           fetchSearchResult(
@@ -228,12 +271,12 @@ export class App extends React.Component {
           encoded: encoded,
           subRadioValue: 1,
           periodId: null,
-          subjectId:this.state.subjectId,
-          listType:this.state.listType,
-          authorId:this.state.authorId,
-          bookLanguage:this.state.bookLanguage,
-          isAudioAvailable:this.state.isAudioAvailable,
-          fromBookList:true
+          subjectId: this.state.subjectId,
+          listType: this.state.listType,
+          authorId: this.state.authorId,
+          bookLanguage: this.state.bookLanguage,
+          isAudioAvailable: this.state.isAudioAvailable,
+          fromBookList: true,
         });
       } else {
         this.props.dispatch(resetBookList());
@@ -456,6 +499,13 @@ export class App extends React.Component {
             ]}
           />
         </View>
+        {this.state.musicBooks?.length>0&&this.state.isMusicModal && (
+            <MusicPlayer
+              coverImage={Images.applogo}
+              audioList={this.state.musicBooks}
+              closeMusicModal={this.closeMusicModal}
+            />
+          )}
         <ScrollView
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={1}

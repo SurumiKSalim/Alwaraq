@@ -32,6 +32,7 @@ const ENCRYPTION                = HOST + '/Core/SearchServlet/etisalat'
 const IB_AWARDS_BY_TYPE         = HOST + '/json_ibAwards_byType.php'
 const IB_AWARDS_LOCATION        = HOST + '/json_ibawards_locations.php'
 const IB_AWARDS                 = HOST + '/json_ibAwards.php'
+const MUSCIC                    = HOST + '/json_booklist.php?isAudioAvailable=1&language=2&listType=101books'
 
 
 const DASHBOARD_CATEGORY        = HOST + '/json_subjectinfos.php'
@@ -88,6 +89,7 @@ const HIJIRI_CONVERTER          = 'https://alwaraq.net/json_hijri_converter.php'
 const IB_AWARDS_ABOUT           = 'https://www.electronicvillage.org/json_evPages.php?pageId=57'
 const IB_AWARDS_CONDITIONS      = 'https://www.electronicvillage.org/json_evPages.php?pageId=56'
 const IB_AWARDS_STATEMENTS      = 'https://www.electronicvillage.org/json_evPages.php?pageId=58'
+const FOUNDER                   = 'https://www.electronicvillage.org/json_founder.php'
 
 
 
@@ -126,6 +128,7 @@ export {
     IB_AWARDS_BY_TYPE,
     IB_AWARDS_LOCATION,
     IB_AWARDS,
+    MUSCIC,
 
     DASHBOARD_CATEGORY,
     DOCUMENT_INFOS,
@@ -180,7 +183,8 @@ export {
     HIJIRI_CONVERTER,
     IB_AWARDS_ABOUT,
     IB_AWARDS_CONDITIONS,
-    IB_AWARDS_STATEMENTS
+    IB_AWARDS_STATEMENTS,
+    FOUNDER
 }
 
 

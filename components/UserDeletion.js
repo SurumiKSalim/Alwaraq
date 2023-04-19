@@ -17,6 +17,7 @@ import I18n from '../i18n';
 import { changeEmail } from '../screens/login/actions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from "react-native-vector-icons/Ionicons"
+import DynamicText, {DynamicView, IS_IPAD} from '../common/dynamicviews';
 
 const App = ({ user, dispatch }) => {
   const [isVisible, setModal] = useState(false);
@@ -59,7 +60,7 @@ const App = ({ user, dispatch }) => {
       {isLoading ? <Text style={styles.optionText}>
         Please Wait . . .
       </Text> :
-        <Text style={styles.optionText}>
+        <Text style={[styles.optionText,{marginLeft:IS_IPAD?-15:0}]}>
           {user?.markDeletion == 0
             ? 'Delete Account'
             : 'Restore Account'}
