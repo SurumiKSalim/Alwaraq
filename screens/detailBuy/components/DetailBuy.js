@@ -902,7 +902,8 @@ class App extends Component {
           ? this.downloadInitiate(data, action)
           : this.bookAction(data, dualoption);
       } else {
-        this.setState({maxLimit: true, message: 'Subscribe to read this book'});
+        this.bookAction(data,dualoption)
+        //this.setState({maxLimit: true, message: 'Subscribe to read this book'});
       }
     } else {
       isDownloadCheck
@@ -916,6 +917,7 @@ class App extends Component {
   }
 
   bookAction(data, dualoption) {
+    console.log("============",data,dualoption)
     if (data.isTextAvailable && !dualoption) {
       this.props.navigation.navigate('BookPage', {
         data: data,
@@ -1159,8 +1161,22 @@ class App extends Component {
                       </Text>
                     </TouchableOpacity>
                   )}
-                {data.isBoughtIndividually == 0 && (
+                {!this.props.isPremium&&
                   <TouchableOpacity
+                    style={{...styles.subscribeContainer,backgroundColor:'#fff',borderWidth:1,borderColor:PRIMARY_COLOR}}
+                    onPress={() =>
+                      !this.props.isPremium &&
+                      this.bookCheck(data)
+                    }>
+                    <Text style={{...styles.prizeText,color:PRIMARY_COLOR}}>
+                      {!this.props.isPremium
+                        &&'Read Sample'}
+                    </Text>
+                  </TouchableOpacity>}
+                  
+                
+                {data.isBoughtIndividually == 0 && (
+                <TouchableOpacity
                     style={styles.subscribeContainer}
                     onPress={() =>
                       !this.props.isPremium &&
@@ -1171,8 +1187,7 @@ class App extends Component {
                         ? I18n.t('Subscribe')
                         : I18n.t('Subscribed')}
                     </Text>
-                  </TouchableOpacity>
-                )}
+                  </TouchableOpacity>)}
               </View>
               <TouchableOpacity style={styles.statusContainer}>
                 <Text numberOfLines={5} style={styles.statusText}>
@@ -1379,7 +1394,7 @@ class App extends Component {
           )}
           <TouchableOpacity
             style={[styles.buyContainer1, {width: dualoption ? '30%' : '40%'}]}
-            onPress={() => this.bookCheck(data)}>
+            onPress={() =>this.props.isPremium?this.bookCheck(data): this.setState({maxLimit: true, message: 'Subscribe to read this book'})}>
             {action == 'Read_Pdf' && (
               <AntDesign
                 name={'pdffile1'}
