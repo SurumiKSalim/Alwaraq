@@ -71,13 +71,15 @@ class App extends Component {
     return {
       gesturesEnabled: false,
       headerLeft: (
+        <SafeAreaView>
         <HeaderBackButton
           tintColor={PRIMARY_COLOR}
           onPress={() => params.this.goBack()}
         />
+        </SafeAreaView>
       ),
       headerRight: (
-        <View style={{flexDirection: 'row'}}>
+        <SafeAreaView style={{flexDirection: 'row'}}>
           <TouchableOpacity
             onPress={() => params.this.toogleLanguageModal()}
             style={styles.headerRightContainer}>
@@ -121,12 +123,12 @@ class App extends Component {
               <FontAwesome name="search" color={PRIMARY_COLOR} size={26} />
             </TouchableOpacity>
           )}
-        </View>
+        </SafeAreaView>
       ),
       headerTitleStyle: {},
       headerStyle: {
         borderBottomWidth: 0,
-        height: 60,
+        height: 80,
         elevation: 0,
         backgroundColor: params.bgColor,
       },

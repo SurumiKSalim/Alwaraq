@@ -13,9 +13,11 @@ import {connect} from 'react-redux';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import {
   LoginManager,
+  Settings,
+  LoginButton,
   GraphRequest,
   GraphRequestManager,
-} from 'react-native-fbsdk';
+} from 'react-native-fbsdk-next';
 import {
   PRIMARY_COLOR,
   SECONDARY_COLOR,
@@ -257,11 +259,13 @@ class App extends Component {
   }
 
   login_fb() {
-    const that = this;
+    Settings.setAppID('614465482650100');
+    Settings.initializeSDK();
+    LoginManager.logOut();
     LoginManager.logInWithPermissions(['public_profile', 'email']).then(
       function (result) {
         if (!result.isCancelled) {
-          that.userInfoFb();
+          this.userInfoFb();
         }
       },
       function (error) {},
@@ -326,9 +330,10 @@ class App extends Component {
                 styles.subtitle,
                 {textAlign: this.props.locale == 'ar' ? 'right' : 'justify'},
               ]}>
-              {I18n.t('EV_Account_Description')+I18n.t(
-                'Enter_your_informations_below_or_login_with_social_account',
-              )}
+              {I18n.t('EV_Account_Description') +
+                I18n.t(
+                  'Enter_your_informations_below_or_login_with_social_account',
+                )}
             </Text>
           </View>
           <View style={styles.email}>
@@ -406,15 +411,14 @@ class App extends Component {
           <TouchableOpacity onPress={this.login_fb} style={styles.facebook}>
             <Fontisto name="facebook" size={18} color="white" />
             <Text style={styles.signinwith}>
-              {I18n.t('Sign_Up_With')}
+              {I18n.t('Sign_Up_With')+" "}
               <Text style={styles.social}>{I18n.t('Facebook')}</Text>
             </Text>
           </TouchableOpacity>
-
           <TouchableOpacity onPress={this.signIn} style={styles.google}>
             <Fontisto name="google" size={18} color="white" />
             <Text style={styles.signinwith}>
-              {I18n.t('Sign_Up_With')}
+              {I18n.t('Sign_Up_With')+" "}
               <Text style={styles.social}>{I18n.t('Google')}</Text>
             </Text>
           </TouchableOpacity>

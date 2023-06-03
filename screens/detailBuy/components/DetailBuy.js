@@ -83,13 +83,15 @@ class App extends Component {
     return {
       gesturesEnabled: false,
       headerLeft: (
+        <SafeAreaView>
         <HeaderBackButton
           tintColor={PRIMARY_COLOR}
           onPress={() => params.this.goBack()}
         />
+        </SafeAreaView>
       ),
       headerRight: (
-        <View style={styles.headerContainer}>
+        <SafeAreaView style={styles.headerContainer}>
           {params.isVideoAvailable && (
             <TouchableOpacity
               onPress={() => params.this.audioPlay(true)}
@@ -155,12 +157,12 @@ class App extends Component {
               size={28}
             />
           </TouchableOpacity>
-        </View>
+        </SafeAreaView>
       ),
       headerStyle: {
         borderBottomWidth: 0,
         elevation: 0,
-        height: 60,
+        height: 80,
       },
     };
   };

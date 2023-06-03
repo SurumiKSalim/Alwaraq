@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {StyleSheet, View, Dimensions, Animated} from 'react-native';
+import {StyleSheet, View, Dimensions, Animated,AppState,AsyncStorage} from 'react-native';
 import Video from 'react-native-video';
 import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -49,6 +49,20 @@ const MusicPlayer = ({audioList,coverImage, closeMusicModal}) => {
     setPaused(false)
   };
 
+  const handleAppStateChange = nextAppState => {
+    if (nextAppState === 'background') {
+      // Save the current audio index to AsyncStorage
+      AsyncStorage.setItem('currentAudioIndex', String(currentIndex));
+    }
+  };
+
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange);
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    };
+  }, []);
+
   useEffect(() => {
     return () => {
       if (paused) {
@@ -79,6 +93,7 @@ const MusicPlayer = ({audioList,coverImage, closeMusicModal}) => {
     if (currentIndex == audioList.length-1) {
       setPlayerState(PLAYER_STATES.ENDED);
     } else {
+      // handleNext
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -96,6 +111,15 @@ const MusicPlayer = ({audioList,coverImage, closeMusicModal}) => {
       }),
     ).start();
   };
+
+  useEffect(() => {
+    // Load the current audio index from AsyncStorage
+    AsyncStorage.getItem('currentAudioIndex').then(value => {
+      if (value !== null) {
+        setCurrentIndex(parseInt(value));
+      }
+    });
+  }, []);
 
   const handlePress = () => {
     setIsVisible(true);

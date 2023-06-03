@@ -33,25 +33,29 @@ class App extends Component {
         const { params = {} } = navigation.state;
         return {
             headerLeft: (
+                <SafeAreaView>
                 <TouchableOpacity style={{ marginLeft: 15 }} onPress={() => params.navigation.toggleDrawer()}>
                     <Entypo name='menu' color={TITLE_COLOR} size={36} />
                 </TouchableOpacity>
+                </SafeAreaView>
             ),
             headerTitle: (
-                <View style={styles.header}>
+                <SafeAreaView style={styles.header}>
                     <Image style={styles.logo} source={Images.headerName} resizeMode='contain' />
-                </View>),
+                </SafeAreaView>),
             headerRight: (
+                <SafeAreaView>
                 <TouchableOpacity style={{ marginRight: 15 }} onPress={() => params.this.searchToogle()}>
                     <FontAwesome name='search' color={TITLE_COLOR} size={30} />
                 </TouchableOpacity>
+                </SafeAreaView>
             ),
             headerTitleStyle: {
             },
             headerStyle: {
                 borderBottomWidth: 0,
                 elevation: 0,
-                height:60,
+                height:80,
             },
         }
     }

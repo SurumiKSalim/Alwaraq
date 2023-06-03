@@ -52,6 +52,7 @@ class App extends Component {
     const {params = {}} = navigation.state;
     return {
       headerLeft: (
+        <SafeAreaView>
         <HeaderBackButton
           tintColor={PRIMARY_COLOR}
           onPress={() =>
@@ -60,19 +61,20 @@ class App extends Component {
               : params.this.props.navigation.navigate('Home')
           }
         />
+        </SafeAreaView>
       ),
       headerTitle: (
-        <View style={styles.header}>
+        <SafeAreaView style={styles.header}>
           <Image
             style={styles.logo}
             source={Images.headerName}
             resizeMode="contain"
           />
-        </View>
+        </SafeAreaView>
       ),
 
       headerRight: (
-        <View>
+        <SafeAreaView>
           {!params?.fromBookList && (
             <TouchableOpacity
               onPress={() => params.this.onSearch()}
@@ -80,13 +82,13 @@ class App extends Component {
               <FontAwesome name="search" color={TITLE_COLOR} size={30} />
             </TouchableOpacity>
           )}
-        </View>
+        </SafeAreaView>
       ),
       headerTitleStyle: {},
       headerStyle: {
         borderBottomWidth: 0,
         elevation: 0,
-        height: 60,
+        height: 80,
       },
     };
   };

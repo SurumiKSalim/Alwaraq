@@ -53,34 +53,36 @@ class App extends Component {
     const {params = {}} = navigation.state;
     return {
       headerLeft: (
+        <SafeAreaView>
         <HeaderBackButton
           tintColor={PRIMARY_COLOR}
           onPress={() => params.this.props.navigation.goBack()}
         />
+        </SafeAreaView>
       ),
       headerTitle: (
-        <View style={styles.header}>
+        <SafeAreaView style={styles.header}>
           <Image
             style={styles.logo}
             source={Images.headerName}
             resizeMode="contain"
           />
-        </View>
+        </SafeAreaView>
       ),
       headerRight: (
-        <View style={{flexDirection: 'row'}}>
+        <SafeAreaView style={{flexDirection: 'row'}}>
           <TouchableOpacity
             onPress={() => params.this.OnSearch()}
             style={styles.headerRightContainer}>
             <FontAwesome name="search" color={PRIMARY_COLOR} size={26} />
           </TouchableOpacity>
-        </View>
+        </SafeAreaView>
       ),
       headerTitleStyle: {},
       headerStyle: {
         borderBottomWidth: 0,
         elevation: 0,
-        height: 60,
+        height: 80,
       },
     };
   };

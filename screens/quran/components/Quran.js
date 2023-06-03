@@ -53,19 +53,21 @@ class App extends Component {
     const {params = {}} = navigation.state;
     return {
       headerLeft: (
+        <SafeAreaView>
         <HeaderBackButton
           tintColor={PRIMARY_COLOR}
           onPress={() => params.this.props.navigation.goBack()}
         />
+        </SafeAreaView>
       ),
       headerTitle: (
-        <View style={styles.header}>
+        <SafeAreaView style={styles.header}>
           <Image
             style={styles.logo}
             source={Images.headerName}
             resizeMode="contain"
           />
-        </View>
+        </SafeAreaView>
       ),
       headerTitleStyle: {},
       headerStyle: {
@@ -74,6 +76,7 @@ class App extends Component {
         height: 60,
       },
       headerRight: params.audios?.length > 0 && (
+        <SafeAreaView>
         <TouchableOpacity
           onPress={() => params.this.audioPlay()}
           style={styles.headerRightContainer}>
@@ -83,7 +86,14 @@ class App extends Component {
             <FontAwesome5 name="volume-up" size={24} color={PRIMARY_COLOR} />
           )}
         </TouchableOpacity>
+        </SafeAreaView>
       ),
+      headerStyle: {
+        borderBottomWidth: 0,
+        height: 80,
+        elevation: 0,
+        backgroundColor: params.bgColor,
+      },
     };
   };
   constructor(props) {

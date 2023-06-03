@@ -14,9 +14,11 @@ import {connect} from 'react-redux';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import {
   LoginManager,
+  Settings,
+  Profile,
   GraphRequest,
   GraphRequestManager,
-} from 'react-native-fbsdk';
+} from 'react-native-fbsdk-next';
 import {
   PRIMARY_COLOR,
   SECONDARY_COLOR,
@@ -220,8 +222,9 @@ class App extends Component {
   }
 
   login_fb() {
+    Settings.setAppID('614465482650100');
+    Settings.initializeSDK();
     LoginManager.logOut();
-    const that = this;
     LoginManager.logInWithPermissions(['public_profile', 'email'])
       .then(result => {
         if (!result.isCancelled) {
