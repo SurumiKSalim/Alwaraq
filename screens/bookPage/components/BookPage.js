@@ -197,8 +197,6 @@ class App extends Component {
       htmlPage: '',
       pageStriped: '',
       isPlayAll: false,
-      maxLimit:false,
-      message:''
     };
     this.pageLeft = this.pageLeft.bind(this);
     this.pageRight = this.pageRight.bind(this);
@@ -239,7 +237,6 @@ class App extends Component {
     this.toogleLanguageModal = this.toogleLanguageModal.bind(this);
     this.bookPageFetch = this.bookPageFetch.bind(this);
     this.renderContent = this.renderContent.bind(this);
-    this.renderModalContent=this.renderModalContent.bind(this)
   }
 
   goBack() {
@@ -455,8 +452,7 @@ class App extends Component {
   }
 
   OnSearch() {
-    this.props.isPremium?this.setState({searchVisible: true}):this.setState({maxLimit: true,
-    message:'Subscribe to Search'});
+    this.setState({searchVisible: true});
   }
 
   onSwipeDown(gestureState) {
@@ -495,7 +491,6 @@ class App extends Component {
     this.setState({webLoad: true});
     Api('get', NEW_BOOK_PAGE, {bookId: this.state.bookId, page: page}).then(
       response => {
-        console.log("readnow.....",response)
         if (response) {
           this.setState({
             htmlPage: response.page,
@@ -603,7 +598,7 @@ class App extends Component {
     this.setState({translatedText: null});
     this.stopRead();
     let page = parseInt(this.state.page) + 1;
-    if (this.props.isPremium&&this.state.page < parseInt(this.state.totalpages)) {
+    if (this.state.page < parseInt(this.state.totalpages)) {
       this.setState({
         page: parseInt(this.state.page) + 1,
         pageIndex: parseInt(this.state.pageIndex) + 1,
@@ -612,25 +607,6 @@ class App extends Component {
         this.bookPageFetch(page);
       }
     }
-    if(!this.props.isPremium){
-      if(this.state.page<5){
-      this.setState({
-        page: parseInt(this.state.page) + 1,
-        pageIndex: parseInt(this.state.pageIndex) + 1,
-      });
-      if (!this.state.fromSearch) {
-        this.bookPageFetch(page);
-      }
-    }
-    else{
-      this.setState({maxLimit:true
-      })
-    }
-    }
-    
-      
-
-      
     // if (
     //   this.state.fromSearch &&
     //   page <= this.state.totalpages &&
@@ -662,16 +638,12 @@ class App extends Component {
       pageIndex: this.state.totalpages - 1,
       translatedText: null,
     });
-    if(!this.props.isPremium){
-      this.setState({maxLimit:true,message:'Subscribe to Read More'})
-    }
-    else{ if (
+    if (
       !this.state.fromSearch &&
       this.state.page < parseInt(this.state.totalpages)
     ) {
       this.bookPageFetch(this.state.totalpages);
-    }}
-   
+    }
     // if (
     //   this.state.fromSearch &&
     //   this.state.page < parseInt(this.state.totalpages) &&
@@ -783,30 +755,15 @@ class App extends Component {
     this.stopRead();
     // this.setState({ page: this.state.totalpages})
     if (txt > 0 && txt <= this.state.totalpages && !this.state.fromSearch) {
-      if(!this.props.isPremium&&txt>5){
-        this.setState({maxLimit:true,message:'Subscribe to read More',
-        visible:false})
+      this.setState({
+        page: txt,
+        visible: false,
+        invaliedPage: false,
+        pageIndex: txt - 1,
+      });
 
-      }
-      else{
-        this.setState({
-          page: txt,
-          visible: false,
-          invaliedPage: false,
-          pageIndex: txt - 1,
-        });
-        if (!this.state.fromSearch) {
-          this.bookPageFetch(txt);
-        }
-  
-        }
-        
-      }
-      if (this.state.fromSearch && txt < parseInt(this.state.totalpages)) {
-        this.setState({page: txt, visible: false, invaliedPage: false});
-        this.onSearchPage(txt);
-      } else {
-        this.setState({invaliedPage: true});
+      if (!this.state.fromSearch) {
+        this.bookPageFetch(txt);
       }
     }
     // if (
@@ -826,30 +783,14 @@ class App extends Component {
     //     ),
     //   );
     // }
-    
-  
-  renderModalContent = () => (
-    <View style={styles.loaderContainer}>
-      <View style={styles.modalHeader}>
-        <Text style={styles.modalText}>{this.state.message}</Text>
-      </View>
-      <View style={styles.modalFooter}>
-        <TouchableOpacity
-          style={styles.buttonCancel}
-          onPress={() => this.setState({maxLimit: false})}>
-          <Text style={styles.cancel}>Cancel</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonCancel}
-          onPress={() =>{
-            this.props.navigation.navigate('Subscribe')
-            this.setState({maxLimit: false})
-          } }>
-          <Text style={styles.cancel}>Subscribe</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    if (this.state.fromSearch && txt < parseInt(this.state.totalpages)) {
+      this.setState({page: txt, visible: false, invaliedPage: false});
+      this.onSearchPage(txt);
+    } else {
+      this.setState({invaliedPage: true});
+    }
+  }
+
   goToBook(pageInfo) {
     this.setState({translatedText: null});
     this.stopRead();
@@ -1784,7 +1725,7 @@ class App extends Component {
                         ? this.goToBook(
                             pageInfo ? pageInfo : this.state.tempsearchResult,
                           )
-                        : this.props.isPremium?this.setState({visibleModal: true}):this.setState({maxLimit: true,message:'Subscribe for more'})
+                        : this.setState({visibleModal: true})
                     }>
                     <Fontisto
                       name={this.state.fromSearch ? 'navigate' : 'sourcetree'}
@@ -1801,18 +1742,6 @@ class App extends Component {
               </View>
             )}
           </View>
-          <Modal
-          isVisible={this.state.maxLimit}
-          hideModalContentWhileAnimating={true}
-          animationIn="zoomIn"
-          animationOut="zoomOut"
-          useNativeDriver={true}
-          animationOutTiming={300}
-          onBackButtonPress={() => this.setState({maxLimit: false})}
-          onBackdropPress={() => this.setState({maxLimit: false})}
-          style={styles.modal}>
-          <View style={styles.modalContainerPage}>{this.renderModalContent()}</View>
-          </Modal>
           <Modal
             isVisible={this.state.visible}
             hasBackdrop={true}
@@ -2337,12 +2266,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     maxHeight: height * 0.8,
   },
-  modalContainerPage: {
-    width: '80%',
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    
-  },
   modalHeaderLinks:{
     maxHeight: height * 0.7,
   },
@@ -2379,12 +2302,7 @@ const styles = StyleSheet.create({
     borderColor: '#DDDDDD',
   },
   modalHeader: {
-      padding: 15,
-      borderBottomWidth: 1,
-      borderBottomColor: '#DDDDDD',
-      backgroundColor: '#fff',
-      borderTopRightRadius:10,
-      borderTopLeftRadius:10
+    borderBottomColor: '#DDDDDD',
   },
   content1: {
     padding: 15,
