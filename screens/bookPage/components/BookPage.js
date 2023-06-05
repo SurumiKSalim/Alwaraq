@@ -496,6 +496,7 @@ class App extends Component {
     this.setState({webLoad: true});
     Api('get', NEW_BOOK_PAGE, {bookId: this.state.bookId, page: page}).then(
       response => {
+        console.log("readnow.....",response)
         if (response) {
           this.setState({
             htmlPage: response.page,
@@ -670,7 +671,8 @@ class App extends Component {
       this.state.page < parseInt(this.state.totalpages)
     ) {
       this.bookPageFetch(this.state.totalpages);
-    }
+    }}
+   
     // if (
     //   this.state.fromSearch &&
     //   this.state.page < parseInt(this.state.totalpages) &&
@@ -789,8 +791,26 @@ class App extends Component {
         pageIndex: txt - 1,
       })
 
-      if (!this.state.fromSearch) {
-        this.bookPageFetch(txt);
+      }
+      else{
+        this.setState({
+          page: txt,
+          visible: false,
+          invaliedPage: false,
+          pageIndex: txt - 1,
+        });
+        if (!this.state.fromSearch) {
+          this.bookPageFetch(txt);
+        }
+  
+        }
+        
+      }
+      if (this.state.fromSearch && txt < parseInt(this.state.totalpages)) {
+        this.setState({page: txt, visible: false, invaliedPage: false});
+        this.onSearchPage(txt);
+      } else {
+        this.setState({invaliedPage: true});
       }
     }
     // if (
@@ -810,14 +830,30 @@ class App extends Component {
     //     ),
     //   );
     // }
-    if (this.state.fromSearch && txt < parseInt(this.state.totalpages)) {
-      this.setState({page: txt, visible: false, invaliedPage: false});
-      this.onSearchPage(txt);
-    } else {
-      this.setState({invaliedPage: true});
-    }
-  }
-
+    
+  
+  renderModalContent = () => (
+    <View style={styles.loaderContainer}>
+      <View style={styles.modalHeader}>
+        <Text style={styles.modalText}>{this.state.message}</Text>
+      </View>
+      <View style={styles.modalFooter}>
+        <TouchableOpacity
+          style={styles.buttonCancel}
+          onPress={() => this.setState({maxLimit: false})}>
+          <Text style={styles.cancel}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonCancel}
+          onPress={() =>{
+            this.props.navigation.navigate('Subscribe')
+            this.setState({maxLimit: false})
+          } }>
+          <Text style={styles.cancel}>Subscribe</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
   goToBook(pageInfo) {
     this.setState({translatedText: null});
     this.stopRead();
@@ -1770,6 +1806,18 @@ class App extends Component {
             )}
           </View>
           <Modal
+          isVisible={this.state.maxLimit}
+          hideModalContentWhileAnimating={true}
+          animationIn="zoomIn"
+          animationOut="zoomOut"
+          useNativeDriver={true}
+          animationOutTiming={300}
+          onBackButtonPress={() => this.setState({maxLimit: false})}
+          onBackdropPress={() => this.setState({maxLimit: false})}
+          style={styles.modal}>
+          <View style={styles.modalContainerPage}>{this.renderModalContent()}</View>
+          </Modal>
+          <Modal
             isVisible={this.state.visible}
             hasBackdrop={true}
             backdropOpacity={0.02}
@@ -2042,6 +2090,7 @@ class App extends Component {
     );
   }
 }
+
 
 const mapStateToProps = state => {
   return {
