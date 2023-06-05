@@ -142,6 +142,7 @@ class App extends Component {
     let fromSearch = this.props.navigation.getParam('fromSearch', null);
     let totalpages = this.props.navigation.getParam('totalpages', null);
     let offlineData = this.props.navigation.getParam('offlineData', null);
+    let readSample=this.props.navigation.getParam('readSample',null)
     this.state = {
       page: this.props.navigation.getParam('pageNo', 1),
       temp_page: 0,
@@ -197,6 +198,9 @@ class App extends Component {
       htmlPage: '',
       pageStriped: '',
       isPlayAll: false,
+      maxLimit:false,
+      message:'',
+      readSample:readSample
     };
     this.pageLeft = this.pageLeft.bind(this);
     this.pageRight = this.pageRight.bind(this);
@@ -452,7 +456,8 @@ class App extends Component {
   }
 
   OnSearch() {
-    this.setState({searchVisible: true});
+    !this.state.readSample?this.setState({searchVisible: true}):this.setState({maxLimit: true,
+    message:'Subscribe to Search'});
   }
 
   onSwipeDown(gestureState) {
@@ -598,7 +603,7 @@ class App extends Component {
     this.setState({translatedText: null});
     this.stopRead();
     let page = parseInt(this.state.page) + 1;
-    if (this.state.page < parseInt(this.state.totalpages)) {
+    if (!this.state.readSample&&this.state.page < parseInt(this.state.totalpages)) {
       this.setState({
         page: parseInt(this.state.page) + 1,
         pageIndex: parseInt(this.state.pageIndex) + 1,
@@ -607,6 +612,25 @@ class App extends Component {
         this.bookPageFetch(page);
       }
     }
+    else {
+      if(this.state.page<5){
+      this.setState({
+        page: parseInt(this.state.page) + 1,
+        pageIndex: parseInt(this.state.pageIndex) + 1,
+      });
+      if (!this.state.fromSearch) {
+        this.bookPageFetch(page);
+      }
+    }
+    else{
+      this.setState({maxLimit:true,message:'Subscribe to read more'
+      })
+    }
+    }
+    
+      
+
+      
     // if (
     //   this.state.fromSearch &&
     //   page <= this.state.totalpages &&
@@ -638,7 +662,10 @@ class App extends Component {
       pageIndex: this.state.totalpages - 1,
       translatedText: null,
     });
-    if (
+    if(this.state.readSample){
+      this.setState({maxLimit:true,message:'Subscribe to Read More',page:this.state.page})
+    }
+    else{ if (
       !this.state.fromSearch &&
       this.state.page < parseInt(this.state.totalpages)
     ) {
@@ -755,12 +782,12 @@ class App extends Component {
     this.stopRead();
     // this.setState({ page: this.state.totalpages})
     if (txt > 0 && txt <= this.state.totalpages && !this.state.fromSearch) {
-      this.setState({
-        page: txt,
-        visible: false,
+      if(this.state.readSample&&txt>5){
+        this.setState({maxLimit:true,message:'Subscribe to read More',
+        visible:false,
         invaliedPage: false,
         pageIndex: txt - 1,
-      });
+      })
 
       if (!this.state.fromSearch) {
         this.bookPageFetch(txt);
@@ -1725,7 +1752,7 @@ class App extends Component {
                         ? this.goToBook(
                             pageInfo ? pageInfo : this.state.tempsearchResult,
                           )
-                        : this.setState({visibleModal: true})
+                        : !this.state.readSample?this.setState({visibleModal: true}):this.setState({maxLimit: true,message:'Subscribe for more'})
                     }>
                     <Fontisto
                       name={this.state.fromSearch ? 'navigate' : 'sourcetree'}
